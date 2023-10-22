@@ -4,11 +4,17 @@ import type { ConfigEnv } from 'vite'
 import { defineConfig, loadEnv } from 'vite'
 import vueSetupExtend from 'vite-plugin-vue-setup-extend-plus'
 import viteCompression from 'vite-plugin-compression'
+import VueDevTools from 'vite-plugin-vue-devtools'
+
+import AutoImport from 'unplugin-auto-import/vite'
+import Components from 'unplugin-vue-components/vite'
+import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
+import Unocss from 'unocss/vite'
 import { buildConfig } from './src/utils/build'
 
 const alias: Record<string, string> = {
     '/@': resolve(__dirname, '.', './src/'),
-    '@/': resolve(__dirname, '.', 'src/'),
+    '@': resolve(__dirname, 'src'), // 配置src的别名
 }
 
 const viteConfig = defineConfig((mode: ConfigEnv) => {
@@ -16,7 +22,41 @@ const viteConfig = defineConfig((mode: ConfigEnv) => {
     return {
         plugins: [
             vue(),
-            vueSetupExtend(),
+            // https://github.com/antfu/unplugin-auto-import
+            AutoImport({
+                imports: [
+                    'vue',
+                    'vue-router',
+                    '@vueuse/head',
+                    '@vueuse/core',
+                ],
+                dts: 'src/types/auto-imports.d.ts',
+                dirs: [
+                    'src/composables',
+                    'src/stores',
+                ],
+                vueTemplate: true,
+                resolvers: [ElementPlusResolver()],
+            }),
+
+            // https://github.com/antfu/unplugin-vue-components
+            Components({
+                // allow auto load markdown components under `./src/components/`
+                extensions: ['vue', 'md'],
+                // allow auto import and register components used in markdown
+                include: [/\.vue$/, /\.vue\?vue/, /\.md$/],
+                dts: 'src/types/components.d.ts',
+                resolvers: [ElementPlusResolver()],
+            }),
+
+            // https://github.com/antfu/unocss
+            // see uno.config.ts for config
+            Unocss(),
+
+            // https://github.com/webfansplz/vite-plugin-vue-devtools
+            VueDevTools(),
+
+            // vueSetupExtend(),
             viteCompression(),
             JSON.parse(env.VITE_OPEN_CDN) ? buildConfig.cdn() : null,
         ],

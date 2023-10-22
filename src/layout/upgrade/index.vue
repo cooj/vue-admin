@@ -1,11 +1,7 @@
 <template>
     <div class="upgrade-dialog">
-        <el-dialog v-model="state.isUpgrade"
-            width="300px"
-            destroy-on-close
-            :show-close="false"
-            :close-on-click-modal="false"
-            :close-on-press-escape="false">
+        <el-dialog v-model="state.isUpgrade" width="300px" destroy-on-close :show-close="false"
+            :close-on-click-modal="false" :close-on-press-escape="false">
             <div class="upgrade-title">
                 <div class="upgrade-title-warp">
                     <span class="upgrade-title-warp-txt">新版本升级</span>
@@ -15,7 +11,8 @@
             <div class="upgrade-content">
                 {{ getThemeConfig.globalTitle }} 新版本来啦，马上更新尝鲜吧！不用担心，更新很快的哦！
                 <div class="mt5">
-                    <el-link type="primary" class="font12" href="https://gitee.com/lyt-top/vue-next-admin/blob/master/CHANGELOG.md" target="_black">
+                    <el-link type="primary" class="font12"
+                        href="https://gitee.com/lyt-top/vue-next-admin/blob/master/CHANGELOG.md" target="_black">
                         CHANGELOG.md
                     </el-link>
                 </div>
@@ -24,7 +21,7 @@
                 </div>
             </div>
             <div class="upgrade-btn">
-                <el-button round size="default" type="info" text @click="onCancel">
+                <el-button size="default" type="info" text round @click="onCancel">
                     残忍拒绝
                 </el-button>
                 <el-button type="primary" round size="default" :loading="state.isLoading" @click="onUpgrade">
@@ -87,67 +84,76 @@ onMounted(() => {
 
 <style scoped lang="scss">
 .upgrade-dialog {
-	:deep(.el-dialog) {
-		.el-dialog__body {
-			padding: 0 !important;
-		}
-		.el-dialog__header {
-			display: none !important;
-		}
-		.upgrade-title {
-			text-align: center;
-			height: 130px;
-			display: flex;
-			align-items: center;
-			justify-content: center;
-			position: relative;
-			&::after {
-				content: '';
-				position: absolute;
-				background-color: var(--el-color-primary-light-1);
-				width: 130%;
-				height: 130px;
-				border-bottom-left-radius: 100%;
-				border-bottom-right-radius: 100%;
-			}
-			.upgrade-title-warp {
-				z-index: 1;
-				position: relative;
-				.upgrade-title-warp-txt {
-					color: var(--next-color-white);
-					font-size: 22px;
-					letter-spacing: 3px;
-				}
-				.upgrade-title-warp-version {
-					color: var(--next-color-white);
-					background-color: var(--el-color-primary-light-4);
-					font-size: 12px;
-					position: absolute;
-					display: flex;
-					top: -2px;
-					right: -50px;
-					padding: 2px 4px;
-					border-radius: 2px;
-				}
-			}
-		}
-		.upgrade-content {
-			padding: 20px;
-			line-height: 22px;
-			.upgrade-content-desc {
-				color: var(--el-color-info-light-5);
-				font-size: 12px;
-			}
-		}
-		.upgrade-btn {
-			border-top: 1px solid var(--el-border-color-lighter, #ebeef5);
-			display: flex;
-			justify-content: space-around;
-			padding: 15px 20px;
-			.el-button {
-				width: 100%;
-			}
-		}
-	}
-}
-</style>
+    :deep(.el-dialog) {
+        .el-dialog__body {
+            padding: 0 !important;
+        }
+
+        .el-dialog__header {
+            display: none !important;
+        }
+
+        .upgrade-title {
+            text-align: center;
+            height: 130px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+
+            &::after {
+                content: '';
+                position: absolute;
+                background-color: var(--el-color-primary-light-1);
+                width: 130%;
+                height: 130px;
+                border-bottom-left-radius: 100%;
+                border-bottom-right-radius: 100%;
+            }
+
+            .upgrade-title-warp {
+                z-index: 1;
+                position: relative;
+
+                .upgrade-title-warp-txt {
+                    color: var(--next-color-white);
+                    font-size: 22px;
+                    letter-spacing: 3px;
+                }
+
+                .upgrade-title-warp-version {
+                    color: var(--next-color-white);
+                    background-color: var(--el-color-primary-light-4);
+                    font-size: 12px;
+                    position: absolute;
+                    display: flex;
+                    top: -2px;
+                    right: -50px;
+                    padding: 2px 4px;
+                    border-radius: 2px;
+                }
+            }
+        }
+
+        .upgrade-content {
+            padding: 20px;
+            line-height: 22px;
+
+            .upgrade-content-desc {
+                color: var(--el-color-info-light-5);
+                font-size: 12px;
+            }
+        }
+
+        .upgrade-btn {
+            border-top: 1px solid var(--el-border-color-lighter, #ebeef5);
+            display: flex;
+            justify-content: space-around;
+            padding: 15px 20px;
+
+            .el-button {
+                width: 100%;
+            }
+        }
+    }
+}</style>

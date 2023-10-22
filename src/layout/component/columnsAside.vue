@@ -2,24 +2,21 @@
     <div class="layout-columns-aside">
         <el-scrollbar>
             <ul @mouseleave="onColumnsAsideMenuMouseleave()">
-                <li v-for="(v, k) in state.columnsAsideList"
-                    :key="k"
-                    :ref="
-                        (el) => {
-                            if (el) columnsAsideOffsetTopRefs[k] = el;
-                        }
+                <li v-for="(v, k) in state.columnsAsideList" :key="k" :ref="(el) => {
+                        if (el) columnsAsideOffsetTopRefs[k] = el;
+                    }
                     "
                     :class="{ 'layout-columns-active': state.liIndex === k, 'layout-columns-hover': state.liHoverIndex === k }"
-                    :title="v.meta.title"
-                    @click="onColumnsAsideMenuClick(v)"
+                    :title="v.meta.title" @click="onColumnsAsideMenuClick(v)"
                     @mouseenter="onColumnsAsideMenuMouseenter(v, k)">
-                    <div v-if="!v.meta.isLink || (v.meta.isLink && v.meta.isIframe)" :class="themeConfig.columnsAsideLayout">
+                    <div v-if="!v.meta.isLink || (v.meta.isLink && v.meta.isIframe)"
+                        :class="themeConfig.columnsAsideLayout">
                         <SvgIcon :name="v.meta.icon" />
                         <div class="columns-vertical-title font12">
                             {{
                                 v.meta.title && v.meta.title.length >= 4
-                                    ? v.meta.title.substr(0, themeConfig.columnsAsideLayout === 'columns-vertical' ? 4 : 3)
-                                    : v.meta.title
+                                ? v.meta.title.substr(0, themeConfig.columnsAsideLayout === 'columns-vertical' ? 4 : 3)
+                                : v.meta.title
                             }}
                         </div>
                     </div>
@@ -29,8 +26,8 @@
                             <div class="columns-vertical-title font12">
                                 {{
                                     v.meta.title && v.meta.title.length >= 4
-                                        ? v.meta.title.substr(0, themeConfig.columnsAsideLayout === 'columns-vertical' ? 4 : 3)
-                                        : v.meta.title
+                                    ? v.meta.title.substr(0, themeConfig.columnsAsideLayout === 'columns-vertical' ? 4 : 3)
+                                    : v.meta.title
                                 }}
                             </div>
                         </a>
@@ -76,29 +73,7 @@ const setColumnsAsideMove = (k: number) => {
     state.liIndex = k
     columnsAsideActiveRef.value.style.top = `${columnsAsideOffsetTopRefs.value[k].offsetTop + state.difference}px`
 }
-// 菜单高亮点击事件
-const onColumnsAsideMenuClick = (v: RouteItem) => {
-    const { path, redirect } = v
-    if (redirect) {
-        onColumnsAsideDown(v.k)
-        if (route.path.startsWith(redirect)) mittBus.emit('setSendColumnsChildren', setSendChildren(redirect))
-        else router.push(redirect)
-    } else {
-        if (!v.children) {
-            router.push(path)
-        } else {
-            // 显示子级菜单
-            const resData: MittMenu = setSendChildren(path)
-            if (Object.keys(resData).length <= 0) return false
-            onColumnsAsideDown(resData.item?.k)
-            mittBus.emit('setSendColumnsChildren', resData)
-        }
-    }
-    // 一个路由设置自动收起菜单
-    // https://gitee.com/lyt-top/vue-next-admin/issues/I6HW7H
-    if (!v.children) themeConfig.value.isCollapse = true
-    else if (v.children.length > 1) themeConfig.value.isCollapse = false
-}
+
 // 鼠标移入时，显示当前的子级菜单
 const onColumnsAsideMenuMouseenter = (v: RouteRecordRaw, k: number) => {
     if (!themeConfig.value.isColumnsMenuHoverPreload) return false
@@ -179,6 +154,32 @@ const setColumnsMenuHighlight = (path: string) => {
         onColumnsAsideDown(currentSplitRoute.k)
     }, 0)
 }
+
+// 菜单高亮点击事件
+const onColumnsAsideMenuClick = (v: RouteItem) => {
+    const { path, redirect } = v
+    if (redirect) {
+        onColumnsAsideDown(v.k)
+        if (route.path.startsWith(redirect)) mittBus.emit('setSendColumnsChildren', setSendChildren(redirect))
+        else router.push(redirect)
+    } else {
+        if (!v.children) {
+            router.push(path)
+        } else {
+            // 显示子级菜单
+            const resData: MittMenu = setSendChildren(path)
+            if (Object.keys(resData).length <= 0) return false
+            onColumnsAsideDown(resData.item?.k)
+            mittBus.emit('setSendColumnsChildren', resData)
+        }
+    }
+    // 一个路由设置自动收起菜单
+    // https://gitee.com/lyt-top/vue-next-admin/issues/I6HW7H
+    if (!v.children) themeConfig.value.isCollapse = true
+    else if (v.children.length > 1) themeConfig.value.isCollapse = false
+}
+
+
 // 页面加载时
 onMounted(() => {
     setFilterRoutes()
@@ -190,7 +191,7 @@ onMounted(() => {
 })
 // 页面卸载时
 onUnmounted(() => {
-    mittBus.off('restoreDefault', () => {})
+    mittBus.off('restoreDefault', () => { })
 })
 // 路由更新时
 onBeforeRouteUpdate((to) => {
@@ -220,81 +221,95 @@ watch(
 
 <style scoped lang="scss">
 .layout-columns-aside {
-	width: 70px;
-	height: 100%;
-	background: var(--next-bg-columnsMenuBar);
-	ul {
-		position: relative;
-		.layout-columns-active,
-		.layout-columns-active a {
-			color: var(--next-bg-columnsMenuBarColor) !important;
-			transition: 0.3s ease-in-out;
-		}
-		.layout-columns-hover {
-			color: var(--el-color-primary);
-			a {
-				color: var(--el-color-primary);
-			}
-		}
-		li {
-			color: var(--next-bg-columnsMenuBarColor);
-			width: 100%;
-			height: 50px;
-			text-align: center;
-			display: flex;
-			cursor: pointer;
-			position: relative;
-			z-index: 1;
-			&:hover {
-				@extend .layout-columns-hover;
-			}
-			.columns-vertical {
-				margin: auto;
-				.columns-vertical-title {
-					padding-top: 1px;
-				}
-			}
-			.columns-horizontal {
-				display: flex;
-				height: 50px;
-				width: 100%;
-				align-items: center;
-				padding: 0 5px;
-				i {
-					margin-right: 3px;
-				}
-				a {
-					display: flex;
-					.columns-horizontal-title {
-						padding-top: 1px;
-					}
-				}
-			}
-			a {
-				text-decoration: none;
-				color: var(--next-bg-columnsMenuBarColor);
-			}
-		}
-		.columns-round {
-			background: var(--el-color-primary);
-			color: var(--el-color-white);
-			position: absolute;
-			left: 50%;
-			top: 2px;
-			height: 44px;
-			width: 65px;
-			transform: translateX(-50%);
-			z-index: 0;
-			transition: 0.3s ease-in-out;
-			border-radius: 5px;
-		}
-		.columns-card {
-			@extend .columns-round;
-			top: 0;
-			height: 50px;
-			width: 100%;
-			border-radius: 0;
-		}
-	}
-}
-</style>
+    width: 70px;
+    height: 100%;
+    background: var(--next-bg-columnsMenuBar);
+
+    ul {
+        position: relative;
+
+        .layout-columns-active,
+        .layout-columns-active a {
+            color: var(--next-bg-columnsMenuBarColor) !important;
+            transition: 0.3s ease-in-out;
+        }
+
+        .layout-columns-hover {
+            color: var(--el-color-primary);
+
+            a {
+                color: var(--el-color-primary);
+            }
+        }
+
+        li {
+            color: var(--next-bg-columnsMenuBarColor);
+            width: 100%;
+            height: 50px;
+            text-align: center;
+            display: flex;
+            cursor: pointer;
+            position: relative;
+            z-index: 1;
+
+            &:hover {
+                @extend .layout-columns-hover;
+            }
+
+            .columns-vertical {
+                margin: auto;
+
+                .columns-vertical-title {
+                    padding-top: 1px;
+                }
+            }
+
+            .columns-horizontal {
+                display: flex;
+                height: 50px;
+                width: 100%;
+                align-items: center;
+                padding: 0 5px;
+
+                i {
+                    margin-right: 3px;
+                }
+
+                a {
+                    display: flex;
+
+                    .columns-horizontal-title {
+                        padding-top: 1px;
+                    }
+                }
+            }
+
+            a {
+                text-decoration: none;
+                color: var(--next-bg-columnsMenuBarColor);
+            }
+        }
+
+        .columns-round {
+            background: var(--el-color-primary);
+            color: var(--el-color-white);
+            position: absolute;
+            left: 50%;
+            top: 2px;
+            height: 44px;
+            width: 65px;
+            transform: translateX(-50%);
+            z-index: 0;
+            transition: 0.3s ease-in-out;
+            border-radius: 5px;
+        }
+
+        .columns-card {
+            @extend .columns-round;
+            top: 0;
+            height: 50px;
+            width: 100%;
+            border-radius: 0;
+        }
+    }
+}</style>

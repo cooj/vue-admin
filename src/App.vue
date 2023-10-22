@@ -2,9 +2,9 @@
     <el-config-provider :size="getGlobalComponentSize" :locale="zhCn">
         <router-view v-show="setLockScreen" />
         <LockScreen v-if="themeConfig.isLockScreen" />
-        <Setings v-show="setLockScreen" ref="setingsRef" />
+        <Settings v-show="setLockScreen" ref="settingRef" />
         <CloseFull v-if="!themeConfig.isLockScreen" />
-        <Upgrade v-if="getVersion" />
+        <!-- <Upgrade v-if="getVersion" /> -->
         <Sponsors />
     </el-config-provider>
 </template>
@@ -23,13 +23,13 @@ import setIntroduction from '/@/utils/setIconfont'
 
 // 引入组件
 const LockScreen = defineAsyncComponent(() => import('/@/layout/lockScreen/index.vue'))
-const Setings = defineAsyncComponent(() => import('/@/layout/navBars/topBar/setings.vue'))
+const Settings = defineAsyncComponent(() => import('/@/layout/navBars/topBar/setings.vue'))
 const CloseFull = defineAsyncComponent(() => import('/@/layout/navBars/topBar/closeFull.vue'))
-const Upgrade = defineAsyncComponent(() => import('/@/layout/upgrade/index.vue'))
+// const Upgrade = defineAsyncComponent(() => import('/@/layout/upgrade/index.vue'))
 const Sponsors = defineAsyncComponent(() => import('/@/layout/sponsors/index.vue'))
 
 // 定义变量内容
-const setingsRef = ref()
+const settingRef = ref<InstanceType<typeof Settings>>()
 const route = useRoute()
 const stores = useTagsViewRoutes()
 const storesThemeConfig = useThemeConfig()
@@ -66,7 +66,7 @@ onMounted(() => {
     nextTick(() => {
         // 监听布局配'置弹窗点击打开
         mittBus.on('openSetingsDrawer', () => {
-            setingsRef.value.openDrawer()
+            settingRef.value?.openDrawer()
         })
         // 获取缓存中的布局配置
         if (Local.get('themeConfig')) {
@@ -81,7 +81,7 @@ onMounted(() => {
 })
 // 页面销毁时，关闭监听布局配置/i18n监听
 onUnmounted(() => {
-    mittBus.off('openSetingsDrawer', () => {})
+    mittBus.off('openSetingsDrawer', () => { })
 })
 // 监听路由的变化，设置网站标题
 watch(
