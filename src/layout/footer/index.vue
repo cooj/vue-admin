@@ -1,10 +1,12 @@
 <template>
-	<div class="layout-footer pb15">
-		<div class="layout-footer-warp">
-			<div>vue-next-admin，Made by lyt with ❤️</div>
-			<div class="mt5">深圳市 xxx 公司版权所有</div>
-		</div>
-	</div>
+    <div class="layout-footer pb15">
+        <div class="layout-footer-warp">
+            <div>vue-next-admin，Made by lyt with ❤️</div>
+            <div class="mt5">
+                深圳市 xxx 公司版权所有
+            </div>
+        </div>
+    </div>
 </template>
 
 <script setup lang="ts" name="layoutFooter">

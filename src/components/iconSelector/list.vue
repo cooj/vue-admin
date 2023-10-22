@@ -1,45 +1,45 @@
 <template>
-	<div class="icon-selector-warp-row">
-		<el-scrollbar ref="selectorScrollbarRef">
-			<el-row :gutter="10" v-if="props.list.length > 0">
-				<el-col :xs="6" :sm="4" :md="4" :lg="4" :xl="4" v-for="(v, k) in list" :key="k" @click="onColClick(v)">
-					<div class="icon-selector-warp-item" :class="{ 'icon-selector-active': prefix === v }">
-						<SvgIcon :name="v" />
-					</div>
-				</el-col>
-			</el-row>
-			<el-empty :image-size="100" v-if="list.length <= 0" :description="empty"></el-empty>
-		</el-scrollbar>
-	</div>
+    <div class="icon-selector-warp-row">
+        <el-scrollbar ref="selectorScrollbarRef">
+            <el-row v-if="props.list.length > 0" :gutter="10">
+                <el-col v-for="(v, k) in list" :key="k" :xs="6" :sm="4" :md="4" :lg="4" :xl="4" @click="onColClick(v)">
+                    <div class="icon-selector-warp-item" :class="{ 'icon-selector-active': prefix === v }">
+                        <SvgIcon :name="v" />
+                    </div>
+                </el-col>
+            </el-row>
+            <el-empty v-if="list.length <= 0" :image-size="100" :description="empty" />
+        </el-scrollbar>
+    </div>
 </template>
 
 <script setup lang="ts" name="iconSelectorList">
 // 定义父组件传过来的值
 const props = defineProps({
-	// 图标列表数据
-	list: {
-		type: Array,
-		default: () => [],
-	},
-	// 自定义空状态描述文字
-	empty: {
-		type: String,
-		default: () => '无相关图标',
-	},
-	// 高亮当前选中图标
-	prefix: {
-		type: String,
-		default: () => '',
-	},
-});
+    // 图标列表数据
+    list: {
+        type: Array,
+        default: () => [],
+    },
+    // 自定义空状态描述文字
+    empty: {
+        type: String,
+        default: () => '无相关图标',
+    },
+    // 高亮当前选中图标
+    prefix: {
+        type: String,
+        default: () => '',
+    },
+})
 
 // 定义子组件向父组件传值/事件
-const emit = defineEmits(['get-icon']);
+const emit = defineEmits(['get-icon'])
 
 // 当前 icon 图标点击时
 const onColClick = (v: unknown | string) => {
-	emit('get-icon', v);
-};
+    emit('get-icon', v)
+}
 </script>
 
 <style scoped lang="scss">

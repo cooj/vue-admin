@@ -1,33 +1,33 @@
 <template>
-	<div class="layout-logo" v-if="setShowLogo" @click="onThemeConfigChange">
-		<img :src="logoMini" class="layout-logo-medium-img" />
-		<span>{{ themeConfig.globalTitle }}</span>
-	</div>
-	<div class="layout-logo-size" v-else @click="onThemeConfigChange">
-		<img :src="logoMini" class="layout-logo-size-img" />
-	</div>
+    <div v-if="setShowLogo" class="layout-logo" @click="onThemeConfigChange">
+        <img :src="logoMini" class="layout-logo-medium-img">
+        <span>{{ themeConfig.globalTitle }}</span>
+    </div>
+    <div v-else class="layout-logo-size" @click="onThemeConfigChange">
+        <img :src="logoMini" class="layout-logo-size-img">
+    </div>
 </template>
 
 <script setup lang="ts" name="layoutLogo">
-import { computed } from 'vue';
-import { storeToRefs } from 'pinia';
-import { useThemeConfig } from '/@/stores/themeConfig';
-import logoMini from '/@/assets/logo-mini.svg';
+import { computed } from 'vue'
+import { storeToRefs } from 'pinia'
+import { useThemeConfig } from '/@/stores/themeConfig'
+import logoMini from '/@/assets/logo-mini.svg'
 
 // 定义变量内容
-const storesThemeConfig = useThemeConfig();
-const { themeConfig } = storeToRefs(storesThemeConfig);
+const storesThemeConfig = useThemeConfig()
+const { themeConfig } = storeToRefs(storesThemeConfig)
 
 // 设置 logo 的显示。classic 经典布局默认显示 logo
 const setShowLogo = computed(() => {
-	let { isCollapse, layout } = themeConfig.value;
-	return !isCollapse || layout === 'classic' || document.body.clientWidth < 1000;
-});
+    const { isCollapse, layout } = themeConfig.value
+    return !isCollapse || layout === 'classic' || document.body.clientWidth < 1000
+})
 // logo 点击实现菜单展开/收起
 const onThemeConfigChange = () => {
-	if (themeConfig.value.layout === 'transverse') return false;
-	themeConfig.value.isCollapse = !themeConfig.value.isCollapse;
-};
+    if (themeConfig.value.layout === 'transverse') return false
+    themeConfig.value.isCollapse = !themeConfig.value.isCollapse
+}
 </script>
 
 <style scoped lang="scss">

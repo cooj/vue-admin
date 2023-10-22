@@ -1,35 +1,43 @@
 <template>
-	<div class="error layout-padding">
-		<div class="layout-padding-auto layout-padding-view">
-			<div class="error-flex">
-				<div class="left">
-					<div class="left-item">
-						<div class="left-item-animation left-item-num">404</div>
-						<div class="left-item-animation left-item-title">地址输入错误，请重新输入地址~</div>
-						<div class="left-item-animation left-item-msg">您可以先检查网址，然后重新输入或给我们反馈问题。</div>
-						<div class="left-item-animation left-item-btn">
-							<el-button type="primary" size="default" round @click="onGoHome">返回首页</el-button>
-						</div>
-					</div>
-				</div>
-				<div class="right">
-					<img src="https://i.hd-r.cn/1a0d90a6c1e8b0184c7299dda713effd.png" />
-				</div>
-			</div>
-		</div>
-	</div>
+    <div class="error layout-padding">
+        <div class="layout-padding-auto layout-padding-view">
+            <div class="error-flex">
+                <div class="left">
+                    <div class="left-item">
+                        <div class="left-item-animation left-item-num">
+                            404
+                        </div>
+                        <div class="left-item-animation left-item-title">
+                            地址输入错误，请重新输入地址~
+                        </div>
+                        <div class="left-item-animation left-item-msg">
+                            您可以先检查网址，然后重新输入或给我们反馈问题。
+                        </div>
+                        <div class="left-item-animation left-item-btn">
+                            <el-button type="primary" size="default" round @click="onGoHome">
+                                返回首页
+                            </el-button>
+                        </div>
+                    </div>
+                </div>
+                <div class="right">
+                    <img src="https://i.hd-r.cn/1a0d90a6c1e8b0184c7299dda713effd.png">
+                </div>
+            </div>
+        </div>
+    </div>
 </template>
 
 <script setup lang="ts" name="notFound">
-import { useRouter } from 'vue-router';
+import { useRouter } from 'vue-router'
 
 // 定义变量内容
-const router = useRouter();
+const router = useRouter()
 
 // 返回首页
 const onGoHome = () => {
-	router.push('/');
-};
+    router.push('/')
+}
 </script>
 
 <style scoped lang="scss">

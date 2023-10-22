@@ -1,35 +1,43 @@
 <template>
-	<div class="error layout-padding">
-		<div class="layout-padding-auto layout-padding-view">
-			<div class="error-flex">
-				<div class="left">
-					<div class="left-item">
-						<div class="left-item-animation left-item-num">401</div>
-						<div class="left-item-animation left-item-title">您未被授权，没有操作权限~</div>
-						<div class="left-item-animation left-item-msg">联系方式：加QQ群探讨 665452019</div>
-						<div class="left-item-animation left-item-btn">
-							<el-button type="primary" size="default" round @click="onSetAuth">重新授权</el-button>
-						</div>
-					</div>
-				</div>
-				<div class="right">
-					<img src="https://i.hd-r.cn/2cf0d2e192660eec23eb9d0655753e7d.png" />
-				</div>
-			</div>
-		</div>
-	</div>
+    <div class="error layout-padding">
+        <div class="layout-padding-auto layout-padding-view">
+            <div class="error-flex">
+                <div class="left">
+                    <div class="left-item">
+                        <div class="left-item-animation left-item-num">
+                            401
+                        </div>
+                        <div class="left-item-animation left-item-title">
+                            您未被授权，没有操作权限~
+                        </div>
+                        <div class="left-item-animation left-item-msg">
+                            联系方式：加QQ群探讨 665452019
+                        </div>
+                        <div class="left-item-animation left-item-btn">
+                            <el-button type="primary" size="default" round @click="onSetAuth">
+                                重新授权
+                            </el-button>
+                        </div>
+                    </div>
+                </div>
+                <div class="right">
+                    <img src="https://i.hd-r.cn/2cf0d2e192660eec23eb9d0655753e7d.png">
+                </div>
+            </div>
+        </div>
+    </div>
 </template>
 
 <script setup lang="ts" name="noPower">
-import { Session } from '/@/utils/storage';
+import { Session } from '/@/utils/storage'
 
 const onSetAuth = () => {
-	// https://gitee.com/lyt-top/vue-next-admin/issues/I5C3JS
-	// 清除缓存/token等
-	Session.clear();
-	// 使用 reload 时，不需要调用 resetRoute() 重置路由
-	window.location.reload();
-};
+    // https://gitee.com/lyt-top/vue-next-admin/issues/I5C3JS
+    // 清除缓存/token等
+    Session.clear()
+    // 使用 reload 时，不需要调用 resetRoute() 重置路由
+    window.location.reload()
+}
 </script>
 
 <style scoped lang="scss">
