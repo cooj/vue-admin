@@ -1,7 +1,104 @@
 {
+    // Disable the default formatter, use eslint instead
+    "prettier.enable": false,
+    // Auto fix
+    "editor.codeActionsOnSave": {
+        "source.fixAll.eslint": true,
+        "source.organizeImports": false
+    },
+    "editor.formatOnSave": true,
+    "editor.tabSize": 4,
+    "files.associations": {
+        "*.css": "postcss"
+    },
+    // Enable the ESlint flat config support
+    "eslint.experimental.useFlatConfig": true,
+    // Silent the stylistic rules in you IDE, but still auto fix them
+    "eslint.rules.customizations": [
+        // { "rule": "style/*", "severity": "off" },
+        // { "rule": "*-indent", "severity": "off" },
+        {
+            "rule": "*-spacing",
+            "severity": "off"
+        },
+        {
+            "rule": "*-spaces",
+            "severity": "off"
+        },
+        // { "rule": "*-order", "severity": "off" },
+        {
+            "rule": "*-dangle",
+            "severity": "off"
+        },
+        {
+            "rule": "*-newline",
+            "severity": "off"
+        },
+        {
+            "rule": "*quotes",
+            "severity": "off"
+        },
+        {
+            "rule": "*semi",
+            "severity": "off"
+        }
+    ],
+    // Enable eslint for all supported languages
+    "eslint.validate": [
+        "javascript",
+        "javascriptreact",
+        "typescript",
+        "typescriptreact",
+        "vue",
+        "html",
+        "markdown",
+        "json",
+        "jsonc",
+        "yaml"
+    ],
+    // 指定哪些文件不参与搜索
+    "search.exclude": {
+        "**/node_modules": true,
+        "**/*.log": true,
+        "**/*.log*": true,
+        "**/dist": true,
+        "**/.git": true,
+        "**/.gitignore": true,
+        "**/.svn": true,
+        "**/.DS_Store": true,
+        "**/.idea": true,
+        "**/.vscode": true,
+        "**/tmp": true,
+        "dist": true,
+        "node_modules": true,
+        "CHANGELOG.md": true,
+        "README.md": true,
+        "examples": true,
+        "**-lock.**": true
+    },
+    // 指定哪些文件不被 VSCode 监听，预防启动 VSCode 时扫描的文件太多，导致 CPU 占用过高
+    "files.watcherExclude": {
+        "**/.git/objects/**": true,
+        "**/.git/subtree-cache/**": true,
+        "**/.vscode/**": true,
+        "**/node_modules/**": true,
+        "**/tmp/**": true,
+        "**/dist/**": true
+    },
     "cSpell.words": [
+        "antfu",
+        "Attributify",
+        "breakline",
         "cooj",
+        "defu",
+        "iconify",
         "pinia",
-        "sortablejs"
-    ]
+        "stylelint",
+        "swiper",
+        "unjs",
+        "Uno",
+        "unocss",
+        "Vite",
+        "vueuse"
+    ],
 }

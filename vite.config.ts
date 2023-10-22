@@ -1,26 +1,24 @@
-import vue from '@vitejs/plugin-vue';
-import { resolve } from 'path';
-import { defineConfig, loadEnv, ConfigEnv } from 'vite';
-import vueSetupExtend from 'vite-plugin-vue-setup-extend-plus';
-import viteCompression from 'vite-plugin-compression';
-import { buildConfig } from './src/utils/build';
-
-const pathResolve = (dir: string) => {
-    return resolve(__dirname, '.', dir);
-};
+import { resolve } from 'node:path'
+import vue from '@vitejs/plugin-vue'
+import type { ConfigEnv } from 'vite'
+import { defineConfig, loadEnv } from 'vite'
+import vueSetupExtend from 'vite-plugin-vue-setup-extend-plus'
+import viteCompression from 'vite-plugin-compression'
+import { buildConfig } from './src/utils/build'
 
 const alias: Record<string, string> = {
-    '/@': pathResolve('./src/'),
-};
+    '/@': resolve(__dirname, '.', './src/'),
+    '@/': resolve(__dirname, '.', 'src/'),
+}
 
 const viteConfig = defineConfig((mode: ConfigEnv) => {
-    const env = loadEnv(mode.mode, process.cwd());
+    const env = loadEnv(mode.mode, process.cwd())
     return {
         plugins: [
-            vue(), 
-            vueSetupExtend(), 
-            viteCompression(), 
-            JSON.parse(env.VITE_OPEN_CDN) ? buildConfig.cdn() : null
+            vue(),
+            vueSetupExtend(),
+            viteCompression(),
+            JSON.parse(env.VITE_OPEN_CDN) ? buildConfig.cdn() : null,
         ],
         root: process.cwd(),
         resolve: { alias },
@@ -36,7 +34,7 @@ const viteConfig = defineConfig((mode: ConfigEnv) => {
                     target: 'https://gitee.com',
                     ws: true,
                     changeOrigin: true,
-                    rewrite: (path) => path.replace(/^\/gitee/, ''),
+                    rewrite: path => path.replace(/^\/gitee/, ''),
                 },
             },
         },
@@ -50,7 +48,7 @@ const viteConfig = defineConfig((mode: ConfigEnv) => {
                     assetFileNames: 'assets/[ext]/[name]-[hash].[ext]',
                     manualChunks(id) {
                         if (id.includes('node_modules')) {
-                            return id.toString().match(/\/node_modules\/(?!.pnpm)(?<moduleName>[^\/]*)\//)?.groups!.moduleName ?? 'vender';
+                            return id.toString().match(/\/node_modules\/(?!.pnpm)(?<moduleName>[^\/]*)\//)?.groups!.moduleName ?? 'vender'
                         }
                     },
                 },
@@ -62,7 +60,7 @@ const viteConfig = defineConfig((mode: ConfigEnv) => {
             __NEXT_VERSION__: JSON.stringify(process.env.npm_package_version),
             __NEXT_NAME__: JSON.stringify(process.env.npm_package_name),
         },
-    };
-});
+    }
+})
 
-export default viteConfig;
+export default viteConfig
