@@ -4,7 +4,6 @@ declare module 'qrcodejs2-fixes';
 declare module 'splitpanes';
 declare module 'js-cookie';
 declare module '@wangeditor/editor-for-vue';
-declare module 'js-table2excel';
 declare module 'qs';
 declare module 'sortablejs';
 
@@ -20,7 +19,7 @@ declare module '*.js';
 declare module '*.vue' {
     import type { DefineComponent } from 'vue'
 
-    const component: DefineComponent<{}, {}, any>
+    const component: DefineComponent<{}, {}, any>   // eslint-disable-line
     export default component
 }
 
