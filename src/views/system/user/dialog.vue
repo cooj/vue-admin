@@ -23,12 +23,9 @@
                     </el-col>
                     <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" class="mb20">
                         <el-form-item label="部门">
-                            <el-cascader v-model="state.ruleForm.department"
-                                :options="state.deptData"
-                                :props="{ checkStrictly: true, value: 'deptName', label: 'deptName' }"
-                                placeholder="请选择部门"
-                                clearable
-                                class="w100">
+                            <el-cascader v-model="state.ruleForm.department" :options="state.deptData"
+                                :props="{ checkStrictly: true, value: 'deptName', label: 'deptName' }" placeholder="请选择部门"
+                                clearable class="w100">
                                 <template #default="{ node, data }">
                                     <span>{{ data.deptName }}</span>
                                     <span v-if="!node.isLeaf"> ({{ data.children.length }}) </span>
@@ -61,7 +58,8 @@
                     </el-col>
                     <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" class="mb20">
                         <el-form-item label="账户过期">
-                            <el-date-picker v-model="state.ruleForm.overdueTime" type="date" placeholder="请选择" class="w100" />
+                            <el-date-picker v-model="state.ruleForm.overdueTime" type="date" placeholder="请选择"
+                                class="w100" />
                         </el-form-item>
                     </el-col>
                     <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" class="mb20">
@@ -71,7 +69,8 @@
                     </el-col>
                     <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24" class="mb20">
                         <el-form-item label="用户描述">
-                            <el-input v-model="state.ruleForm.describe" type="textarea" placeholder="请输入用户描述" maxlength="150" />
+                            <el-input v-model="state.ruleForm.describe" type="textarea" placeholder="请输入用户描述"
+                                maxlength="150" />
                         </el-form-item>
                     </el-col>
                 </el-row>

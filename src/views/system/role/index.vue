@@ -2,7 +2,8 @@
     <div class="layout-padding system-role-container">
         <div class="layout-padding-auto layout-padding-view system-role-padding">
             <div class="system-user-search mb15">
-                <el-input v-model="state.tableData.param.search" size="default" placeholder="请输入角色名称" style="max-width: 180px" />
+                <el-input v-model="state.tableData.param.search" size="default" placeholder="请输入角色名称"
+                    style="max-width: 180px" />
                 <el-button size="default" type="primary" class="ml10">
                     <el-icon>
                         <ele-Search />
@@ -35,25 +36,21 @@
                 <el-table-column prop="createTime" label="创建时间" show-overflow-tooltip />
                 <el-table-column label="操作" width="100">
                     <template #default="scope">
-                        <el-button :disabled="scope.row.roleName === '超级管理员'" size="small" text type="primary" @click="onOpenEditRole('edit', scope.row)">
+                        <el-button :disabled="scope.row.roleName === '超级管理员'" size="small" text type="primary"
+                            @click="onOpenEditRole('edit', scope.row)">
                             修改
                         </el-button>
-                        <el-button :disabled="scope.row.roleName === '超级管理员'" size="small" text type="primary" @click="onRowDel(scope.row)">
+                        <el-button :disabled="scope.row.roleName === '超级管理员'" size="small" text type="primary"
+                            @click="onRowDel(scope.row)">
                             删除
                         </el-button>
                     </template>
                 </el-table-column>
             </el-table>
             <el-pagination v-model:current-page="state.tableData.param.pageNum"
-                class="mt15"
-                :pager-count="5"
-                v-model:page-size="state.tableData.param.pageSize"
-                :page-sizes="[10, 20, 30]"
-                background
-                layout="total, sizes, prev, pager, next, jumper"
-                :total="state.tableData.total"
-                @size-change="onHandleSizeChange"
-                @current-change="onHandleCurrentChange" />
+                v-model:page-size="state.tableData.param.pageSize" class="mt15" :pager-count="5" :page-sizes="[10, 20, 30]"
+                background layout="total, sizes, prev, pager, next, jumper" :total="state.tableData.total"
+                @size-change="onHandleSizeChange" @current-change="onHandleCurrentChange" />
         </div>
         <RoleDialog ref="roleDialogRef" @refresh="getTableData()" />
     </div>
@@ -119,7 +116,7 @@ const onRowDel = (row: RowRoleType) => {
             getTableData()
             ElMessage.success('删除成功')
         })
-        .catch(() => {})
+        .catch(() => { })
 }
 // 分页改变
 const onHandleSizeChange = (val: number) => {
@@ -139,11 +136,12 @@ onMounted(() => {
 
 <style scoped lang="scss">
 .system-role-container {
-	.system-role-padding {
-		padding: 15px;
-		.el-table {
-			flex: 1;
-		}
-	}
+    .system-role-padding {
+        padding: 15px;
+
+        .el-table {
+            flex: 1;
+        }
+    }
 }
 </style>

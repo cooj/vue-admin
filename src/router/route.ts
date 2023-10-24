@@ -27,6 +27,8 @@ declare module 'vue-router' {
         isIframe?: boolean
         roles?: string[]
         icon?: string
+        isDynamic?: boolean // 是否使用的动态路由
+        isDynamicPath?: string // 动态路径
     }
 }
 
@@ -65,7 +67,7 @@ export const dynamicRoutes: Array<RouteRecordRaw> = [
             {
                 path: '/system',
                 name: 'system',
-                component: () => import('/@/layout/routerView/parent.vue'),
+                component: () => import('/@/layout/route/parent.vue'),
                 redirect: '/system/menu',
                 meta: {
                     title: '系统设置',

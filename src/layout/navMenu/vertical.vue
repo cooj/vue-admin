@@ -7,7 +7,7 @@
                     <SvgIcon :name="val.meta.icon" />
                     <span>{{ val.meta.title }}</span>
                 </template>
-                <SubItem :chil="val.children" />
+                <SubItem :children="val.children" />
             </el-sub-menu>
             <template v-else>
                 <el-menu-item :key="val.path" :index="val.path">
@@ -42,7 +42,7 @@ const props = defineProps({
 })
 
 // 引入组件
-const SubItem = defineAsyncComponent(() => import('/@/layout/navMenu/subItem.vue'))
+const SubItem = defineAsyncComponent(() => import('@/layout/navMenu/subItem.vue'))
 
 // 定义变量内容
 const storesThemeConfig = useThemeConfig()
@@ -50,7 +50,7 @@ const { themeConfig } = storeToRefs(storesThemeConfig)
 const route = useRoute()
 const state = reactive({
     // 修复：https://gitee.com/lyt-top/vue-next-admin/issues/I3YX6G
-    defaultActive: route.meta.isDynamic ? route.meta.isDynamicPath : route.path,
+    defaultActive: route.meta?.isDynamic ? route.meta.isDynamicPath : route.path,
     isCollapse: false,
 })
 

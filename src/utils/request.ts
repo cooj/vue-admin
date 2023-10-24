@@ -54,7 +54,7 @@ service.interceptors.response.use(
         // 对响应错误做点什么
         if (error.message.includes('timeout')) {
             ElMessage.error('网络超时')
-        } else if (error.message == 'Network Error') {
+        } else if (error.message === 'Network Error') {
             ElMessage.error('网络连接错误')
         } else {
             if (error.response.data) ElMessage.error(error.response.statusText)

@@ -16,10 +16,7 @@
                     新增菜单
                 </el-button>
             </div>
-            <el-table v-loading="state.tableData.loading"
-                :data="state.tableData.data"
-                style="width: 100%"
-                row-key="path"
+            <el-table v-loading="state.tableData.loading" :data="state.tableData.data" style="width: 100%" row-key="path"
                 :tree-props="{ children: 'children', hasChildren: 'hasChildren' }">
                 <el-table-column label="菜单名称" show-overflow-tooltip>
                     <template #default="scope">
@@ -120,7 +117,7 @@ const onTabelRowDel = (row: RouteRecordRaw) => {
             getTableData()
             // await setBackEndControlRefreshRoutes() // 刷新菜单，未进行后端接口测试
         })
-        .catch(() => {})
+        .catch(() => { })
 }
 // 页面加载时
 onMounted(() => {

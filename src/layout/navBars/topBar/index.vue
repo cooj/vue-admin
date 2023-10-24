@@ -44,12 +44,13 @@ const isLayoutTransverse = computed(() => {
 // 设置/过滤路由（非静态路由/是否显示在菜单中）
 const setFilterRoutes = () => {
     const { layout, isClassicSplitMenu } = themeConfig.value
+    const list = filterRoutesFunc(routesList.value)
     if (layout === 'classic' && isClassicSplitMenu) {
-        state.menuList = delClassicChildren(filterRoutesFun(routesList.value))
+        state.menuList = delClassicChildren(list)
         const resData = setSendClassicChildren(route.path)
         mittBus.emit('setSendClassicChildren', resData)
     } else {
-        state.menuList = filterRoutesFun(routesList.value)
+        state.menuList = list
     }
 }
 // 设置了分割菜单时，删除底下 children
@@ -59,21 +60,12 @@ const delClassicChildren = <T extends ChilType>(arr: T[]): T[] => {
     })
     return arr
 }
-// 路由过滤递归函数
-const filterRoutesFun = <T extends RouteItem>(arr: T[]): T[] => {
-    return arr
-        .filter((item: T) => !item.meta?.isHide)
-        .map((item: T) => {
-            item = Object.assign({}, item)
-            if (item.children) item.children = filterRoutesFun(item.children)
-            return item
-        })
-}
+
 // 传送当前子级数据到菜单中
 const setSendClassicChildren = (path: string) => {
     const currentPathSplit = path.split('/')
     const currentData: MittMenu = { children: [] }
-    filterRoutesFun(routesList.value).map((v: RouteItem, k: number) => {
+    filterRoutesFunc(routesList.value).forEach((v: RouteItem, k: number) => {
         if (v.path === `/${currentPathSplit[1]}`) {
             v.k = k
             currentData.item = { ...v }
@@ -92,16 +84,16 @@ onMounted(() => {
 })
 // 页面卸载时
 onUnmounted(() => {
-    mittBus.off('getBreadcrumbIndexSetFilterRoutes', () => {})
+    mittBus.off('getBreadcrumbIndexSetFilterRoutes', () => { })
 })
 </script>
 
 <style scoped lang="scss">
 .layout-navbars-breadcrumb-index {
-	height: 50px;
-	display: flex;
-	align-items: center;
-	background: var(--next-bg-topBar);
-	border-bottom: 1px solid var(--next-border-color-light);
+    height: 50px;
+    display: flex;
+    align-items: center;
+    background: var(--next-bg-topBar);
+    border-bottom: 1px solid var(--next-border-color-light);
 }
 </style>

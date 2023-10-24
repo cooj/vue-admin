@@ -4,8 +4,7 @@
             :clearable="clearable" :disabled="disabled" :size="size" @clear="onClearFontIcon" @focus="onIconFocus"
             @blur="onIconBlur">
             <template #prepend>
-                <SvgIcon
-                    v-if="state.fontIconPrefix === '' ? prepend?.indexOf('ele-') > -1 : state.fontIconPrefix?.indexOf('ele-') > -1"
+                <SvgIcon v-if="state.fontIconPrefix === '' ? prepend?.indexOf('ele-') > -1 : state.fontIconPrefix?.indexOf('ele-') > -1"
                     :name="state.fontIconPrefix === '' ? prepend : state.fontIconPrefix" class="font14" />
                 <i v-else :class="state.fontIconPrefix === '' ? prepend : state.fontIconPrefix" class="font14" />
             </template>

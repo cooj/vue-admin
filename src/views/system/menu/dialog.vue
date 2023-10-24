@@ -5,12 +5,9 @@
                 <el-row :gutter="35">
                     <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24" class="mb20">
                         <el-form-item label="上级菜单">
-                            <el-cascader v-model="state.ruleForm.menuSuperior"
-                                :options="state.menuData"
-                                :props="{ checkStrictly: true, value: 'path', label: 'title' }"
-                                placeholder="请选择上级菜单"
-                                clearable
-                                class="w100">
+                            <el-cascader v-model="state.ruleForm.menuSuperior" :options="state.menuData"
+                                :props="{ checkStrictly: true, value: 'path', label: 'title' }" placeholder="请选择上级菜单"
+                                clearable class="w100">
                                 <template #default="{ node, data }">
                                     <span>{{ data.title }}</span>
                                     <span v-if="!node.isLeaf"> ({{ data.children.length }}) </span>
@@ -63,15 +60,14 @@
                         </el-col>
                         <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" class="mb20">
                             <el-form-item label="链接地址">
-                                <el-input v-model="state.ruleForm.meta.isLink"
-                                    placeholder="外链/内嵌时链接地址（http:xxx.com）"
-                                    clearable
-                                    :disabled="!state.ruleForm.isLink" />
+                                <el-input v-model="state.ruleForm.meta.isLink" placeholder="外链/内嵌时链接地址（http:xxx.com）"
+                                    clearable :disabled="!state.ruleForm.isLink" />
                             </el-form-item>
                         </el-col>
                         <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" class="mb20">
                             <el-form-item label="权限标识">
-                                <el-select v-model="state.ruleForm.meta.roles" multiple placeholder="取角色管理" clearable class="w100">
+                                <el-select v-model="state.ruleForm.meta.roles" placeholder="取角色管理" clearable multiple
+                                    class="w100">
                                     <el-option label="admin" value="admin" />
                                     <el-option label="common" value="common" />
                                 </el-select>
@@ -87,7 +83,8 @@
                     </template>
                     <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" class="mb20">
                         <el-form-item label="菜单排序">
-                            <el-input-number v-model="state.ruleForm.menuSort" controls-position="right" placeholder="请输入排序" class="w100" />
+                            <el-input-number v-model="state.ruleForm.menuSort" controls-position="right" placeholder="请输入排序"
+                                class="w100" />
                         </el-form-item>
                     </el-col>
                     <template v-if="state.ruleForm.menuType === 'menu'">

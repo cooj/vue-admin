@@ -21,7 +21,7 @@
                 </div>
             </div>
             <div class="upgrade-btn">
-                <el-button size="default" type="info" text round @click="onCancel">
+                <el-button size="default" type="info" round text @click="onCancel">
                     残忍拒绝
                 </el-button>
                 <el-button type="primary" round size="default" :loading="state.isLoading" @click="onUpgrade">
@@ -156,4 +156,5 @@ onMounted(() => {
             }
         }
     }
-}</style>
+}
+</style>

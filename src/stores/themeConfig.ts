@@ -83,12 +83,16 @@ export const useThemeConfig = defineStore('themeConfig', {
             isShowLogoChange: false,
             // 是否开启 Breadcrumb，强制经典、横向布局不显示
             isBreadcrumb: true,
-            // 是否开启 Tagsview
-            isTagsview: true,
             // 是否开启 Breadcrumb 图标
             isBreadcrumbIcon: false,
+            // 是否开启 Tagsview
+            isTagsview: true,
             // 是否开启 Tagsview 图标
             isTagsviewIcon: false,
+            // 是否开启 TagsView
+            isTagsView: true,
+            // 是否开启 TagsView 图标
+            isTagsViewIcon: false,
             // 是否开启 TagsView 缓存
             isCacheTagsView: false,
             // 是否开启 TagsView 拖拽
@@ -102,9 +106,9 @@ export const useThemeConfig = defineStore('themeConfig', {
             // 是否开启色弱模式
             isInvert: false,
             // 是否开启水印
-            isWartermark: true,
+            isWatermark: false,
             // 水印文案
-            wartermarkText: 'vue-next-admin',
+            watermarkText: '水印文字',
 
             /**
              * 其它设置
@@ -112,7 +116,7 @@ export const useThemeConfig = defineStore('themeConfig', {
             // Tagsview 风格：可选值"<tags-style-one|tags-style-four|tags-style-five>"，默认 tags-style-five
             // 定义的值与 `/src/layout/navBars/tagsView/tagsView.vue` 中的 class 同名
             tagsStyle: 'tags-style-five',
-            // 主页面切换动画：可选值"<slide-right|slide-left|opacitys>"，默认 slide-right
+            // 主页面切换动画：可选值"<slide-right|slide-left|opacity>"，默认 slide-right
             animation: 'slide-right',
             // 分栏高亮风格：可选值"<columns-round|columns-card>"，默认 columns-round
             columnsAsideStyle: 'columns-round',
@@ -125,7 +129,7 @@ export const useThemeConfig = defineStore('themeConfig', {
              * 中的 `initSetLayoutChange(设置布局切换，重置主题样式)` 方法
              */
             // 布局切换：可选值"<defaults|classic|transverse|columns>"，默认 defaults
-            layout: 'defaults',
+            layout: 'default',
 
             /**
              * 后端控制路由
@@ -137,15 +141,15 @@ export const useThemeConfig = defineStore('themeConfig', {
              * 全局网站标题 / 副标题
              */
             // 网站主标题（菜单导航、浏览器当前网页标题）
-            globalTitle: 'vue-next-admin',
+            globalTitle: 'vue-admin',
             // 网站副标题（登录页顶部文字）
-            globalViceTitle: 'vueNextAdmin',
+            globalViceTitle: '后台管理系统',
             // 网站副标题（登录页顶部文字）
             globalViceTitleMsg: '专注、免费、开源、维护、解疑',
             // 默认初始语言，可选值"<zh-cn|en|zh-tw>"，默认 zh-cn
             globalI18n: 'zh-cn',
             // 默认全局组件大小，可选值"<large|'default'|small>"，默认 'large'
-            globalComponentSize: 'large',
+            globalComponentSize: 'default',
         },
     }),
     actions: {

@@ -5,7 +5,6 @@
         <Settings v-show="setLockScreen" ref="settingRef" />
         <CloseFull v-if="!themeConfig.isLockScreen" />
         <!-- <Upgrade v-if="getVersion" /> -->
-        <Sponsors />
     </el-config-provider>
 </template>
 
@@ -26,7 +25,6 @@ const LockScreen = defineAsyncComponent(() => import('/@/layout/lockScreen/index
 const Settings = defineAsyncComponent(() => import('/@/layout/navBars/topBar/setings.vue'))
 const CloseFull = defineAsyncComponent(() => import('/@/layout/navBars/topBar/closeFull.vue'))
 // const Upgrade = defineAsyncComponent(() => import('/@/layout/upgrade/index.vue'))
-const Sponsors = defineAsyncComponent(() => import('/@/layout/sponsors/index.vue'))
 
 // 定义变量内容
 const settingRef = ref<InstanceType<typeof Settings>>()
@@ -45,7 +43,7 @@ const setLockScreen = computed(() => {
 const getVersion = computed(() => {
     let isVersion = false
     if (route.path !== '/login') {
-        // @ts-expect-error
+        // @ts-expect-error 版本号
         if ((Local.get('version') && Local.get('version') !== __NEXT_VERSION__) || !Local.get('version')) isVersion = true
     }
     return isVersion

@@ -9,26 +9,26 @@ import '/@/theme/loading.scss'
 export const NextLoading = {
     // 创建 loading
     start: () => {
-        const bodys: Element = document.body
+        const body: Element = document.body
         const div = <HTMLElement>document.createElement('div')
         div.setAttribute('class', 'loading-next')
-        const htmls = `
-			<div class="loading-next-box">
-				<div class="loading-next-box-warp">
-					<div class="loading-next-box-item"></div>
-					<div class="loading-next-box-item"></div>
-					<div class="loading-next-box-item"></div>
-					<div class="loading-next-box-item"></div>
-					<div class="loading-next-box-item"></div>
-					<div class="loading-next-box-item"></div>
-					<div class="loading-next-box-item"></div>
-					<div class="loading-next-box-item"></div>
-					<div class="loading-next-box-item"></div>
-				</div>
-			</div>
-		`
-        div.innerHTML = htmls
-        bodys.insertBefore(div, bodys.childNodes[0])
+        const html = `
+            <div class="loading-next-box">
+                <div class="loading-next-box-warp">
+                    <div class="loading-next-box-item"></div>
+                    <div class="loading-next-box-item"></div>
+                    <div class="loading-next-box-item"></div>
+                    <div class="loading-next-box-item"></div>
+                    <div class="loading-next-box-item"></div>
+                    <div class="loading-next-box-item"></div>
+                    <div class="loading-next-box-item"></div>
+                    <div class="loading-next-box-item"></div>
+                    <div class="loading-next-box-item"></div>
+                </div>
+            </div>
+        `
+        div.innerHTML = html
+        body.insertBefore(div, body.childNodes[0])
         window.nextLoading = true
     },
     // 移除 loading

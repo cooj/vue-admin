@@ -2,10 +2,7 @@
     <div class="layout-columns-aside">
         <el-scrollbar>
             <ul @mouseleave="onColumnsAsideMenuMouseleave()">
-                <li v-for="(v, k) in state.columnsAsideList" :key="k" :ref="(el) => {
-                        if (el) columnsAsideOffsetTopRefs[k] = el;
-                    }
-                    "
+                <li v-for="(v, k) in state.columnsAsideList" :key="k" ref="columnsAsideOffsetTopRefs"
                     :class="{ 'layout-columns-active': state.liIndex === k, 'layout-columns-hover': state.liHoverIndex === k }"
                     :title="v.meta.title" @click="onColumnsAsideMenuClick(v)"
                     @mouseenter="onColumnsAsideMenuMouseenter(v, k)">
@@ -15,8 +12,8 @@
                         <div class="columns-vertical-title font12">
                             {{
                                 v.meta.title && v.meta.title.length >= 4
-                                ? v.meta.title.substr(0, themeConfig.columnsAsideLayout === 'columns-vertical' ? 4 : 3)
-                                : v.meta.title
+                                    ? v.meta.title.substr(0, themeConfig.columnsAsideLayout === 'columns-vertical' ? 4 : 3)
+                                    : v.meta.title
                             }}
                         </div>
                     </div>
@@ -26,8 +23,8 @@
                             <div class="columns-vertical-title font12">
                                 {{
                                     v.meta.title && v.meta.title.length >= 4
-                                    ? v.meta.title.substr(0, themeConfig.columnsAsideLayout === 'columns-vertical' ? 4 : 3)
-                                    : v.meta.title
+                                        ? v.meta.title.substr(0, themeConfig.columnsAsideLayout === 'columns-vertical' ? 4 : 3)
+                                        : v.meta.title
                                 }}
                             </div>
                         </a>
@@ -49,7 +46,7 @@ import { useThemeConfig } from '/@/stores/themeConfig'
 import mittBus from '/@/utils/mitt'
 
 // 定义变量内容
-const columnsAsideOffsetTopRefs = ref<RefType>([])
+const columnsAsideOffsetTopRefs = ref<HTMLLIElement[]>()
 const columnsAsideActiveRef = ref()
 const stores = useRoutesList()
 const storesThemeConfig = useThemeConfig()
@@ -71,7 +68,7 @@ const state = reactive<ColumnsAsideState>({
 const setColumnsAsideMove = (k: number) => {
     if (k === undefined) return false
     state.liIndex = k
-    columnsAsideActiveRef.value.style.top = `${columnsAsideOffsetTopRefs.value[k].offsetTop + state.difference}px`
+    if (columnsAsideOffsetTopRefs.value) columnsAsideActiveRef.value.style.top = `${columnsAsideOffsetTopRefs.value[k].offsetTop + state.difference}px`
 }
 
 // 鼠标移入时，显示当前的子级菜单
@@ -110,7 +107,7 @@ const setMenuAutoCollaps = (path: string) => {
 }
 // 设置/过滤路由（非静态路由/是否显示在菜单中）
 const setFilterRoutes = () => {
-    state.columnsAsideList = filterRoutesFun(routesList.value)
+    state.columnsAsideList = filterRoutesFunc(routesList.value)
     const resData: MittMenu = setMenuAutoCollaps(route.path)
     onColumnsAsideDown(resData.item?.k)
     // 延迟 500 毫秒更新，防止 aside.vue 组件 setSendColumnsChildren 还没有注册
@@ -122,7 +119,7 @@ const setFilterRoutes = () => {
 const setSendChildren = (path: string) => {
     const currentPathSplit = path.split('/')
     const currentData: MittMenu = { children: [] }
-    state.columnsAsideList.map((v: RouteItem, k: number) => {
+    state.columnsAsideList.forEach((v: RouteItem, k: number) => {
         if (v.path === `/${currentPathSplit[1]}`) {
             v.k = k
             currentData.item = { ...v }
@@ -132,16 +129,7 @@ const setSendChildren = (path: string) => {
     })
     return currentData
 }
-// 路由过滤递归函数
-const filterRoutesFun = <T extends RouteItem>(arr: T[]): T[] => {
-    return arr
-        .filter((item: T) => !item.meta?.isHide)
-        .map((item: T) => {
-            item = Object.assign({}, item)
-            if (item.children) item.children = filterRoutesFun(item.children)
-            return item
-        })
-}
+
 // tagsView 点击时，根据路由查找下标 columnsAsideList，实现左侧菜单高亮
 const setColumnsMenuHighlight = (path: string) => {
     state.routeSplit = path.split('/')
@@ -179,7 +167,6 @@ const onColumnsAsideMenuClick = (v: RouteItem) => {
     else if (v.children.length > 1) themeConfig.value.isCollapse = false
 }
 
-
 // 页面加载时
 onMounted(() => {
     setFilterRoutes()
@@ -203,7 +190,7 @@ onBeforeRouteUpdate((to) => {
 watch(
     [() => themeConfig.value.columnsAsideStyle, isColumnsMenuHover, isColumnsNavHover],
     () => {
-        themeConfig.value.columnsAsideStyle === 'columnsRound' ? (state.difference = 3) : (state.difference = 0)
+        themeConfig.value.columnsAsideStyle === 'columns-round' ? (state.difference = 3) : (state.difference = 0)
         if (!isColumnsMenuHover.value && !isColumnsNavHover.value) {
             state.liHoverIndex = null
             mittBus.emit('setSendColumnsChildren', setSendChildren(route.path))
@@ -312,4 +299,5 @@ watch(
             border-radius: 0;
         }
     }
-}</style>
+}
+</style>

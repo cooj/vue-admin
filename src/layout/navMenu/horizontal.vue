@@ -7,7 +7,7 @@
                         <SvgIcon :name="val.meta.icon" />
                         <span>{{ val.meta.title }}</span>
                     </template>
-                    <SubItem :chil="val.children" />
+                    <SubItem :children="val.children" />
                 </el-sub-menu>
                 <template v-else>
                     <el-menu-item :key="val.path" :index="val.path">
@@ -48,7 +48,7 @@ const props = defineProps({
 })
 
 // 引入组件
-const SubItem = defineAsyncComponent(() => import('/@/layout/navMenu/subItem.vue'))
+const SubItem = defineAsyncComponent(() => import('@/layout/navMenu/subItem.vue'))
 
 // 定义变量内容
 const stores = useRoutesList()
@@ -65,21 +65,11 @@ const menuLists = computed<RouteItems>(() => {
     return props.menuList
 })
 
-// 路由过滤递归函数
-const filterRoutesFun = <T extends RouteItem>(arr: T[]): T[] => {
-    return arr
-        .filter((item: T) => !item.meta?.isHide)
-        .map((item: T) => {
-            item = Object.assign({}, item)
-            if (item.children) item.children = filterRoutesFun(item.children)
-            return item
-        })
-}
 // 传送当前子级数据到菜单中
 const setSendClassicChildren = (path: string) => {
     const currentPathSplit = path.split('/')
     const currentData: MittMenu = { children: [] }
-    filterRoutesFun(routesList.value).forEach((v, k) => {
+    filterRoutesFunc(routesList.value).forEach((v, k) => {
         if (v.path === `/${currentPathSplit[1]}`) {
             v.k = k
             currentData.item = { ...v }

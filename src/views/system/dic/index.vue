@@ -44,15 +44,9 @@
                 </el-table-column>
             </el-table>
             <el-pagination v-model:current-page="state.tableData.param.pageNum"
-                class="mt15"
-                :pager-count="5"
-                v-model:page-size="state.tableData.param.pageSize"
-                :page-sizes="[10, 20, 30]"
-                background
-                layout="total, sizes, prev, pager, next, jumper"
-                :total="state.tableData.total"
-                @size-change="onHandleSizeChange"
-                @current-change="onHandleCurrentChange" />
+                v-model:page-size="state.tableData.param.pageSize" class="mt15" :pager-count="5" :page-sizes="[10, 20, 30]"
+                background layout="total, sizes, prev, pager, next, jumper" :total="state.tableData.total"
+                @size-change="onHandleSizeChange" @current-change="onHandleCurrentChange" />
         </el-card>
         <DicDialog ref="dicDialogRef" @refresh="getTableData()" />
     </div>
@@ -118,7 +112,7 @@ const onRowDel = (row: RowDicType) => {
             getTableData()
             ElMessage.success('删除成功')
         })
-        .catch(() => {})
+        .catch(() => { })
 }
 // 分页改变
 const onHandleSizeChange = (val: number) => {

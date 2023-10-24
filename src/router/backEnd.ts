@@ -21,9 +21,9 @@ const menuApi = useMenuApi()
  * @method import.meta.glob
  * @link 参考：https://cn.vitejs.dev/guide/features.html#json
  */
-const layouModules: any = import.meta.glob('../layout/routerView/*.{vue,tsx}')
+const layoutModules: any = import.meta.glob('../layout/route/*.{vue,tsx}')
 const viewsModules: any = import.meta.glob('../views/**/*.{vue,tsx}')
-const dynamicViewsModules: Record<string, Function> = Object.assign({}, { ...layouModules }, { ...viewsModules })
+const dynamicViewsModules: Record<string, Function> = Object.assign({}, { ...layoutModules }, { ...viewsModules })
 
 /**
  * 后端控制路由：初始化方法，防止刷新时路由丢失

@@ -238,9 +238,11 @@ export function verifyPassword(val: string) {
  */
 export function verifyPasswordPowerful(val: string) {
     // false: 强密码不正确
-    if (!/^(?![a-zA-z]+$)(?!\d+$)(?![!@#$%^&\.*]+$)(?![a-zA-z\d]+$)(?![a-zA-z!@#$%^&\.*]+$)(?![\d!@#$%^&\.*]+$)[a-zA-Z\d!@#$%^&\.*]{6,16}$/.test(val)) { return false }
-    // true: 强密码正确
-    else { return true }
+    if (!/^(?![a-zA-z]+$)(?!\d+$)(?![!@#$%^&\.*]+$)(?![a-zA-z\d]+$)(?![a-zA-z!@#$%^&\.*]+$)(?![\d!@#$%^&\.*]+$)[a-zA-Z\d!@#$%^&\.*]{6,16}$/.test(val)) {
+        return false
+    } else { // true: 强密码正确
+        return true
+    }
 }
 
 /**
@@ -258,7 +260,9 @@ export function verifyPasswordStrength(val: string) {
     // 中：字母+数字，字母+特殊字符，数字+特殊字符
     if (/^(?![a-zA-z]+$)(?!\d+$)(?![!@#$%^&\.*]+$)[a-zA-Z\d!@#$%^&\.*]{6,16}$/.test(val)) v = '中'
     // 强：字母+数字+特殊字符
-    if (/^(?![a-zA-z]+$)(?!\d+$)(?![!@#$%^&\.*]+$)(?![a-zA-z\d]+$)(?![a-zA-z!@#$%^&\.*]+$)(?![\d!@#$%^&\.*]+$)[a-zA-Z\d!@#$%^&\.*]{6,16}$/.test(val)) { v = '强' }
+    if (/^(?![a-zA-z]+$)(?!\d+$)(?![!@#$%^&\.*]+$)(?![a-zA-z\d]+$)(?![a-zA-z!@#$%^&\.*]+$)(?![\d!@#$%^&\.*]+$)[a-zA-Z\d!@#$%^&\.*]{6,16}$/.test(val)) {
+        v = '强'
+    }
     // 返回结果
     return v
 }
@@ -274,9 +278,11 @@ export function verifyIPAddress(val: string) {
         !/^(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])$/.test(
             val,
         )
-    ) { return false }
-    // true: IP地址正确
-    else { return true }
+    ) {
+        return false
+    } else { // true: IP地址正确
+        return true
+    }
 }
 
 /**
@@ -290,9 +296,11 @@ export function verifyEmail(val: string) {
         !/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(
             val,
         )
-    ) { return false }
-    // true: 邮箱正确
-    else { return true }
+    ) {
+        return false
+    } else { // true: 邮箱正确
+        return true
+    }
 }
 
 /**
@@ -342,9 +350,11 @@ export function verifyUrl(val: string) {
         !/^(?:(?:(?:https?|ftp):)?\/\/)(?:\S+(?::\S*)?@)?(?:(?!(?:10|127)(?:\.\d{1,3}){3})(?!(?:169\.254|192\.168)(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00A1-\uFFFF0-9]-*)*[a-z\u00A1-\uFFFF0-9]+)(?:\.(?:[a-z\u00A1-\uFFFF0-9]-*)*[a-z\u00A1-\uFFFF0-9]+)*(?:\.(?:[a-z\u00A1-\uFFFF]{2,})).?)(?::\d{2,5})?(?:[/?#]\S*)?$/i.test(
             val,
         )
-    ) { return false }
-    // true: url正确
-    else { return true }
+    ) {
+        return false
+    } else { // true: url正确
+        return true
+    }
 }
 
 /**
@@ -358,7 +368,9 @@ export function verifyCarNum(val: string) {
         !/^(([京津沪渝冀豫云辽黑湘皖鲁新苏浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼使领][A-Z](([0-9]{5}[DF])|([DF]([A-HJ-NP-Z0-9])[0-9]{4})))|([京津沪渝冀豫云辽黑湘皖鲁新苏浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼使领][A-Z][A-HJ-NP-Z0-9]{4}[A-HJ-NP-Z0-9挂学警港澳使领]))$/.test(
             val,
         )
-    ) { return false }
-    // true：车牌号正确
-    else { return true }
+    ) {
+        return false
+    } else { // true：车牌号正确
+        return true
+    }
 }

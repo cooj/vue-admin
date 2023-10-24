@@ -2,7 +2,6 @@ import { resolve } from 'node:path'
 import vue from '@vitejs/plugin-vue'
 import type { ConfigEnv } from 'vite'
 import { defineConfig, loadEnv } from 'vite'
-import vueSetupExtend from 'vite-plugin-vue-setup-extend-plus'
 import viteCompression from 'vite-plugin-compression'
 import VueDevTools from 'vite-plugin-vue-devtools'
 
@@ -34,6 +33,7 @@ const viteConfig = defineConfig((mode: ConfigEnv) => {
                 dirs: [
                     'src/composables',
                     'src/stores',
+                    'src/utils/base',
                 ],
                 vueTemplate: true,
                 resolvers: [ElementPlusResolver()],

@@ -2,7 +2,8 @@
     <div v-show="!isTagsViewCurrenFull" class="h100">
         <el-aside class="layout-aside" :class="setCollapseStyle">
             <Logo v-if="setShowLogo" />
-            <el-scrollbar ref="layoutAsideScrollbarRef" class="flex-auto" @mouseenter="onAsideEnterLeave(true)" @mouseleave="onAsideEnterLeave(false)">
+            <el-scrollbar ref="layoutAsideScrollbarRef" class="flex-auto" @mouseenter="onAsideEnterLeave(true)"
+                @mouseleave="onAsideEnterLeave(false)">
                 <Vertical :menu-list="state.menuList" />
             </el-scrollbar>
         </el-aside>
@@ -12,14 +13,11 @@
 <script setup lang="ts" name="layoutAside">
 import { computed, defineAsyncComponent, onBeforeMount, reactive, ref, watch } from 'vue'
 import { storeToRefs } from 'pinia'
-import { useRoutesList } from '/@/stores/routesList'
-import { useThemeConfig } from '/@/stores/themeConfig'
-import { useTagsViewRoutes } from '/@/stores/tagsViewRoutes'
-import mittBus from '/@/utils/mitt'
+import mittBus from '@/utils/mitt'
 
 // 引入组件
-const Logo = defineAsyncComponent(() => import('/@/layout/logo/index.vue'))
-const Vertical = defineAsyncComponent(() => import('/@/layout/navMenu/vertical.vue'))
+const Logo = defineAsyncComponent(() => import('@/layout/logo/index.vue'))
+const Vertical = defineAsyncComponent(() => import('@/layout/navMenu/vertical.vue'))
 
 // 定义变量内容
 const layoutAsideScrollbarRef = ref()
@@ -44,10 +42,10 @@ const setCollapseStyle = computed(() => {
         if (isCollapse) {
             document.body.setAttribute('class', 'el-popup-parent--hidden')
             const asideEle = document.querySelector('.layout-container') as HTMLElement
-            const modeDivs = document.createElement('div')
-            modeDivs.setAttribute('class', 'layout-aside-mobile-mode')
-            asideEle.appendChild(modeDivs)
-            modeDivs.addEventListener('click', closeLayoutAsideMobileMode)
+            const modeDiv = document.createElement('div')
+            modeDiv.setAttribute('class', 'layout-aside-mobile-mode')
+            asideEle.appendChild(modeDiv)
+            modeDiv.addEventListener('click', closeLayoutAsideMobileMode)
             return [asideBrColor, 'layout-aside-mobile', 'layout-aside-mobile-open']
         } else {
             // 关闭弹窗
@@ -69,7 +67,7 @@ const setCollapseStyle = computed(() => {
 // 设置显示/隐藏 logo
 const setShowLogo = computed(() => {
     const { layout, isShowLogo } = themeConfig.value
-    return (isShowLogo && layout === 'defaults') || (isShowLogo && layout === 'columns')
+    return (isShowLogo && layout === 'default') || (isShowLogo && layout === 'columns')
 })
 // 关闭移动端蒙版
 const closeLayoutAsideMobileMode = () => {
@@ -85,18 +83,9 @@ const closeLayoutAsideMobileMode = () => {
 // 设置/过滤路由（非静态路由/是否显示在菜单中）
 const setFilterRoutes = () => {
     if (themeConfig.value.layout === 'columns') return false
-    state.menuList = filterRoutesFun(routesList.value)
+    state.menuList = filterRoutesFunc(routesList.value)
 }
-// 路由过滤递归函数
-const filterRoutesFun = <T extends RouteItem>(arr: T[]): T[] => {
-    return arr
-        .filter((item: T) => !item.meta?.isHide)
-        .map((item: T) => {
-            item = Object.assign({}, item)
-            if (item.children) item.children = filterRoutesFun(item.children)
-            return item
-        })
-}
+
 // 设置菜单导航是否固定（移动端）
 const initMenuFixed = (clientWidth: number) => {
     state.clientWidth = clientWidth

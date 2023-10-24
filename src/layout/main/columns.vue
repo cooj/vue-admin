@@ -1,7 +1,7 @@
 <template>
     <el-container class="layout-container">
         <ColumnsAside />
-        <el-container class="layout-columns-warp layout-container-view h100">
+        <el-container class="layout-container-view layout-columns-warp h100%!">
             <LayoutAside />
             <el-scrollbar ref="layoutScrollbarRef" class="layout-backtop">
                 <LayoutHeader />
@@ -15,13 +15,14 @@
 import { defineAsyncComponent, nextTick, onMounted, ref, watch } from 'vue'
 import { useRoute } from 'vue-router'
 import { storeToRefs } from 'pinia'
-import { useThemeConfig } from '/@/stores/themeConfig'
+
+// import { useThemeConfig } from '@/stores/themeConfig'
 
 // 引入组件
-const LayoutAside = defineAsyncComponent(() => import('/@/layout/component/aside.vue'))
-const LayoutHeader = defineAsyncComponent(() => import('/@/layout/component/header.vue'))
-const LayoutMain = defineAsyncComponent(() => import('/@/layout/component/main.vue'))
-const ColumnsAside = defineAsyncComponent(() => import('/@/layout/component/columnsAside.vue'))
+const LayoutAside = defineAsyncComponent(() => import('@/layout/component/aside.vue'))
+const LayoutHeader = defineAsyncComponent(() => import('@/layout/component/header.vue'))
+const LayoutMain = defineAsyncComponent(() => import('@/layout/component/main.vue'))
+const ColumnsAside = defineAsyncComponent(() => import('@/layout/component/columnsAside.vue'))
 
 // 定义变量内容
 const layoutScrollbarRef = ref<RefType>('')
@@ -30,20 +31,28 @@ const route = useRoute()
 const storesThemeConfig = useThemeConfig()
 const { themeConfig } = storeToRefs(storesThemeConfig)
 
-// 重置滚动条高度
-const updateScrollbar = () => {
+/**
+ * 重置滚动条高度
+ * @param scroll {boolean} 是否滚动回顶部
+ */
+const updateScrollbar = (scroll?: boolean) => {
+    if (!layoutScrollbarRef.value) return
     // 更新父级 scrollbar
-    layoutScrollbarRef.value.update()
+    layoutScrollbarRef.value?.update()
     // 更新子级 scrollbar
-    layoutMainRef.value && layoutMainRef.value!.layoutMainScrollbarRef.update()
+    layoutMainRef.value?.layoutMainScrollbarRef?.update()
+
+    if (scroll) {
+        if (layoutScrollbarRef.value.wrapRef) layoutScrollbarRef.value.wrapRef.scrollTop = 0
+        if (layoutMainRef.value?.layoutMainScrollbarRef?.wrapRef) layoutMainRef.value.layoutMainScrollbarRef.wrapRef.scrollTop = 0
+    }
 }
+
 // 重置滚动条高度，由于组件是异步引入的
 const initScrollBarHeight = () => {
     nextTick(() => {
         setTimeout(() => {
-            updateScrollbar()
-            layoutScrollbarRef.value.wrapRef.scrollTop = 0
-            layoutMainRef.value!.layoutMainScrollbarRef.wrapRef.scrollTop = 0
+            updateScrollbar(true)
         }, 500)
     })
 }
@@ -60,7 +69,7 @@ watch(
 )
 // 监听 themeConfig 配置文件的变化，更新菜单 el-scrollbar 的高度
 watch(
-    () => [themeConfig.value.isTagsview, themeConfig.value.isFixedHeader],
+    () => [themeConfig.value.isTagsView, themeConfig.value.isFixedHeader],
     () => {
         nextTick(() => {
             updateScrollbar()

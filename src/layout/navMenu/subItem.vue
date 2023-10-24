@@ -1,49 +1,49 @@
 <template>
-	<template v-for="val in chils">
-		<el-sub-menu :index="val.path" :key="val.path" v-if="val.children && val.children.length > 0">
-			<template #title>
-				<SvgIcon :name="val.meta.icon" />
-				<span>{{ val.meta.title }}</span>
-			</template>
-			<sub-item :chil="val.children" />
-		</el-sub-menu>
-		<template v-else>
-			<el-menu-item :index="val.path" :key="val.path">
-				<template v-if="!val.meta.isLink || (val.meta.isLink && val.meta.isIframe)">
-					<SvgIcon :name="val.meta.icon" />
-					<span>{{ val.meta.title }}</span>
-				</template>
-				<template v-else>
-					<a class="w100" @click.prevent="onALinkClick(val)">
-						<SvgIcon :name="val.meta.icon" />
-						{{ val.meta.title }}
-					</a>
-				</template>
-			</el-menu-item>
-		</template>
-	</template>
+    <template v-for="val in childList">
+        <el-sub-menu v-if="val.children && val.children.length > 0" :key="val.path" :index="val.path">
+            <template #title>
+                <SvgIcon :name="val.meta?.icon" />
+                <span>{{ val.meta?.title }}</span>
+            </template>
+            <sub-item :children="val.children" />
+        </el-sub-menu>
+        <template v-else>
+            <el-menu-item :key="val.path" :index="val.path">
+                <template v-if="!val.meta?.isLink || (val.meta.isLink && val.meta.isIframe)">
+                    <SvgIcon :name="val.meta?.icon" />
+                    <span>{{ val.meta?.title }}</span>
+                </template>
+                <template v-else>
+                    <a class="w100%" @click.prevent="onALinkClick(val)">
+                        <SvgIcon :name="val.meta.icon" />
+                        {{ val.meta.title }}
+                    </a>
+                </template>
+            </el-menu-item>
+        </template>
+    </template>
 </template>
 
 <script setup lang="ts" name="navMenuSubItem">
-import { computed } from 'vue';
-import { RouteRecordRaw } from 'vue-router';
-import other from '/@/utils/other';
+import { computed } from 'vue'
+import type { RouteRecordRaw } from 'vue-router'
+import other from '@/utils/other'
 
 // 定义父组件传过来的值
 const props = defineProps({
-	// 菜单列表
-	chil: {
-		type: Array<RouteRecordRaw>,
-		default: () => [],
-	},
-});
+    // 菜单列表
+    children: {
+        type: Array<RouteRecordRaw>,
+        default: () => [],
+    },
+})
 
 // 获取父级菜单数据
-const chils = computed(() => {
-	return <RouteItems>props.chil;
-});
+const childList = computed(() => {
+    return props.children
+})
 // 打开外部链接
-const onALinkClick = (val: RouteItem) => {
-	other.handleOpenLink(val);
-};
+const onALinkClick = (val: RouteRecordRaw) => {
+    other.handleOpenLink(val as RouteItem)
+}
 </script>

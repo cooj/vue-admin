@@ -23,14 +23,14 @@
 .slide-left-leave-to {
 	@extend .slide-right-enter-from;
 }
-// opacitys
-.opacitys-enter-active,
-.opacitys-leave-active {
+// opacity
+.opacity-enter-active,
+.opacity-leave-active {
 	will-change: transform;
 	transition: all 0.3s ease;
 }
-.opacitys-enter-from,
-.opacitys-leave-to {
+.opacity-enter-from,
+.opacity-leave-to {
 	opacity: 0;
 }
 

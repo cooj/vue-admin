@@ -1,6 +1,7 @@
 <template>
     <div class="layout-breadcrumb-seting">
-        <el-drawer v-model="getThemeConfig.isDrawer" title="布局配置" direction="rtl" destroy-on-close size="260px" @close="onDrawerClose">
+        <el-drawer v-model="getThemeConfig.isDrawer" title="布局配置" direction="rtl" destroy-on-close size="260px"
+            @close="onDrawerClose">
             <el-scrollbar class="layout-breadcrumb-seting-bar">
                 <!-- 全局主题 -->
                 <el-divider content-position="left">
@@ -32,7 +33,8 @@
                         顶栏背景
                     </div>
                     <div class="layout-breadcrumb-seting-bar-flex-value">
-                        <el-color-picker v-model="getThemeConfig.topBar" size="default" @change="onBgColorPickerChange('topBar')" />
+                        <el-color-picker v-model="getThemeConfig.topBar" size="default"
+                            @change="onBgColorPickerChange('topBar')" />
                     </div>
                 </div>
                 <div class="layout-breadcrumb-seting-bar-flex">
@@ -40,7 +42,8 @@
                         顶栏默认字体颜色
                     </div>
                     <div class="layout-breadcrumb-seting-bar-flex-value">
-                        <el-color-picker v-model="getThemeConfig.topBarColor" size="default" @change="onBgColorPickerChange('topBarColor')" />
+                        <el-color-picker v-model="getThemeConfig.topBarColor" size="default"
+                            @change="onBgColorPickerChange('topBarColor')" />
                     </div>
                 </div>
                 <div class="layout-breadcrumb-seting-bar-flex mt10">
@@ -48,7 +51,8 @@
                         顶栏背景渐变
                     </div>
                     <div class="layout-breadcrumb-seting-bar-flex-value">
-                        <el-switch v-model="getThemeConfig.isTopBarColorGradual" size="small" @change="onTopBarGradualChange" />
+                        <el-switch v-model="getThemeConfig.isTopBarColorGradual" size="small"
+                            @change="onTopBarGradualChange" />
                     </div>
                 </div>
 
@@ -61,7 +65,8 @@
                         菜单背景
                     </div>
                     <div class="layout-breadcrumb-seting-bar-flex-value">
-                        <el-color-picker v-model="getThemeConfig.menuBar" size="default" @change="onBgColorPickerChange('menuBar')" />
+                        <el-color-picker v-model="getThemeConfig.menuBar" size="default"
+                            @change="onBgColorPickerChange('menuBar')" />
                     </div>
                 </div>
                 <div class="layout-breadcrumb-seting-bar-flex">
@@ -69,7 +74,8 @@
                         菜单默认字体颜色
                     </div>
                     <div class="layout-breadcrumb-seting-bar-flex-value">
-                        <el-color-picker v-model="getThemeConfig.menuBarColor" size="default" @change="onBgColorPickerChange('menuBarColor')" />
+                        <el-color-picker v-model="getThemeConfig.menuBarColor" size="default"
+                            @change="onBgColorPickerChange('menuBarColor')" />
                     </div>
                 </div>
                 <div class="layout-breadcrumb-seting-bar-flex">
@@ -77,9 +83,7 @@
                         菜单高亮背景色
                     </div>
                     <div class="layout-breadcrumb-seting-bar-flex-value">
-                        <el-color-picker v-model="getThemeConfig.menuBarActiveColor"
-                            size="default"
-                            show-alpha
+                        <el-color-picker v-model="getThemeConfig.menuBarActiveColor" size="default" show-alpha
                             @change="onBgColorPickerChange('menuBarActiveColor')" />
                     </div>
                 </div>
@@ -88,7 +92,8 @@
                         菜单背景渐变
                     </div>
                     <div class="layout-breadcrumb-seting-bar-flex-value">
-                        <el-switch v-model="getThemeConfig.isMenuBarColorGradual" size="small" @change="onMenuBarGradualChange" />
+                        <el-switch v-model="getThemeConfig.isMenuBarColorGradual" size="small"
+                            @change="onMenuBarGradualChange" />
                     </div>
                 </div>
 
@@ -96,48 +101,46 @@
                 <el-divider content-position="left" :style="{ opacity: getThemeConfig.layout !== 'columns' ? 0.5 : 1 }">
                     分栏设置
                 </el-divider>
-                <div class="layout-breadcrumb-seting-bar-flex" :style="{ opacity: getThemeConfig.layout !== 'columns' ? 0.5 : 1 }">
+                <div class="layout-breadcrumb-seting-bar-flex"
+                    :style="{ opacity: getThemeConfig.layout !== 'columns' ? 0.5 : 1 }">
                     <div class="layout-breadcrumb-seting-bar-flex-label">
                         分栏菜单背景
                     </div>
                     <div class="layout-breadcrumb-seting-bar-flex-value">
-                        <el-color-picker v-model="getThemeConfig.columnsMenuBar"
-                            size="default"
+                        <el-color-picker v-model="getThemeConfig.columnsMenuBar" size="default"
                             :disabled="getThemeConfig.layout !== 'columns'"
                             @change="onBgColorPickerChange('columnsMenuBar')" />
                     </div>
                 </div>
-                <div class="layout-breadcrumb-seting-bar-flex" :style="{ opacity: getThemeConfig.layout !== 'columns' ? 0.5 : 1 }">
+                <div class="layout-breadcrumb-seting-bar-flex"
+                    :style="{ opacity: getThemeConfig.layout !== 'columns' ? 0.5 : 1 }">
                     <div class="layout-breadcrumb-seting-bar-flex-label">
                         分栏菜单默认字体颜色
                     </div>
                     <div class="layout-breadcrumb-seting-bar-flex-value">
-                        <el-color-picker v-model="getThemeConfig.columnsMenuBarColor"
-                            size="default"
+                        <el-color-picker v-model="getThemeConfig.columnsMenuBarColor" size="default"
                             :disabled="getThemeConfig.layout !== 'columns'"
                             @change="onBgColorPickerChange('columnsMenuBarColor')" />
                     </div>
                 </div>
-                <div class="layout-breadcrumb-seting-bar-flex mt14" :style="{ opacity: getThemeConfig.layout !== 'columns' ? 0.5 : 1 }">
+                <div class="layout-breadcrumb-seting-bar-flex mt14"
+                    :style="{ opacity: getThemeConfig.layout !== 'columns' ? 0.5 : 1 }">
                     <div class="layout-breadcrumb-seting-bar-flex-label">
                         分栏菜单背景渐变
                     </div>
                     <div class="layout-breadcrumb-seting-bar-flex-value">
-                        <el-switch v-model="getThemeConfig.isColumnsMenuBarColorGradual"
-                            size="small"
-                            :disabled="getThemeConfig.layout !== 'columns'"
-                            @change="onColumnsMenuBarGradualChange" />
+                        <el-switch v-model="getThemeConfig.isColumnsMenuBarColorGradual" size="small"
+                            :disabled="getThemeConfig.layout !== 'columns'" @change="onColumnsMenuBarGradualChange" />
                     </div>
                 </div>
-                <div class="layout-breadcrumb-seting-bar-flex mt14" :style="{ opacity: getThemeConfig.layout !== 'columns' ? 0.5 : 1 }">
+                <div class="layout-breadcrumb-seting-bar-flex mt14"
+                    :style="{ opacity: getThemeConfig.layout !== 'columns' ? 0.5 : 1 }">
                     <div class="layout-breadcrumb-seting-bar-flex-label">
                         分栏菜单鼠标悬停预加载
                     </div>
                     <div class="layout-breadcrumb-seting-bar-flex-value">
-                        <el-switch v-model="getThemeConfig.isColumnsMenuHoverPreload"
-                            size="small"
-                            :disabled="getThemeConfig.layout !== 'columns'"
-                            @change="onColumnsMenuHoverPreloadChange" />
+                        <el-switch v-model="getThemeConfig.isColumnsMenuHoverPreload" size="small"
+                            :disabled="getThemeConfig.layout !== 'columns'" @change="onColumnsMenuHoverPreloadChange" />
                     </div>
                 </div>
 
@@ -145,26 +148,24 @@
                 <el-divider content-position="left">
                     界面设置
                 </el-divider>
-                <div class="layout-breadcrumb-seting-bar-flex" :style="{ opacity: getThemeConfig.layout === 'transverse' ? 0.5 : 1 }">
+                <div class="layout-breadcrumb-seting-bar-flex"
+                    :style="{ opacity: getThemeConfig.layout === 'transverse' ? 0.5 : 1 }">
                     <div class="layout-breadcrumb-seting-bar-flex-label">
                         菜单水平折叠
                     </div>
                     <div class="layout-breadcrumb-seting-bar-flex-value">
-                        <el-switch v-model="getThemeConfig.isCollapse"
-                            :disabled="getThemeConfig.layout === 'transverse'"
-                            size="small"
-                            @change="onThemeConfigChange" />
+                        <el-switch v-model="getThemeConfig.isCollapse" :disabled="getThemeConfig.layout === 'transverse'"
+                            size="small" @change="onThemeConfigChange" />
                     </div>
                 </div>
-                <div class="layout-breadcrumb-seting-bar-flex mt15" :style="{ opacity: getThemeConfig.layout === 'transverse' ? 0.5 : 1 }">
+                <div class="layout-breadcrumb-seting-bar-flex mt15"
+                    :style="{ opacity: getThemeConfig.layout === 'transverse' ? 0.5 : 1 }">
                     <div class="layout-breadcrumb-seting-bar-flex-label">
                         菜单手风琴
                     </div>
                     <div class="layout-breadcrumb-seting-bar-flex-value">
                         <el-switch v-model="getThemeConfig.isUniqueOpened"
-                            :disabled="getThemeConfig.layout === 'transverse'"
-                            size="small"
-                            @change="setLocalThemeConfig" />
+                            :disabled="getThemeConfig.layout === 'transverse'" size="small" @change="setLocalThemeConfig" />
                     </div>
                 </div>
                 <div class="layout-breadcrumb-seting-bar-flex mt15">
@@ -175,14 +176,14 @@
                         <el-switch v-model="getThemeConfig.isFixedHeader" size="small" @change="onIsFixedHeaderChange" />
                     </div>
                 </div>
-                <div class="layout-breadcrumb-seting-bar-flex mt15" :style="{ opacity: getThemeConfig.layout !== 'classic' ? 0.5 : 1 }">
+                <div class="layout-breadcrumb-seting-bar-flex mt15"
+                    :style="{ opacity: getThemeConfig.layout !== 'classic' ? 0.5 : 1 }">
                     <div class="layout-breadcrumb-seting-bar-flex-label">
                         经典布局分割菜单
                     </div>
                     <div class="layout-breadcrumb-seting-bar-flex-value">
                         <el-switch v-model="getThemeConfig.isClassicSplitMenu"
-                            :disabled="getThemeConfig.layout !== 'classic'"
-                            size="small"
+                            :disabled="getThemeConfig.layout !== 'classic'" size="small"
                             @change="onClassicSplitMenuChange" />
                     </div>
                 </div>
@@ -199,13 +200,8 @@
                         自动锁屏(s/秒)
                     </div>
                     <div class="layout-breadcrumb-seting-bar-flex-value">
-                        <el-input-number v-model="getThemeConfig.lockScreenTime"
-                            controls-position="right"
-                            :min="1"
-                            :max="9999"
-                            size="default"
-                            style="width: 90px"
-                            @change="setLocalThemeConfig" />
+                        <el-input-number v-model="getThemeConfig.lockScreenTime" controls-position="right" :min="1"
+                            :max="9999" size="default" style="width: 90px" @change="setLocalThemeConfig" />
                     </div>
                 </div>
 
@@ -229,8 +225,7 @@
                     <div class="layout-breadcrumb-seting-bar-flex-value">
                         <el-switch v-model="getThemeConfig.isBreadcrumb"
                             :disabled="getThemeConfig.layout === 'classic' || getThemeConfig.layout === 'transverse'"
-                            size="small"
-                            @change="onIsBreadcrumbChange" />
+                            size="small" @change="onIsBreadcrumbChange" />
                     </div>
                 </div>
                 <div class="layout-breadcrumb-seting-bar-flex mt15">
@@ -270,10 +265,8 @@
                         开启 TagsView 拖拽
                     </div>
                     <div class="layout-breadcrumb-seting-bar-flex-value">
-                        <el-switch v-model="getThemeConfig.isSortableTagsView"
-                            :disabled="state.isMobile ? true : false"
-                            size="small"
-                            @change="onSortableTagsViewChange" />
+                        <el-switch v-model="getThemeConfig.isSortableTagsView" :disabled="state.isMobile ? true : false"
+                            size="small" @change="onSortableTagsViewChange" />
                     </div>
                 </div>
                 <div class="layout-breadcrumb-seting-bar-flex mt15">
@@ -297,7 +290,8 @@
                         灰色模式
                     </div>
                     <div class="layout-breadcrumb-seting-bar-flex-value">
-                        <el-switch v-model="getThemeConfig.isGrayscale" size="small" @change="onAddFilterChange('grayscale')" />
+                        <el-switch v-model="getThemeConfig.isGrayscale" size="small"
+                            @change="onAddFilterChange('grayscale')" />
                     </div>
                 </div>
                 <div class="layout-breadcrumb-seting-bar-flex mt15">
@@ -313,7 +307,7 @@
                         开启水印
                     </div>
                     <div class="layout-breadcrumb-seting-bar-flex-value">
-                        <el-switch v-model="getThemeConfig.isWartermark" size="small" @change="onWartermarkChange" />
+                        <el-switch v-model="getThemeConfig.isWatermark" size="small" @change="onWartermarkChange" />
                     </div>
                 </div>
                 <div class="layout-breadcrumb-seting-bar-flex mt14">
@@ -321,7 +315,8 @@
                         水印文案
                     </div>
                     <div class="layout-breadcrumb-seting-bar-flex-value">
-                        <el-input v-model="getThemeConfig.wartermarkText" size="default" style="width: 90px" @input="onWartermarkTextInput($event)" />
+                        <el-input v-model="getThemeConfig.watermarkText" size="default" style="width: 90px"
+                            @input="onWartermarkTextInput($event)" />
                     </div>
                 </div>
 
@@ -334,7 +329,8 @@
                         Tagsview 风格
                     </div>
                     <div class="layout-breadcrumb-seting-bar-flex-value">
-                        <el-select v-model="getThemeConfig.tagsStyle" placeholder="请选择" size="default" style="width: 90px" @change="setLocalThemeConfig">
+                        <el-select v-model="getThemeConfig.tagsStyle" placeholder="请选择" size="default" style="width: 90px"
+                            @change="setLocalThemeConfig">
                             <el-option label="风格1" value="tags-style-one" />
                             <el-option label="风格4" value="tags-style-four" />
                             <el-option label="风格5" value="tags-style-five" />
@@ -346,39 +342,36 @@
                         主页面切换动画
                     </div>
                     <div class="layout-breadcrumb-seting-bar-flex-value">
-                        <el-select v-model="getThemeConfig.animation" placeholder="请选择" size="default" style="width: 90px" @change="setLocalThemeConfig">
+                        <el-select v-model="getThemeConfig.animation" placeholder="请选择" size="default" style="width: 90px"
+                            @change="setLocalThemeConfig">
                             <el-option label="slide-right" value="slide-right" />
                             <el-option label="slide-left" value="slide-left" />
-                            <el-option label="opacitys" value="opacitys" />
+                            <el-option label="opacity" value="opacity" />
                         </el-select>
                     </div>
                 </div>
-                <div class="layout-breadcrumb-seting-bar-flex mt15" :style="{ opacity: getThemeConfig.layout !== 'columns' ? 0.5 : 1 }">
+                <div class="layout-breadcrumb-seting-bar-flex mt15"
+                    :style="{ opacity: getThemeConfig.layout !== 'columns' ? 0.5 : 1 }">
                     <div class="layout-breadcrumb-seting-bar-flex-label">
                         分栏高亮风格
                     </div>
                     <div class="layout-breadcrumb-seting-bar-flex-value">
-                        <el-select v-model="getThemeConfig.columnsAsideStyle"
-                            placeholder="请选择"
-                            size="default"
-                            style="width: 90px"
-                            :disabled="getThemeConfig.layout !== 'columns' ? true : false"
+                        <el-select v-model="getThemeConfig.columnsAsideStyle" placeholder="请选择" size="default"
+                            style="width: 90px" :disabled="getThemeConfig.layout !== 'columns' ? true : false"
                             @change="setLocalThemeConfig">
                             <el-option label="圆角" value="columns-round" />
                             <el-option label="卡片" value="columns-card" />
                         </el-select>
                     </div>
                 </div>
-                <div class="layout-breadcrumb-seting-bar-flex mb27 mt15" :style="{ opacity: getThemeConfig.layout !== 'columns' ? 0.5 : 1 }">
+                <div class="layout-breadcrumb-seting-bar-flex mb27 mt15"
+                    :style="{ opacity: getThemeConfig.layout !== 'columns' ? 0.5 : 1 }">
                     <div class="layout-breadcrumb-seting-bar-flex-label">
                         分栏布局风格
                     </div>
                     <div class="layout-breadcrumb-seting-bar-flex-value">
-                        <el-select v-model="getThemeConfig.columnsAsideLayout"
-                            placeholder="请选择"
-                            size="default"
-                            style="width: 90px"
-                            :disabled="getThemeConfig.layout !== 'columns' ? true : false"
+                        <el-select v-model="getThemeConfig.columnsAsideLayout" placeholder="请选择" size="default"
+                            style="width: 90px" :disabled="getThemeConfig.layout !== 'columns' ? true : false"
                             @change="setLocalThemeConfig">
                             <el-option label="水平" value="columns-horizontal" />
                             <el-option label="垂直" value="columns-vertical" />
@@ -393,14 +386,16 @@
                 <div class="layout-drawer-content-flex">
                     <!-- defaults 布局 -->
                     <div class="layout-drawer-content-item" @click="onSetLayout('defaults')">
-                        <section class="el-container el-circular" :class="{ 'drawer-layout-active': getThemeConfig.layout === 'defaults' }">
+                        <section class="el-container el-circular"
+                            :class="{ 'drawer-layout-active': getThemeConfig.layout === 'defaults' }">
                             <aside class="el-aside" style="width: 20px" />
                             <section class="el-container is-vertical">
                                 <header class="el-header" style="height: 10px" />
                                 <main class="el-main" />
                             </section>
                         </section>
-                        <div class="layout-tips-warp" :class="{ 'layout-tips-warp-active': getThemeConfig.layout === 'defaults' }">
+                        <div class="layout-tips-warp"
+                            :class="{ 'layout-tips-warp-active': getThemeConfig.layout === 'defaults' }">
                             <div class="layout-tips-box">
                                 <p class="layout-tips-txt">
                                     默认
@@ -410,7 +405,8 @@
                     </div>
                     <!-- classic 布局 -->
                     <div class="layout-drawer-content-item" @click="onSetLayout('classic')">
-                        <section class="el-container is-vertical el-circular" :class="{ 'drawer-layout-active': getThemeConfig.layout === 'classic' }">
+                        <section class="el-container is-vertical el-circular"
+                            :class="{ 'drawer-layout-active': getThemeConfig.layout === 'classic' }">
                             <header class="el-header" style="height: 10px" />
                             <section class="el-container">
                                 <aside class="el-aside" style="width: 20px" />
@@ -419,7 +415,8 @@
                                 </section>
                             </section>
                         </section>
-                        <div class="layout-tips-warp" :class="{ 'layout-tips-warp-active': getThemeConfig.layout === 'classic' }">
+                        <div class="layout-tips-warp"
+                            :class="{ 'layout-tips-warp-active': getThemeConfig.layout === 'classic' }">
                             <div class="layout-tips-box">
                                 <p class="layout-tips-txt">
                                     经典
@@ -429,7 +426,8 @@
                     </div>
                     <!-- transverse 布局 -->
                     <div class="layout-drawer-content-item" @click="onSetLayout('transverse')">
-                        <section class="el-container is-vertical el-circular" :class="{ 'drawer-layout-active': getThemeConfig.layout === 'transverse' }">
+                        <section class="el-container is-vertical el-circular"
+                            :class="{ 'drawer-layout-active': getThemeConfig.layout === 'transverse' }">
                             <header class="el-header" style="height: 10px" />
                             <section class="el-container">
                                 <section class="el-container is-vertical">
@@ -437,7 +435,8 @@
                                 </section>
                             </section>
                         </section>
-                        <div class="layout-tips-warp" :class="{ 'layout-tips-warp-active': getThemeConfig.layout === 'transverse' }">
+                        <div class="layout-tips-warp"
+                            :class="{ 'layout-tips-warp-active': getThemeConfig.layout === 'transverse' }">
                             <div class="layout-tips-box">
                                 <p class="layout-tips-txt">
                                     横向
@@ -447,7 +446,8 @@
                     </div>
                     <!-- columns 布局 -->
                     <div class="layout-drawer-content-item" @click="onSetLayout('columns')">
-                        <section class="el-container el-circular" :class="{ 'drawer-layout-active': getThemeConfig.layout === 'columns' }">
+                        <section class="el-container el-circular"
+                            :class="{ 'drawer-layout-active': getThemeConfig.layout === 'columns' }">
                             <aside class="el-aside-dark" style="width: 10px" />
                             <aside class="el-aside" style="width: 20px" />
                             <section class="el-container is-vertical">
@@ -455,7 +455,8 @@
                                 <main class="el-main" />
                             </section>
                         </section>
-                        <div class="layout-tips-warp" :class="{ 'layout-tips-warp-active': getThemeConfig.layout === 'columns' }">
+                        <div class="layout-tips-warp"
+                            :class="{ 'layout-tips-warp-active': getThemeConfig.layout === 'columns' }">
                             <div class="layout-tips-box">
                                 <p class="layout-tips-txt">
                                     分栏
@@ -465,8 +466,10 @@
                     </div>
                 </div>
                 <div class="copy-config">
-                    <el-alert title="点击下方按钮，复制布局配置去 `src/store/modules/themeConfig.ts` 中修改。" type="warning" :closable="false" />
-                    <el-button ref="copyConfigBtnRef" size="default" class="copy-config-btn" type="primary" @click="onCopyConfigClick">
+                    <el-alert title="点击下方按钮，复制布局配置去 `src/store/modules/themeConfig.ts` 中修改。" type="warning"
+                        :closable="false" />
+                    <el-button ref="copyConfigBtnRef" size="default" class="copy-config-btn" type="primary"
+                        @click="onCopyConfigClick">
                         <el-icon class="mr5">
                             <ele-CopyDocument />
                         </el-icon>
@@ -510,6 +513,13 @@ const state = reactive({
 const getThemeConfig = computed(() => {
     return themeConfig.value
 })
+
+// 存储布局配置
+const setLocalThemeConfig = () => {
+    Local.remove('themeConfig')
+    Local.set('themeConfig', getThemeConfig.value)
+}
+
 // 1、全局主题
 const onColorPickerChange = () => {
     if (!getThemeConfig.value.primary) return ElMessage.warning('全局主题 primary 颜色值不能为空')
@@ -607,7 +617,7 @@ const onAddFilterChange = (attr: string) => {
         if (getThemeConfig.value.isInvert) getThemeConfig.value.isGrayscale = false
     }
     const cssAttr
-		= attr === 'grayscale' ? `grayscale(${getThemeConfig.value.isGrayscale ? 1 : 0})` : `invert(${getThemeConfig.value.isInvert ? '80%' : '0%'})`
+        = attr === 'grayscale' ? `grayscale(${getThemeConfig.value.isGrayscale ? 1 : 0})` : `invert(${getThemeConfig.value.isInvert ? '80%' : '0%'})`
     const appEle = document.body
     appEle.setAttribute('style', `filter: ${cssAttr}`)
     setLocalThemeConfig()
@@ -620,14 +630,14 @@ const onAddDarkChange = () => {
 }
 // 4、界面显示 --> 开启水印
 const onWartermarkChange = () => {
-    getThemeConfig.value.isWartermark ? Watermark.set(getThemeConfig.value.wartermarkText) : Watermark.del()
+    getThemeConfig.value.isWatermark ? Watermark.set(getThemeConfig.value.watermarkText) : Watermark.del()
     setLocalThemeConfig()
 }
 // 4、界面显示 --> 水印文案
 const onWartermarkTextInput = (val: string) => {
-    getThemeConfig.value.wartermarkText = verifyAndSpace(val)
-    if (getThemeConfig.value.wartermarkText === '') return false
-    if (getThemeConfig.value.isWartermark) Watermark.set(getThemeConfig.value.wartermarkText)
+    getThemeConfig.value.watermarkText = verifyAndSpace(val)
+    if (getThemeConfig.value.watermarkText === '') return false
+    if (getThemeConfig.value.isWatermark) Watermark.set(getThemeConfig.value.watermarkText)
     setLocalThemeConfig()
 }
 // 5、布局切换
@@ -665,11 +675,7 @@ const setDispatchThemeConfig = () => {
     setLocalThemeConfig()
     setLocalThemeConfigStyle()
 }
-// 存储布局配置
-const setLocalThemeConfig = () => {
-    Local.remove('themeConfig')
-    Local.set('themeConfig', getThemeConfig.value)
-}
+
 // 存储布局配置全局主题样式（html根标签）
 const setLocalThemeConfigStyle = () => {
     Local.set('themeConfigStyle', document.documentElement.style.cssText)
@@ -686,7 +692,7 @@ const onCopyConfigClick = () => {
 const onResetConfigClick = () => {
     Local.clear()
     window.location.reload()
-    // @ts-expect-error
+    // @ts-expect-error version
     Local.set('version', __NEXT_VERSION__)
 }
 // 初始化菜单样式等
@@ -727,7 +733,7 @@ onMounted(() => {
     })
 })
 onUnmounted(() => {
-    mittBus.off('layoutMobileResize', () => {})
+    mittBus.off('layoutMobileResize', () => { })
 })
 
 // 暴露变量
@@ -738,140 +744,165 @@ defineExpose({
 
 <style scoped lang="scss">
 .layout-breadcrumb-seting-bar {
-	height: calc(100vh - 50px);
-	padding: 0 15px;
-	:deep(.el-scrollbar__view) {
-		overflow-x: hidden !important;
-	}
-	.layout-breadcrumb-seting-bar-flex {
-		display: flex;
-		align-items: center;
-		margin-bottom: 5px;
-		&-label {
-			flex: 1;
-			color: var(--el-text-color-primary);
-		}
-	}
-	.layout-drawer-content-flex {
-		overflow: hidden;
-		display: flex;
-		flex-wrap: wrap;
-		align-content: flex-start;
-		margin: 0 -5px;
-		.layout-drawer-content-item {
-			width: 50%;
-			height: 70px;
-			cursor: pointer;
-			border: 1px solid transparent;
-			position: relative;
-			padding: 5px;
-			.el-container {
-				height: 100%;
-				.el-aside-dark {
-					background-color: var(--next-color-seting-header);
-				}
-				.el-aside {
-					background-color: var(--next-color-seting-aside);
-				}
-				.el-header {
-					background-color: var(--next-color-seting-header);
-				}
-				.el-main {
-					background-color: var(--next-color-seting-main);
-				}
-			}
-			.el-circular {
-				border-radius: 2px;
-				overflow: hidden;
-				border: 1px solid transparent;
-				transition: all 0.3s ease-in-out;
-			}
-			.drawer-layout-active {
-				border: 1px solid;
-				border-color: var(--el-color-primary);
-			}
-			.layout-tips-warp,
-			.layout-tips-warp-active {
-				transition: all 0.3s ease-in-out;
-				position: absolute;
-				left: 50%;
-				top: 50%;
-				transform: translate(-50%, -50%);
-				border: 1px solid;
-				border-color: var(--el-color-primary-light-5);
-				border-radius: 100%;
-				padding: 4px;
-				.layout-tips-box {
-					transition: inherit;
-					width: 30px;
-					height: 30px;
-					z-index: 9;
-					border: 1px solid;
-					border-color: var(--el-color-primary-light-5);
-					border-radius: 100%;
-					.layout-tips-txt {
-						transition: inherit;
-						position: relative;
-						top: 5px;
-						font-size: 12px;
-						line-height: 1;
-						letter-spacing: 2px;
-						white-space: nowrap;
-						color: var(--el-color-primary-light-5);
-						text-align: center;
-						transform: rotate(30deg);
-						left: -1px;
-						background-color: var(--next-color-seting-main);
-						width: 32px;
-						height: 17px;
-						line-height: 17px;
-					}
-				}
-			}
-			.layout-tips-warp-active {
-				border: 1px solid;
-				border-color: var(--el-color-primary);
-				.layout-tips-box {
-					border: 1px solid;
-					border-color: var(--el-color-primary);
-					.layout-tips-txt {
-						color: var(--el-color-primary) !important;
-						background-color: var(--next-color-seting-main) !important;
-					}
-				}
-			}
-			&:hover {
-				.el-circular {
-					transition: all 0.3s ease-in-out;
-					border: 1px solid;
-					border-color: var(--el-color-primary);
-				}
-				.layout-tips-warp {
-					transition: all 0.3s ease-in-out;
-					border-color: var(--el-color-primary);
-					.layout-tips-box {
-						transition: inherit;
-						border-color: var(--el-color-primary);
-						.layout-tips-txt {
-							transition: inherit;
-							color: var(--el-color-primary) !important;
-							background-color: var(--next-color-seting-main) !important;
-						}
-					}
-				}
-			}
-		}
-	}
-	.copy-config {
-		margin: 10px 0;
-		.copy-config-btn {
-			width: 100%;
-			margin-top: 15px;
-		}
-		.copy-config-btn-reset {
-			width: 100%;
-			margin: 10px 0 0;
-		}
-	}
+    height: calc(100vh - 50px);
+    padding: 0 15px;
+
+    :deep(.el-scrollbar__view) {
+        overflow-x: hidden !important;
+    }
+
+    .layout-breadcrumb-seting-bar-flex {
+        display: flex;
+        align-items: center;
+        margin-bottom: 5px;
+
+        &-label {
+            flex: 1;
+            color: var(--el-text-color-primary);
+        }
+    }
+
+    .layout-drawer-content-flex {
+        overflow: hidden;
+        display: flex;
+        flex-wrap: wrap;
+        align-content: flex-start;
+        margin: 0 -5px;
+
+        .layout-drawer-content-item {
+            width: 50%;
+            height: 70px;
+            cursor: pointer;
+            border: 1px solid transparent;
+            position: relative;
+            padding: 5px;
+
+            .el-container {
+                height: 100%;
+
+                .el-aside-dark {
+                    background-color: var(--next-color-seting-header);
+                }
+
+                .el-aside {
+                    background-color: var(--next-color-seting-aside);
+                }
+
+                .el-header {
+                    background-color: var(--next-color-seting-header);
+                }
+
+                .el-main {
+                    background-color: var(--next-color-seting-main);
+                }
+            }
+
+            .el-circular {
+                border-radius: 2px;
+                overflow: hidden;
+                border: 1px solid transparent;
+                transition: all 0.3s ease-in-out;
+            }
+
+            .drawer-layout-active {
+                border: 1px solid;
+                border-color: var(--el-color-primary);
+            }
+
+            .layout-tips-warp,
+            .layout-tips-warp-active {
+                transition: all 0.3s ease-in-out;
+                position: absolute;
+                left: 50%;
+                top: 50%;
+                transform: translate(-50%, -50%);
+                border: 1px solid;
+                border-color: var(--el-color-primary-light-5);
+                border-radius: 100%;
+                padding: 4px;
+
+                .layout-tips-box {
+                    transition: inherit;
+                    width: 30px;
+                    height: 30px;
+                    z-index: 9;
+                    border: 1px solid;
+                    border-color: var(--el-color-primary-light-5);
+                    border-radius: 100%;
+
+                    .layout-tips-txt {
+                        transition: inherit;
+                        position: relative;
+                        top: 5px;
+                        font-size: 12px;
+                        line-height: 1;
+                        letter-spacing: 2px;
+                        white-space: nowrap;
+                        color: var(--el-color-primary-light-5);
+                        text-align: center;
+                        transform: rotate(30deg);
+                        left: -1px;
+                        background-color: var(--next-color-seting-main);
+                        width: 32px;
+                        height: 17px;
+                        line-height: 17px;
+                    }
+                }
+            }
+
+            .layout-tips-warp-active {
+                border: 1px solid;
+                border-color: var(--el-color-primary);
+
+                .layout-tips-box {
+                    border: 1px solid;
+                    border-color: var(--el-color-primary);
+
+                    .layout-tips-txt {
+                        color: var(--el-color-primary) !important;
+                        background-color: var(--next-color-seting-main) !important;
+                    }
+                }
+            }
+
+            &:hover {
+                .el-circular {
+                    transition: all 0.3s ease-in-out;
+                    border: 1px solid;
+                    border-color: var(--el-color-primary);
+                }
+
+                .layout-tips-warp {
+                    transition: all 0.3s ease-in-out;
+                    border-color: var(--el-color-primary);
+
+                    .layout-tips-box {
+                        transition: inherit;
+                        border-color: var(--el-color-primary);
+
+                        .layout-tips-txt {
+                            transition: inherit;
+                            color: var(--el-color-primary) !important;
+                            background-color: var(--next-color-seting-main) !important;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .copy-config {
+        margin: 10px 0;
+
+        .copy-config-btn {
+            width: 100%;
+            margin-top: 15px;
+        }
+
+        .copy-config-btn-reset {
+            width: 100%;
+            margin: 10px 0 0;
+        }
+    }
 }
 </style>

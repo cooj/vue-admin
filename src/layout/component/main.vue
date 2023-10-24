@@ -1,12 +1,11 @@
 <template>
-    <el-main class="layout-main" :style="isFixedHeader ? `height: calc(100% - ${setMainHeight})` : `minHeight: calc(100% - ${setMainHeight})`">
-        <el-scrollbar ref="layoutMainScrollbarRef"
-            class="layout-main-scroll layout-backtop-header-fixed"
-            wrap-class="layout-main-scroll"
-            view-class="layout-main-scroll">
+    <el-main class="layout-main"
+        :style="isFixedHeader ? `height: calc(100% - ${setMainHeight})` : `minHeight: calc(100% - ${setMainHeight})`">
+        <ElScrollbar ref="layoutMainScrollbarRef" class="layout-main-scroll layout-backtop-header-fixed"
+            wrap-class="layout-main-scroll" view-class="layout-main-scroll">
             <LayoutParentView />
             <LayoutFooter v-if="isFooter" />
-        </el-scrollbar>
+        </ElScrollbar>
         <el-backtop :target="setBacktopClass" />
     </el-main>
 </template>
@@ -15,16 +14,17 @@
 import { computed, defineAsyncComponent, onMounted, ref } from 'vue'
 import { useRoute } from 'vue-router'
 import { storeToRefs } from 'pinia'
-import { useTagsViewRoutes } from '/@/stores/tagsViewRoutes'
-import { useThemeConfig } from '/@/stores/themeConfig'
-import { NextLoading } from '/@/utils/loading'
+import { ElScrollbar } from 'element-plus'
+import { useTagsViewRoutes } from '@/stores/tagsViewRoutes'
+import { useThemeConfig } from '@/stores/themeConfig'
+import { NextLoading } from '@/utils/loading'
 
 // 引入组件
-const LayoutParentView = defineAsyncComponent(() => import('/@/layout/routerView/parent.vue'))
-const LayoutFooter = defineAsyncComponent(() => import('/@/layout/footer/index.vue'))
+const LayoutParentView = defineAsyncComponent(() => import('@/layout/route/parent.vue'))
+const LayoutFooter = defineAsyncComponent(() => import('@/layout/footer/index.vue'))
 
 // 定义变量内容
-const layoutMainScrollbarRef = ref()
+const layoutMainScrollbarRef = ref<InstanceType<typeof ElScrollbar>>()
 const route = useRoute()
 const storesTagsViewRoutes = useTagsViewRoutes()
 const storesThemeConfig = useThemeConfig()

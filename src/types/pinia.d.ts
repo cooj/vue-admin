@@ -65,9 +65,11 @@ declare interface ThemeConfigState {
         isShowLogo: boolean
         isShowLogoChange: boolean
         isBreadcrumb: boolean
-        isTagsview: boolean
         isBreadcrumbIcon: boolean
+        isTagsview: boolean
         isTagsviewIcon: boolean
+        isTagsView: boolean
+        isTagsViewIcon: boolean
         isCacheTagsView: boolean
         isSortableTagsView: boolean
         isShareTagsView: boolean
@@ -75,18 +77,18 @@ declare interface ThemeConfigState {
         isGrayscale: boolean
         isInvert: boolean
         isIsDark: boolean
-        isWartermark: boolean
-        wartermarkText: string
+        isWatermark: boolean
+        watermarkText: string
         tagsStyle: string
-        animation: string
-        columnsAsideStyle: string
-        columnsAsideLayout: string
-        layout: string
+        animation: 'slide-right' | 'slide-left' | 'opacity'
+        columnsAsideStyle: 'columns-round' | 'columns-card'
+        columnsAsideLayout: 'columns-horizontal' | 'columns-vertical'
+        layout: 'default' | 'classic' | 'transverse' | 'columns'
         isRequestRoutes: boolean
         globalTitle: string
         globalViceTitle: string
         globalViceTitleMsg: string
         globalI18n: string
-        globalComponentSize: string
+        globalComponentSize: 'large' | 'default' | 'small'
     }
 }

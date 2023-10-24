@@ -90,7 +90,7 @@ export const lazyImg = (el: string, arr: EmptyArrayType) => {
  * 全局组件大小
  * @returns 返回 `window.localStorage` 中读取的缓存值 `globalComponentSize`
  */
-export const globalComponentSize = (): "" | "default" | "small" | "large" => {
+export const globalComponentSize = (): '' | 'default' | 'small' | 'large' => {
     const stores = useThemeConfig(pinia)
     const { themeConfig } = storeToRefs(stores)
     return Local.get('themeConfig')?.globalComponentSize || themeConfig.value?.globalComponentSize

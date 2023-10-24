@@ -16,12 +16,8 @@
                     新增部门
                 </el-button>
             </div>
-            <el-table v-loading="state.tableData.loading"
-                :data="state.tableData.data"
-                style="width: 100%"
-                row-key="id"
-                default-expand-all
-                :tree-props="{ children: 'children', hasChildren: 'hasChildren' }">
+            <el-table v-loading="state.tableData.loading" :data="state.tableData.data" style="width: 100%" row-key="id"
+                default-expand-all :tree-props="{ children: 'children', hasChildren: 'hasChildren' }">
                 <el-table-column prop="deptName" label="部门名称" show-overflow-tooltip />
                 <el-table-column label="排序" show-overflow-tooltip width="80">
                     <template #default="scope">
@@ -134,7 +130,7 @@ const onTabelRowDel = (row: DeptTreeType) => {
             getTableData()
             ElMessage.success('删除成功')
         })
-        .catch(() => {})
+        .catch(() => { })
 }
 // 页面加载时
 onMounted(() => {
