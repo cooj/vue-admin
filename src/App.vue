@@ -22,7 +22,8 @@ import setIntroduction from '/@/utils/setIconfont'
 
 // 引入组件
 const LockScreen = defineAsyncComponent(() => import('/@/layout/lockScreen/index.vue'))
-const Settings = defineAsyncComponent(() => import('/@/layout/navBars/topBar/setings.vue'))
+// const Settings = defineAsyncComponent(() => import('/@/layout/navBars/topBar/setings.vue'))
+const Settings = defineAsyncComponent(() => import('/@/layout/component/settings.vue'))
 const CloseFull = defineAsyncComponent(() => import('/@/layout/navBars/topBar/closeFull.vue'))
 // const Upgrade = defineAsyncComponent(() => import('/@/layout/upgrade/index.vue'))
 
@@ -67,13 +68,15 @@ onMounted(() => {
             settingRef.value?.openDrawer()
         })
         // 获取缓存中的布局配置
-        if (Local.get('themeConfig')) {
-            storesThemeConfig.setThemeConfig({ themeConfig: Local.get('themeConfig') })
-            document.documentElement.style.cssText = Local.get('themeConfigStyle')
+        const localTheme = Local.get<ThemeConfigState['themeConfig']>('themeConfig')
+        if (localTheme) {
+            storesThemeConfig.setThemeConfig({ themeConfig: localTheme })
+            document.documentElement.style.cssText = Local.get('themeConfigStyle') || ''
         }
         // 获取缓存中的全屏配置
-        if (Session.get('isTagsViewCurrenFull')) {
-            stores.setCurrenFullscreen(Session.get('isTagsViewCurrenFull'))
+        const sessionFull = Session.get<TagsViewRoutesState['isTagsViewCurrenFull']>('isTagsViewCurrenFull')
+        if (sessionFull) {
+            stores.setCurrenFullscreen(sessionFull)
         }
     })
 })

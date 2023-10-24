@@ -8,9 +8,9 @@ import { defineStore } from 'pinia'
  * 1、需要每次都清理 `window.localStorage` 浏览器永久缓存
  * 2、或者点击布局配置最底部 `一键恢复默认` 按钮即可看到效果
  */
-export const useThemeConfig = defineStore('themeConfig', {
+export const useThemeConfigs = defineStore('themeConfigs', {
     state: (): ThemeConfigState => ({
-        isDrawer: true, // 是否打开布局配置弹层
+        isDrawer: false, // 是否打开布局配置弹层
         themeConfig: {
             // 是否开启布局配置抽屉
             isDrawer: false,

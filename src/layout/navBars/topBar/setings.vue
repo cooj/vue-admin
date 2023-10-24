@@ -781,19 +781,19 @@ defineExpose({
                 height: 100%;
 
                 .el-aside-dark {
-                    background-color: var(--next-color-seting-header);
+                    background-color: var(--next-color-setting-header);
                 }
 
                 .el-aside {
-                    background-color: var(--next-color-seting-aside);
+                    background-color: var(--next-color-setting-aside);
                 }
 
                 .el-header {
-                    background-color: var(--next-color-seting-header);
+                    background-color: var(--next-color-setting-header);
                 }
 
                 .el-main {
-                    background-color: var(--next-color-seting-main);
+                    background-color: var(--next-color-setting-main);
                 }
             }
 
@@ -842,7 +842,7 @@ defineExpose({
                         text-align: center;
                         transform: rotate(30deg);
                         left: -1px;
-                        background-color: var(--next-color-seting-main);
+                        background-color: var(--next-color-setting-main);
                         width: 32px;
                         height: 17px;
                         line-height: 17px;
@@ -860,7 +860,7 @@ defineExpose({
 
                     .layout-tips-txt {
                         color: var(--el-color-primary) !important;
-                        background-color: var(--next-color-seting-main) !important;
+                        background-color: var(--next-color-setting-main) !important;
                     }
                 }
             }
@@ -883,7 +883,7 @@ defineExpose({
                         .layout-tips-txt {
                             transition: inherit;
                             color: var(--el-color-primary) !important;
-                            background-color: var(--next-color-seting-main) !important;
+                            background-color: var(--next-color-setting-main) !important;
                         }
                     }
                 }

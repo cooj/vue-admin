@@ -27,7 +27,7 @@ declare interface MittType<T = any> {
 
 // mitt 参数类型定义
 declare interface LayoutMobileResize {
-    layout: string
+    layout: ThemeConfigState['themeConfig']['layout']
     clientWidth: number
 }
 

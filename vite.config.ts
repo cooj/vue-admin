@@ -26,13 +26,14 @@ const viteConfig = defineConfig((mode: ConfigEnv) => {
                 imports: [
                     'vue',
                     'vue-router',
-                    '@vueuse/head',
+                    // '@vueuse/head',
                     '@vueuse/core',
                 ],
                 dts: 'src/types/auto-imports.d.ts',
                 dirs: [
                     'src/composables',
                     'src/stores',
+                    'src/stores/base',
                     'src/utils/base',
                 ],
                 vueTemplate: true,
