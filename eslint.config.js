@@ -3,10 +3,10 @@ import unocss from '@unocss/eslint-plugin'
 
 export default antfu(
     {
-        // stylistic: {
-        //     indent: 'tab', // 4, or 'tab'
-        //     quotes: 'single', // or 'double'
-        // },
+        stylistic: {
+            indent: 4, // 4, or 'tab'
+            quotes: 'single', // or 'double'
+        },
         // `.eslintignore` is no longer supported in Flat config, use `ignores` instead
         ignores: [
             '*.sh',
@@ -32,13 +32,13 @@ export default antfu(
     {
         rules: {
             // 保存代码时缩进4个空格
-            'indent': [
-                'error',
-                4,
-                {
-                    SwitchCase: 1,
-                },
-            ],
+            // 'indent': [
+            //     'error',
+            //     4,
+            //     {
+            //         SwitchCase: 1,
+            //     },
+            // ],
             // 'indent': ['error', 4],
             'no-console': [
                 'warn',
@@ -50,8 +50,9 @@ export default antfu(
             // 'brace-style': ['error', '1tbs', { allowSingleLine: true }],
             'style/brace-style': ['error', '1tbs', { allowSingleLine: true }],
 
-            'jsonc/indent': ['error', 4],
-            'style/indent': ['error', 4],
+            // 'jsonc/indent': ['error', 4],
+            // 'style/indent': ['error', 4],
+
             // '@typescript-eslint/brace-style': [
             //     'error',
             //     '1tbs',

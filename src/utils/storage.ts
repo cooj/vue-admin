@@ -18,9 +18,9 @@ export const Local = {
         window.localStorage.setItem(Local.setKey(key), JSON.stringify(val))
     },
     // 获取永久缓存
-    get<T = unknown>(key: string): T {
-        const json = <string>window.localStorage.getItem(Local.setKey(key))
-        return JSON.parse(json)
+    get<T = unknown>(key: string): T | null {
+        const json = window.localStorage.getItem(Local.setKey(key))
+        return json ? JSON.parse(json) : json
     },
     // 移除永久缓存
     remove(key: string) {
@@ -46,10 +46,10 @@ export const Session = {
         window.sessionStorage.setItem(Local.setKey(key), JSON.stringify(val))
     },
     // 获取临时缓存
-    get<T = unknown>(key: string): T {
+    get<T = unknown>(key: string): T | null {
         // if (key === 'token') return Cookies.get(key)
-        const json = <string>window.sessionStorage.getItem(Local.setKey(key))
-        return JSON.parse(json)
+        const json = window.sessionStorage.getItem(Local.setKey(key))
+        return json ? JSON.parse(json) : json
     },
     // 移除临时缓存
     remove(key: string) {
