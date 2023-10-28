@@ -21,7 +21,7 @@ export const Local = {
     get<T = unknown>(key: string): T | null {
         const json = window.localStorage.getItem(Local.setKey(key))
         try {
-            return JSON.parse(json as string) 
+            return JSON.parse(json as string)
         } catch (err) {
             return json as T
         }

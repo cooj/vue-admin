@@ -1,5 +1,5 @@
 <template>
-    <div v-show="!isTagsViewCurrenFull" class="h100">
+    <div v-show="!isTagsViewCurrenFull" class="h100%">
         <el-aside class="layout-aside" :class="setCollapseStyle">
             <Logo v-if="setShowLogo" />
             <el-scrollbar ref="layoutAsideScrollbarRef" class="flex-auto" @mouseenter="onAsideEnterLeave(true)"
@@ -32,6 +32,18 @@ const state = reactive<AsideState>({
     clientWidth: 0,
 })
 
+// 关闭移动端蒙版
+const closeLayoutAsideMobileMode = () => {
+    const el = document.querySelector('.layout-aside-mobile-mode')
+    el?.setAttribute('style', 'animation: error-img-two 0.3s')
+    setTimeout(() => {
+        el?.parentNode?.removeChild(el)
+    }, 300)
+    const clientWidth = document.body.clientWidth
+    if (clientWidth < 1000) themeConfig.value.isCollapse = false
+    document.body.setAttribute('class', '')
+}
+
 // 设置菜单展开/收起时的宽度
 const setCollapseStyle = computed(() => {
     const { layout, isCollapse, menuBar } = themeConfig.value
@@ -56,11 +68,11 @@ const setCollapseStyle = computed(() => {
         if (layout === 'columns' || layout === 'classic') {
             // 分栏布局、经典布局，菜单收起时宽度给 1px，防止切换动画消失
             if (isCollapse) return [asideBrColor, 'layout-aside-pc-1']
-            else return [asideBrColor, 'layout-aside-pc-220']
+            else return [asideBrColor, 'layout-aside-pc']
         } else {
             // 其它布局给 64px
             if (isCollapse) return [asideBrColor, 'layout-aside-pc-64']
-            else return [asideBrColor, 'layout-aside-pc-220']
+            else return [asideBrColor, 'layout-aside-pc']
         }
     }
 })
@@ -69,17 +81,7 @@ const setShowLogo = computed(() => {
     const { layout, isShowLogo } = themeConfig.value
     return (isShowLogo && layout === 'default') || (isShowLogo && layout === 'columns')
 })
-// 关闭移动端蒙版
-const closeLayoutAsideMobileMode = () => {
-    const el = document.querySelector('.layout-aside-mobile-mode')
-    el?.setAttribute('style', 'animation: error-img-two 0.3s')
-    setTimeout(() => {
-        el?.parentNode?.removeChild(el)
-    }, 300)
-    const clientWidth = document.body.clientWidth
-    if (clientWidth < 1000) themeConfig.value.isCollapse = false
-    document.body.setAttribute('class', '')
-}
+
 // 设置/过滤路由（非静态路由/是否显示在菜单中）
 const setFilterRoutes = () => {
     if (themeConfig.value.layout === 'columns') return false

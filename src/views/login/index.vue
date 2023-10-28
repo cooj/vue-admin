@@ -1,7 +1,7 @@
 <template>
     <div class="h100% flex items-center justify-center">
         <div class="w700px flex">
-            <div class="flex-margin login-right-warp">
+            <div class="login-right-warp flex-margin">
                 <span class="login-right-warp-one" />
                 <span class="login-right-warp-two" />
                 <div class="login-right-warp-main">

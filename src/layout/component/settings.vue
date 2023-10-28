@@ -460,7 +460,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, nextTick, onMounted, onUnmounted, reactive } from 'vue'
+import { nextTick, onMounted, onUnmounted, reactive } from 'vue'
 import { ElMessage } from 'element-plus'
 import { storeToRefs } from 'pinia'
 import { useChangeColor } from '@/utils/theme'
@@ -788,4 +788,5 @@ defineExpose({
         background-color: var(--next-color-setting-main);
     }
 
-}</style>
+}
+</style>

@@ -30,7 +30,7 @@
                 <span>登 录</span>
             </el-button>
         </el-form-item>
-        <div class="login-animation4 login-msg mt30 font12">
+        <div class="login-animation4 login-msg mt30px text-12px">
             * 温馨提示：建议使用谷歌、Microsoft Edge，版本 79.0.1072.62 及以上浏览器，360浏览器请使用极速模式
         </div>
     </el-form>

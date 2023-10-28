@@ -9,7 +9,7 @@
                     <div v-if="!v.meta.isLink || (v.meta.isLink && v.meta.isIframe)"
                         :class="themeConfig.columnsAsideLayout">
                         <SvgIcon :name="v.meta.icon" />
-                        <div class="columns-vertical-title font12">
+                        <div class="columns-vertical-title text-12px">
                             {{
                                 v.meta.title && v.meta.title.length >= 4
                                     ? v.meta.title.substr(0, themeConfig.columnsAsideLayout === 'columns-vertical' ? 4 : 3)
@@ -20,7 +20,7 @@
                     <div v-else :class="themeConfig.columnsAsideLayout">
                         <a :href="v.meta.isLink" target="_blank">
                             <SvgIcon :name="v.meta.icon" />
-                            <div class="columns-vertical-title font12">
+                            <div class="columns-vertical-title text-12px">
                                 {{
                                     v.meta.title && v.meta.title.length >= 4
                                         ? v.meta.title.substr(0, themeConfig.columnsAsideLayout === 'columns-vertical' ? 4 : 3)
@@ -70,6 +70,21 @@ const setColumnsAsideMove = (k: number) => {
     if (columnsAsideOffsetTopRefs.value) columnsAsideActiveRef.value.style.top = `${columnsAsideOffsetTopRefs.value[k].offsetTop + state.difference}px`
 }
 
+// 传送当前子级数据到菜单中
+const setSendChildren = (path: string) => {
+    const currentPathSplit = path.split('/')
+    const currentData: MittMenu = { children: [] }
+    state.columnsAsideList.forEach((v: RouteItem, k: number) => {
+        if (v.path === `/${currentPathSplit[1]}`) {
+            v.k = k
+            currentData.item = { ...v }
+            currentData.children = [{ ...v }]
+            if (v.children) currentData.children = v.children
+        }
+    })
+    return currentData
+}
+
 // 鼠标移入时，显示当前的子级菜单
 const onColumnsAsideMenuMouseenter = (v: RouteRecordRaw, k: number) => {
     if (!themeConfig.value.isColumnsMenuHoverPreload) return false
@@ -113,20 +128,6 @@ const setFilterRoutes = () => {
     setTimeout(() => {
         mittBus.emit('setSendColumnsChildren', resData)
     }, 500)
-}
-// 传送当前子级数据到菜单中
-const setSendChildren = (path: string) => {
-    const currentPathSplit = path.split('/')
-    const currentData: MittMenu = { children: [] }
-    state.columnsAsideList.forEach((v: RouteItem, k: number) => {
-        if (v.path === `/${currentPathSplit[1]}`) {
-            v.k = k
-            currentData.item = { ...v }
-            currentData.children = [{ ...v }]
-            if (v.children) currentData.children = v.children
-        }
-    })
-    return currentData
 }
 
 // tagsView 点击时，根据路由查找下标 columnsAsideList，实现左侧菜单高亮

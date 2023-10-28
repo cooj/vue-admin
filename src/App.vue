@@ -16,7 +16,6 @@ import { storeToRefs } from 'pinia'
 import { useTagsViewRoutes } from '/@/stores/tagsViewRoutes'
 import other from '/@/utils/other'
 import { Local, Session } from '/@/utils/storage'
-import mittBus from '/@/utils/mitt'
 import setIntroduction from '/@/utils/setIconfont'
 
 // 引入组件

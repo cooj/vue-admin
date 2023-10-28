@@ -1,37 +1,37 @@
 <template>
     <div class="login-scan-container">
-        <div ref="qrcodeRef"></div>
-        <div class="font12 mt20 login-msg">
-            <i class="iconfont icon-saoyisao mr5"></i>
+        <div ref="codeRef" />
+        <div class="login-msg mt20px text-12px">
+            <i class="iconfont icon-saoyisao mr5px" />
             <span>打开手机扫一扫，快速登录/注册</span>
         </div>
     </div>
 </template>
 
 <script setup lang="ts" name="loginScan">
-import { ref, onMounted, nextTick } from 'vue';
-import QRCode from 'qrcodejs2-fixes';
+import { nextTick, onMounted, ref } from 'vue'
+import QRCode from 'qrcodejs2-fixes'
 
 // 定义变量内容
-const qrcodeRef = ref<HTMLElement | null>(null);
+const codeRef = ref<HTMLElement | null>(null)
 
 // 初始化生成二维码
-const initQrcode = () => {
+const initQrCode = () => {
     nextTick(() => {
-        (<HTMLElement>qrcodeRef.value).innerHTML = '';
-        new QRCode(qrcodeRef.value, {
+        codeRef.value!.innerHTML = ''
+        const code = new QRCode(codeRef.value, {
             text: `https://qm.qq.com/cgi-bin/qm/qr?k=RdUY97Vx0T0vZ_1OOu-X1yFNkWgDwbjC&jump_from=webapi`,
             width: 260,
             height: 260,
             colorDark: '#000000',
             colorLight: '#ffffff',
-        });
-    });
-};
+        })
+    })
+}
 // 页面加载时
 onMounted(() => {
-    initQrcode();
-});
+    initQrCode()
+})
 </script>
 
 <style scoped lang="scss">
@@ -62,4 +62,5 @@ onMounted(() => {
         @extend .login-scan-animation;
         animation-delay: 0.2s;
     }
-}</style>
+}
+</style>

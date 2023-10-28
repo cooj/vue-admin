@@ -31,7 +31,7 @@ const onThemeConfigChange = () => {
 
 <style scoped lang="scss">
 .layout-logo {
-    width: 220px;
+    min-width: var(--el-aside-width);
     height: 50px;
     display: flex;
     align-items: center;

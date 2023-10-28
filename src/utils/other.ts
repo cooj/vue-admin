@@ -4,7 +4,6 @@ import * as svg from '@element-plus/icons-vue'
 import router from '/@/router/index'
 import pinia from '/@/stores/index'
 import { storeToRefs } from 'pinia'
-import { Local } from '/@/utils/storage'
 import { verifyUrl } from '/@/utils/toolsValidate'
 
 // 引入组件

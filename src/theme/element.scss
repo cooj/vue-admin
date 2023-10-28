@@ -73,7 +73,7 @@
 // 默认样式修改
 .el-menu {
 	border-right: none !important;
-	width: 220px;
+	// width: 220px;
 }
 .el-menu-item {
 	height: 56px !important;
@@ -81,6 +81,7 @@
 }
 .el-menu-item,
 .el-sub-menu__title {
+    --el-menu-text-color:var(--next-bg-menuBarColor);
 	color: var(--next-bg-menuBarColor);
 }
 // 修复点击左侧菜单折叠再展开时，宽度不跟随问题

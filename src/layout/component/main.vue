@@ -46,8 +46,8 @@ const setBacktopClass = computed(() => {
 // 设置主内容区的高度
 const setMainHeight = computed(() => {
     if (isTagsViewCurrenFull.value) return '0px'
-    const { isTagsview, layout } = themeConfig.value
-    if (isTagsview && layout !== 'classic') return '85px'
+    const { isTagsView, layout } = themeConfig.value
+    if (isTagsView && layout !== 'classic') return '85px'
     else return '51px'
 })
 // 页面加载前

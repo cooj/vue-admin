@@ -1,5 +1,5 @@
 <template>
-    <div class="icon-selector h100 w100">
+    <div class="icon-selector h100% w100%">
         <el-input ref="inputWidthRef" v-model="state.fontIconSearch" :placeholder="state.fontIconPlaceholder"
             :clearable="clearable" :disabled="disabled" :size="size" @clear="onClearFontIcon" @focus="onIconFocus"
             @blur="onIconBlur">
