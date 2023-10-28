@@ -112,7 +112,7 @@ const onColumnsAsideDown = (k: number) => {
 }
 // 设置只有一个路由时设置自动收起菜单
 // https://gitee.com/lyt-top/vue-next-admin/issues/I6UW2I
-const setMenuAutoCollaps = (path: string) => {
+const setMenuAutoCollapse = (path: string) => {
     const resData: MittMenu = setSendChildren(path)
     // https://gitee.com/lyt-top/vue-next-admin/issues/I6HW7H
     resData.children.length <= 1 ? (themeConfig.value.isCollapse = true) : (themeConfig.value.isCollapse = false)
@@ -121,7 +121,7 @@ const setMenuAutoCollaps = (path: string) => {
 // 设置/过滤路由（非静态路由/是否显示在菜单中）
 const setFilterRoutes = () => {
     state.columnsAsideList = filterRoutesFunc(routesList.value)
-    const resData: MittMenu = setMenuAutoCollaps(route.path)
+    const resData: MittMenu = setMenuAutoCollapse(route.path)
     onColumnsAsideDown(resData.item?.k)
     // 延迟 500 毫秒更新，防止 aside.vue 组件 setSendColumnsChildren 还没有注册
     setTimeout(() => {
@@ -181,7 +181,7 @@ onUnmounted(() => {
 })
 // 路由更新时
 onBeforeRouteUpdate((to) => {
-    const resData = setMenuAutoCollaps(to.path)
+    const resData = setMenuAutoCollapse(to.path)
     setColumnsMenuHighlight(to.path)
     mittBus.emit('setSendColumnsChildren', resData)
 })

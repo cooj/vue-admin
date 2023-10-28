@@ -1,11 +1,9 @@
 // 通用函数
-import useClipboard from 'vue-clipboard3'
+
 import { ElMessage } from 'element-plus'
 import { formatDate } from '/@/utils/formatTime'
 
 export default function () {
-    const { toClipboard } = useClipboard()
-
     // 百分比格式化
     const percentFormat = (row: EmptyArrayType, column: number, cellValue: string) => {
         return cellValue ? `${cellValue}%` : '-'
@@ -36,22 +34,7 @@ export default function () {
     const scale2Format = (value: string = '0') => {
         return Number.parseFloat(value).toFixed(2)
     }
-    // 点击复制文本
-    const copyText = (text: string) => {
-        return new Promise((resolve, reject) => {
-            try {
-                // 复制
-                toClipboard(text)
-                // 下面可以设置复制成功的提示框等操作
-                ElMessage.success('复制成功!')
-                resolve(text)
-            } catch (e) {
-                // 复制失败
-                ElMessage.error('复制失败!')
-                reject(e)
-            }
-        })
-    }
+
     return {
         percentFormat,
         dateFormatYMD,
@@ -59,6 +42,5 @@ export default function () {
         dateFormatHMS,
         scaleFormat,
         scale2Format,
-        copyText,
     }
 }

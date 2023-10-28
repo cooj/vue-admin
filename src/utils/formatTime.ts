@@ -39,13 +39,15 @@ export function formatDate(date: Date, format: string): string {
         3: '三',
         4: '四',
     }
-    if (/(W+)/.test(format)) { format = format.replace(RegExp.$1, RegExp.$1.length > 1 ? (RegExp.$1.length > 2 ? `星期${week[we]}` : `周${week[we]}`) : week[we]) }
-    if (/(Q+)/.test(format)) format = format.replace(RegExp.$1, RegExp.$1.length == 4 ? `第${quarter[qut]}季度` : quarter[qut])
-    if (/(Z+)/.test(format)) format = format.replace(RegExp.$1, RegExp.$1.length == 3 ? `第${z}周` : `${z}`)
+    if (/(W+)/.test(format)) {
+        format = format.replace(RegExp.$1, RegExp.$1.length > 1 ? (RegExp.$1.length > 2 ? `星期${week[we]}` : `周${week[we]}`) : week[we])
+    }
+    if (/(Q+)/.test(format)) format = format.replace(RegExp.$1, RegExp.$1.length === 4 ? `第${quarter[qut]}季度` : quarter[qut])
+    if (/(Z+)/.test(format)) format = format.replace(RegExp.$1, RegExp.$1.length === 3 ? `第${z}周` : `${z}`)
     for (const k in opt) {
         const r = new RegExp(`(${k})`).exec(format)
         // 若输入的长度不为1，则前面补零
-        if (r) format = format.replace(r[1], RegExp.$1.length == 1 ? opt[k] : opt[k].padStart(RegExp.$1.length, '0'))
+        if (r) format = format.replace(r[1], RegExp.$1.length === 1 ? opt[k] : opt[k].padStart(RegExp.$1.length, '0'))
     }
     return format
 }
@@ -64,7 +66,7 @@ export function getWeek(dateTime: Date): number {
     let firstDay = new Date(temptTime.getFullYear(), 0, 1)
     const dayOfWeek = firstDay.getDay()
     let spendDay = 1
-    if (dayOfWeek != 0) spendDay = 7 - dayOfWeek + 1
+    if (dayOfWeek !== 0) spendDay = 7 - dayOfWeek + 1
     firstDay = new Date(temptTime.getFullYear(), 0, 1 + spendDay)
     const d = Math.ceil((temptTime.valueOf() - firstDay.valueOf()) / 86400000)
     const result = Math.ceil(d / 7)

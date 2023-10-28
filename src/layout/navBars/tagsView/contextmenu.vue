@@ -1,19 +1,11 @@
 <template>
     <transition name="el-zoom-in-center">
-        <div v-show="state.isShow"
-            :key="Math.random()"
-            aria-hidden="true"
-            class="el-dropdown__popper el-popper is-light is-pure custom-contextmenu"
-            role="tooltip"
-            data-popper-placement="bottom"
-            :style="`top: ${dropdowns.y + 5}px;left: ${dropdowns.x}px;`">
+        <div v-show="state.isShow" :key="Math.random()" aria-hidden="true"
+            class="el-dropdown__popper el-popper is-light is-pure custom-contextmenu" role="tooltip"
+            data-popper-placement="bottom" :style="`top: ${dropdowns.y + 5}px;left: ${dropdowns.x}px;`">
             <ul class="el-dropdown-menu">
                 <template v-for="(v, k) in state.dropdownList">
-                    <li v-if="!v.affix"
-                        :key="k"
-                        class="el-dropdown-menu__item"
-                        aria-disabled="false"
-                        tabindex="-1"
+                    <li v-if="!v.affix" :key="k" class="el-dropdown-menu__item" aria-disabled="false" tabindex="-1"
                         @click="onCurrentContextmenuClick(v.contextMenuClickId)">
                         <SvgIcon :name="v.icon" />
                         <span>{{ v.txt }}</span>
@@ -74,6 +66,10 @@ const dropdowns = computed(() => {
 const onCurrentContextmenuClick = (contextMenuClickId: number) => {
     emit('currentContextmenuClick', Object.assign({}, { contextMenuClickId }, state.item))
 }
+// 关闭右键菜单
+const closeContextmenu = () => {
+    state.isShow = false
+}
 // 打开右键菜单：判断是否固定，固定则不显示关闭按钮
 const openContextmenu = (item: RouteItem) => {
     state.item = item
@@ -83,10 +79,7 @@ const openContextmenu = (item: RouteItem) => {
         state.isShow = true
     }, 10)
 }
-// 关闭右键菜单
-const closeContextmenu = () => {
-    state.isShow = false
-}
+
 // 监听页面监听进行右键菜单的关闭
 onMounted(() => {
     document.body.addEventListener('click', closeContextmenu)
@@ -115,15 +108,17 @@ defineExpose({
 
 <style scoped lang="scss">
 .custom-contextmenu {
-	transform-origin: center top;
-	z-index: 2190;
-	position: fixed;
-	.el-dropdown-menu__item {
-		font-size: 12px !important;
-		white-space: nowrap;
-		i {
-			font-size: 12px !important;
-		}
-	}
+    transform-origin: center top;
+    z-index: 2190;
+    position: fixed;
+
+    .el-dropdown-menu__item {
+        font-size: 12px !important;
+        white-space: nowrap;
+
+        i {
+            font-size: 12px !important;
+        }
+    }
 }
 </style>

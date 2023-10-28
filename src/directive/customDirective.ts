@@ -13,7 +13,8 @@ export function wavesDirective(app: App) {
             function setConvertStyle(obj: { [key: string]: unknown }) {
                 let style: string = ''
                 for (const i in obj) {
-                    if (obj.hasOwnProperty(i)) style += `${i}:${obj[i]};`
+                    // if (obj.hasOwnProperty(i)) style += `${i}:${obj[i]};`
+                    if (Object.prototype.hasOwnProperty.call(obj, i)) style += `${i}:${obj[i]};`
                 }
                 return style
             }
@@ -48,7 +49,7 @@ export function wavesDirective(app: App) {
             el.addEventListener('mousedown', onCurrentClick, false)
         },
         unmounted(el) {
-            el.addEventListener('mousedown', () => {})
+            el.addEventListener('mousedown', () => { })
         },
     })
 }

@@ -10,16 +10,16 @@ import { ElMessage } from 'element-plus'
 export function useChangeColor() {
     // str 颜色值字符串
     const hexToRgb = (str: string): any => {
-        let hexs: any = ''
+        let hex: any = ''
         const reg = /^\#?[0-9A-Fa-f]{6}$/
         if (!reg.test(str)) {
             ElMessage.warning('输入错误的hex')
             return ''
         }
         str = str.replace('#', '')
-        hexs = str.match(/../g)
-        for (let i = 0; i < 3; i++) hexs[i] = Number.parseInt(hexs[i], 16)
-        return hexs
+        hex = str.match(/../g)
+        for (let i = 0; i < 3; i++) hex[i] = Number.parseInt(hex[i], 16)
+        return hex
     }
     // r 代表红色 | g 代表绿色 | b 代表蓝色
     const rgbToHex = (r: any, g: any, b: any): string => {
@@ -28,9 +28,9 @@ export function useChangeColor() {
             ElMessage.warning('输入错误的rgb颜色值')
             return ''
         }
-        const hexs = [r.toString(16), g.toString(16), b.toString(16)]
-        for (let i = 0; i < 3; i++) if (hexs[i].length === 1) hexs[i] = `0${hexs[i]}`
-        return `#${hexs.join('')}`
+        const hex = [r.toString(16), g.toString(16), b.toString(16)]
+        for (let i = 0; i < 3; i++) if (hex[i].length === 1) hex[i] = `0${hex[i]}`
+        return `#${hex.join('')}`
     }
     // color 颜色值字符串 | level 变浅的程度，限0-1之间
     const getDarkColor = (color: string, level: number): string => {
