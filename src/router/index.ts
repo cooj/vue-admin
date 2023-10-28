@@ -3,7 +3,6 @@ import NProgress from 'nprogress'
 import 'nprogress/nprogress.css'
 import { storeToRefs } from 'pinia'
 import pinia from '@/stores/index'
-import { useKeepALiveNames } from '@/stores/keepAliveNames'
 import { Session } from '@/utils/storage'
 import { notFoundAndNoPower, staticRoutes } from '@/router/route'
 import { initFrontEndControlRoutes } from '@/router/frontEnd'
@@ -81,7 +80,7 @@ export function formatTwoStageRoutes(arr: any) {
             if (newArr[0].meta.isKeepAlive && v.meta.isKeepAlive) {
                 cacheList.push(v.name)
                 const stores = useKeepALiveNames(pinia)
-                stores.setCacheKeepAlive(cacheList)
+                stores.setKeepAliveNames(cacheList)
             }
         }
     })

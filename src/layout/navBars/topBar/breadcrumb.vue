@@ -24,6 +24,7 @@
 
 <script setup lang="ts" name="layoutBreadcrumb">
 import { computed, onMounted, reactive } from 'vue'
+import type { RouteRecordRaw } from 'vue-router'
 import { onBeforeRouteUpdate, useRoute, useRouter } from 'vue-router'
 import { Local } from '/@/utils/storage'
 import other from '/@/utils/other'
@@ -44,8 +45,8 @@ const state = reactive<BreadcrumbState>({
 })
 
 // 处理面包屑数据
-const getBreadcrumbList = (list: RouteItem[]) => {
-    list.forEach((item: RouteItem) => {
+const getBreadcrumbList = (list: RouteRecordRaw[]) => {
+    list.forEach((item) => {
         state.routeSplit.forEach((v: string, k: number, arr: string[]) => {
             if (state.routeSplitFirst === item.path) {
                 state.routeSplitFirst += `/${arr[state.routeSplitIndex]}`

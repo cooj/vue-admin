@@ -2,6 +2,7 @@ import { defineStore } from 'pinia'
 import { Session } from '@/utils/storage'
 import { ApiMenu } from '@/api/system/menu'
 import { ApiUser } from '@/api/system/user'
+import { deepClone } from '/@/utils/other'
 
 /**
  * 用户信息
@@ -13,6 +14,9 @@ export const useUserInfo = defineStore('userInfo', () => {
 
     // 权限菜单
     const menuList = ref<any[]>([])
+
+    // 存储接口原始路由（未处理的component）
+    const oldMenuList = ref<any[]>([])
 
     /**
      * 获取用户的权限菜单
@@ -114,6 +118,7 @@ export const useUserInfo = defineStore('userInfo', () => {
                 ],
             },
         ]
+        oldMenuList.value = deepClone(list)
 
         // 设置路由数据
         menuList.value = list

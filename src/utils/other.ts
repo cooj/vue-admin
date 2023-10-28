@@ -89,10 +89,10 @@ export const lazyImg = (el: string, arr: EmptyArrayType) => {
  * @param obj 源对象
  * @returns 克隆后的对象
  */
-export function deepClone(obj: EmptyObjectType) {
-    let newObj: EmptyObjectType
+export function deepClone<T = any>(obj: T): T {
+    let newObj: any
     try {
-        newObj = obj.push ? [] : {}
+        newObj = Array.isArray(obj) ? [] : {}
     } catch (error) {
         newObj = {}
     }

@@ -32,7 +32,6 @@ import { onBeforeRouteUpdate, useRoute, useRouter } from 'vue-router'
 import Sortable from 'sortablejs'
 import { ElMessage } from 'element-plus'
 import { storeToRefs } from 'pinia'
-import { useKeepALiveNames } from '/@/stores/keepAliveNames'
 import { Session } from '/@/utils/storage'
 import { isObjectValueEqual } from '/@/utils/arrayOperation'
 import other from '/@/utils/other'
@@ -160,6 +159,7 @@ const solveAddTagsView = async (path: string, to?: RouteToFrom) => {
         to?.meta?.isDynamic ? (findItem.params = to.params) : (findItem.query = to?.query)
         findItem.url = setTagsViewHighlight(findItem)
         state.tagsViewList.push({ ...findItem })
+
         await storesKeepALiveNames.addCachedView(findItem)
         addBrowserSetSession(state.tagsViewList)
     }
