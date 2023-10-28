@@ -14,7 +14,6 @@ import { useRoute } from 'vue-router'
 import zhCn from 'element-plus/es/locale/lang/zh-cn'
 import { storeToRefs } from 'pinia'
 import { useTagsViewRoutes } from '/@/stores/tagsViewRoutes'
-import { useThemeConfig } from '/@/stores/themeConfig'
 import other from '/@/utils/other'
 import { Local, Session } from '/@/utils/storage'
 import mittBus from '/@/utils/mitt'
@@ -22,7 +21,6 @@ import setIntroduction from '/@/utils/setIconfont'
 
 // 引入组件
 const LockScreen = defineAsyncComponent(() => import('/@/layout/lockScreen/index.vue'))
-// const Settings = defineAsyncComponent(() => import('/@/layout/navBars/topBar/setings.vue'))
 const Settings = defineAsyncComponent(() => import('/@/layout/component/settings.vue'))
 const CloseFull = defineAsyncComponent(() => import('/@/layout/navBars/topBar/closeFull.vue'))
 // const Upgrade = defineAsyncComponent(() => import('/@/layout/upgrade/index.vue'))
@@ -51,7 +49,8 @@ const getVersion = computed(() => {
 })
 // 获取全局组件大小
 const getGlobalComponentSize = computed(() => {
-    return other.globalComponentSize()
+    const clientWidth = document.body.clientWidth
+    return clientWidth < 1000 ? 'small' : themeConfig.value.globalComponentSize
 })
 // 设置初始化，防止刷新时恢复默认
 onBeforeMount(() => {
@@ -63,14 +62,11 @@ onBeforeMount(() => {
 // 页面加载时
 onMounted(() => {
     nextTick(() => {
-        // 监听布局配'置弹窗点击打开
-        mittBus.on('openSetingsDrawer', () => {
-            settingRef.value?.openDrawer()
-        })
         // 获取缓存中的布局配置
-        const localTheme = Local.get<ThemeConfigState['themeConfig']>('themeConfig')
+        const localTheme = Local.get<IThemeConfigState>('themeConfig')
+
         if (localTheme) {
-            storesThemeConfig.setThemeConfig({ themeConfig: localTheme })
+            storesThemeConfig.setThemeConfig(localTheme)
             document.documentElement.style.cssText = Local.get('themeConfigStyle') || ''
         }
         // 获取缓存中的全屏配置
@@ -82,7 +78,7 @@ onMounted(() => {
 })
 // 页面销毁时，关闭监听布局配置/i18n监听
 onUnmounted(() => {
-    mittBus.off('openSetingsDrawer', () => { })
+
 })
 // 监听路由的变化，设置网站标题
 watch(

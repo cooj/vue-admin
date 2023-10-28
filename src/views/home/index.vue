@@ -67,7 +67,6 @@
 import { markRaw, nextTick, onActivated, onMounted, reactive, ref, watch } from 'vue'
 import * as echarts from 'echarts'
 import { storeToRefs } from 'pinia'
-import { useThemeConfig } from '/@/stores/themeConfig'
 import { useTagsViewRoutes } from '/@/stores/tagsViewRoutes'
 
 // 定义变量内容

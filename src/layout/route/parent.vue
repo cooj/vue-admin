@@ -19,7 +19,6 @@ import { computed, defineAsyncComponent, nextTick, onBeforeMount, onMounted, onU
 import { useRoute, useRouter } from 'vue-router'
 import { storeToRefs } from 'pinia'
 import { useKeepALiveNames } from '@/stores/keepAliveNames'
-import { useThemeConfig } from '@/stores/themeConfig'
 import { Session } from '@/utils/storage'
 import mittBus from '@/utils/mitt'
 

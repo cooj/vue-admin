@@ -12,7 +12,6 @@ import { computed, defineAsyncComponent, onMounted, onUnmounted, reactive } from
 import { useRoute } from 'vue-router'
 import { storeToRefs } from 'pinia'
 import { useRoutesList } from '/@/stores/routesList'
-import { useThemeConfig } from '/@/stores/themeConfig'
 import mittBus from '/@/utils/mitt'
 
 // 引入组件

@@ -34,7 +34,6 @@
 <script setup lang="ts" name="loginIndex">
 import { computed, defineAsyncComponent, onMounted, reactive } from 'vue'
 import { storeToRefs } from 'pinia'
-import { useThemeConfig } from '/@/stores/themeConfig'
 import { NextLoading } from '/@/utils/loading'
 
 // 引入组件

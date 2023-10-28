@@ -29,7 +29,7 @@ export function useChangeColor() {
             return ''
         }
         const hexs = [r.toString(16), g.toString(16), b.toString(16)]
-        for (let i = 0; i < 3; i++) if (hexs[i].length == 1) hexs[i] = `0${hexs[i]}`
+        for (let i = 0; i < 3; i++) if (hexs[i].length === 1) hexs[i] = `0${hexs[i]}`
         return `#${hexs.join('')}`
     }
     // color 颜色值字符串 | level 变浅的程度，限0-1之间

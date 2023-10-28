@@ -16,7 +16,6 @@ import { useRoute } from 'vue-router'
 import { storeToRefs } from 'pinia'
 import { ElScrollbar } from 'element-plus'
 import { useTagsViewRoutes } from '@/stores/tagsViewRoutes'
-import { useThemeConfig } from '@/stores/themeConfig'
 import { NextLoading } from '@/utils/loading'
 
 // 引入组件

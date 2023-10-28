@@ -4,7 +4,6 @@ import * as svg from '@element-plus/icons-vue'
 import router from '/@/router/index'
 import pinia from '/@/stores/index'
 import { storeToRefs } from 'pinia'
-import { useThemeConfig } from '/@/stores/themeConfig'
 import { Local } from '/@/utils/storage'
 import { verifyUrl } from '/@/utils/toolsValidate'
 
@@ -87,16 +86,6 @@ export const lazyImg = (el: string, arr: EmptyArrayType) => {
 }
 
 /**
- * 全局组件大小
- * @returns 返回 `window.localStorage` 中读取的缓存值 `globalComponentSize`
- */
-export const globalComponentSize = (): '' | 'default' | 'small' | 'large' => {
-    const stores = useThemeConfig(pinia)
-    const { themeConfig } = storeToRefs(stores)
-    return Local.get('themeConfig')?.globalComponentSize || themeConfig.value?.globalComponentSize
-}
-
-/**
  * 对象深克隆
  * @param obj 源对象
  * @returns 克隆后的对象
@@ -171,7 +160,6 @@ export function handleOpenLink(val: RouteItem) {
  * @method useTitle 设置浏览器标题国际化
  * @method setTagsViewNameI18n 设置 自定义 tagsView 名称、 自定义 tagsView 名称国际化
  * @method lazyImg 图片懒加载
- * @method globalComponentSize() element plus 全局组件大小
  * @method deepClone 对象深克隆
  * @method isMobile 判断是否是移动端
  * @method handleEmpty 判断数组对象中所有属性是否为空，为空则删除当前行对象
@@ -188,9 +176,6 @@ const other = {
     },
     lazyImg: (el: string, arr: EmptyArrayType) => {
         lazyImg(el, arr)
-    },
-    globalComponentSize: () => {
-        return globalComponentSize()
     },
     deepClone: (obj: EmptyObjectType) => {
         return deepClone(obj)

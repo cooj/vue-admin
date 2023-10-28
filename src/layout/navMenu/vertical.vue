@@ -29,7 +29,6 @@ import { computed, defineAsyncComponent, onMounted, reactive, watch } from 'vue'
 import type { RouteRecordRaw } from 'vue-router'
 import { onBeforeRouteUpdate, useRoute } from 'vue-router'
 import { storeToRefs } from 'pinia'
-import { useThemeConfig } from '/@/stores/themeConfig'
 import other from '/@/utils/other'
 
 // 定义父组件传过来的值

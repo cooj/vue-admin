@@ -42,7 +42,6 @@ import type { RouteRecordRaw } from 'vue-router'
 import { onBeforeRouteUpdate, useRoute, useRouter } from 'vue-router'
 import { storeToRefs } from 'pinia'
 import { useRoutesList } from '/@/stores/routesList'
-import { useThemeConfig } from '/@/stores/themeConfig'
 import mittBus from '/@/utils/mitt'
 
 // 定义变量内容

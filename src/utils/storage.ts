@@ -20,7 +20,11 @@ export const Local = {
     // 获取永久缓存
     get<T = unknown>(key: string): T | null {
         const json = window.localStorage.getItem(Local.setKey(key))
-        return json ? JSON.parse(json) : json
+        try {
+            return JSON.parse(json as string) 
+        } catch (err) {
+            return json as T
+        }
     },
     // 移除永久缓存
     remove(key: string) {
