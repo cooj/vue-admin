@@ -1,13 +1,13 @@
 <template>
-    <el-container class="layout-container flex-center">
+    <el-container class="layout-container flex-col!">
         <LayoutHeader />
-        <el-container class="layout-main-height-50">
+        <div class="layout-main-height-50 flex">
             <LayoutAside />
-            <div class="flex-center layout-backtop">
+            <div class="layout-backtop flex-1">
                 <LayoutTagsView v-if="themeConfig.isTagsView" />
                 <LayoutMain ref="layoutMainRef" />
             </div>
-        </el-container>
+        </div>
     </el-container>
 </template>
 

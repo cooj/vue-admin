@@ -27,10 +27,10 @@ declare interface RequestOldRoutesState {
 }
 
 // TagsView 路由列表
-declare interface TagsViewRoutesState<T = any> {
-    tagsViewRoutes: T[]
-    isTagsViewCurrenFull: boolean
-}
+// declare interface TagsViewRoutesState<T = any> {
+//     tagsViewRoutes: T[]
+//     isTagsViewCurrenFull: boolean
+// }
 
 // 路由列表
 declare interface RoutesListState<T = any> {

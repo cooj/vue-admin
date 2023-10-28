@@ -2,11 +2,11 @@
     <div class="layout-navbars-tagsview" :class="{ 'layout-navbars-tagsview-shadow': getThemeConfig.layout === 'classic' }">
         <el-scrollbar ref="scrollbarRef" @wheel.prevent="onHandleScroll">
             <ul ref="tagsUlRef" class="layout-navbars-tagsview-ul" :class="setTagsStyle">
-                <li v-for="(v, k) in state.tagsViewList" :key="k" ref="tagsRefs" class="layout-navbars-tagsview-ul-li" :data-url="v.url" :class="{ 'is-active': isActive(v) }"
-                    @contextmenu.prevent="onContextmenu(v, $event)" @mousedown="onMousedownMenu(v, $event)"
-                    @click="onTagsClick(v, k)">
+                <li v-for="(v, k) in state.tagsViewList" :key="k" ref="tagsRefs" class="layout-navbars-tagsview-ul-li"
+                    :data-url="v.url" :class="{ 'is-active': isActive(v) }" @contextmenu.prevent="onContextmenu(v, $event)"
+                    @mousedown="onMousedownMenu(v, $event)" @click="onTagsClick(v, k)">
                     <i v-if="isActive(v)" class="iconfont icon-webicon318 layout-navbars-tagsview-ul-li-iconfont" />
-                    <SvgIcon v-if="!isActive(v) && getThemeConfig.isTagsviewIcon" :name="v.meta.icon" class="pr5" />
+                    <SvgIcon v-if="!isActive(v) && getThemeConfig.isTagsViewIcon" :name="v.meta.icon" class="pr5px" />
                     <span>{{ setTagsViewNameI18n(v) }}</span>
                     <template v-if="isActive(v)">
                         <SvgIcon name="ele-RefreshRight" class="layout-navbars-tagsview-ul-li-refresh ml5"
@@ -21,7 +21,8 @@
                 </li>
             </ul>
         </el-scrollbar>
-        <Contextmenu ref="contextmenuRef" :dropdown="state.dropdown" @currentContextmenuClick="onCurrentContextmenuClick" />
+        <Contextmenu ref="contextmenuRef" :dropdown="state.dropdown"
+            @current-contextmenu-click="onCurrentContextmenuClick" />
     </div>
 </template>
 
@@ -31,7 +32,6 @@ import { onBeforeRouteUpdate, useRoute, useRouter } from 'vue-router'
 import Sortable from 'sortablejs'
 import { ElMessage } from 'element-plus'
 import { storeToRefs } from 'pinia'
-import { useTagsViewRoutes } from '/@/stores/tagsViewRoutes'
 import { useKeepALiveNames } from '/@/stores/keepAliveNames'
 import { useRoutesList } from '/@/stores/routesList'
 import { Session } from '/@/utils/storage'
@@ -100,31 +100,47 @@ const isActive = (v: RouteItem) => {
 const addBrowserSetSession = (tagsViewList: Array<object>) => {
     Session.set('tagsViewList', tagsViewList)
 }
-// 获取 pinia 中的 tagsViewRoutes 列表
-const getTagsViewRoutes = async () => {
-    state.routeActive = await setTagsViewHighlight(route)
-    state.routePath = (await route.meta.isDynamic) ? route.meta.isDynamicPath : route.path
-    state.tagsViewList = []
-    state.tagsViewRoutesList = tagsViewRoutes.value
-    initTagsView()
-}
-// pinia 中获取路由信息：如果是设置了固定的（isAffix），进行初始化显示
-const initTagsView = async () => {
-    if (Session.get('tagsViewList') && getThemeConfig.value.isCacheTagsView) {
-        state.tagsViewList = Session.get('tagsViewList') || []
-    } else {
-        await state.tagsViewRoutesList.map((v: RouteItem) => {
-            if (v.meta?.isAffix && !v.meta.isHide) {
-                v.url = setTagsViewHighlight(v)
-                state.tagsViewList.push({ ...v })
-                storesKeepALiveNames.addCachedView(v)
-            }
-        })
-        await addTagsView(route.path, route)
+
+// 处理 tagsView 高亮（多标签详情时使用，单标签详情未使用）
+const setTagsViewHighlight = (v: RouteToFrom) => {
+    const params = v.query && Object.keys(v.query).length > 0 ? v.query : v.params
+    if (!params || Object.keys(params).length <= 0) return v.path
+    let path = ''
+    for (const i in params) {
+        path += params[i]
     }
-    // 初始化当前元素(li)的下标
-    getTagsRefsIndex(getThemeConfig.value.isShareTagsView ? state.routePath : state.routeActive)
+    // 判断是否是动态路由（xxx/:id/:name"）
+    return `${v.meta?.isDynamic ? v.meta.isDynamicPath : v.path}-${path}`
 }
+
+// 处理 url，地址栏链接有参数时，tagsview 右键菜单刷新功能失效问题，感谢 @ZzZz-RIPPER、@dejavuuuuu
+// https://gitee.com/lyt-top/vue-next-admin/issues/I5K3YO
+// https://gitee.com/lyt-top/vue-next-admin/issues/I61VS9
+const transUrlParams = (v: RouteItem) => {
+    const params = v.query && Object.keys(v.query).length > 0 ? v.query : v.params
+    if (!params) return ''
+    let path = ''
+    for (const [key, value] of Object.entries(params)) {
+        if (v.meta?.isDynamic) path += `/${value}`
+        else path += `&${key}=${value}`
+    }
+    // 判断是否是动态路由（xxx/:id/:name"）isDynamic
+    if (v.meta?.isDynamic) {
+        /**
+         *
+         * isFnClick 用于判断是通过方法调用，还是直接右键菜单点击（此处只针对动态路由）
+         * 原因：
+         * 1、右键菜单点击时，路由的 path 还是原始定义的路由格式，如：/params/dynamic/details/:t/:id/:tagsViewName
+         * 2、通过事件调用时，路由的 path 不是原始定义的路由格式，如：/params/dynamic/details/vue-next-admin/111/我是动态路由测试tagsViewName(非国际化)
+         *
+         * 所以右侧菜单点击时，需要处理路径拼接 v.path.split(':')[0]，得到路径 + 参数的完整路径
+         */
+        return v.isFnClick ? decodeURI(v.path) : `${v.path.split(':')[0]}${path.replace(/^\//, '')}`
+    } else {
+        return `${v.path}${path.replace(/^&/, '?')}`
+    }
+}
+
 // 处理可开启多标签详情，单标签详情（动态路由（xxx/:id/:name"），普通路由处理）
 const solveAddTagsView = async (path: string, to?: RouteToFrom) => {
     const isDynamicPath = to?.meta?.isDynamic ? to.meta.isDynamicPath : path
@@ -149,6 +165,7 @@ const solveAddTagsView = async (path: string, to?: RouteToFrom) => {
         addBrowserSetSession(state.tagsViewList)
     }
 }
+
 // 处理单标签时，第二次的值未覆盖第一次的 tagsViewList 值（Session Storage）
 const singleAddTagsView = (path: string, to?: RouteToFrom) => {
     const isDynamicPath = to?.meta?.isDynamic ? to.meta.isDynamicPath : path
@@ -166,6 +183,7 @@ const singleAddTagsView = (path: string, to?: RouteToFrom) => {
         }
     })
 }
+
 // 1、添加 tagsView：未设置隐藏（isHide）也添加到在 tagsView 中（可开启多标签详情，单标签详情）
 const addTagsView = (path: string, to?: RouteToFrom) => {
     // 防止拿取不到路由信息
@@ -222,7 +240,7 @@ const refreshCurrentTagsView = async (fullPath: string) => {
 }
 // 3、关闭当前 tagsView：如果是设置了固定的（isAffix），不可以关闭
 const closeCurrentTagsView = (path: string) => {
-    state.tagsViewList.map((v: RouteItem, k: number, arr: RouteItems) => {
+    state.tagsViewList.forEach((v: RouteItem, k: number, arr: RouteItems) => {
         if (!v.meta?.isAffix) {
             if (getThemeConfig.value.isShareTagsView ? v.path === path : v.url === path) {
                 storesKeepALiveNames.delCachedView(v)
@@ -261,7 +279,7 @@ const closeCurrentTagsView = (path: string) => {
 const closeOtherTagsView = (path: string) => {
     if (Session.get('tagsViewList')) {
         state.tagsViewList = []
-        Session.get<RouteItem[]>('tagsViewList')?.map((v: RouteItem) => {
+        Session.get<RouteItem[]>('tagsViewList')?.forEach((v: RouteItem) => {
             if (v.meta?.isAffix && !v.meta.isHide) {
                 v.url = setTagsViewHighlight(v)
                 storesKeepALiveNames.delOthersCachedViews(v)
@@ -277,7 +295,7 @@ const closeAllTagsView = () => {
     if (Session.get('tagsViewList')) {
         storesKeepALiveNames.delAllCachedViews()
         state.tagsViewList = []
-        Session.get<RouteItem[]>('tagsViewList')?.map((v: RouteItem) => {
+        Session.get<RouteItem[]>('tagsViewList')?.forEach((v: RouteItem) => {
             if (v.meta?.isAffix && !v.meta.isHide) {
                 v.url = setTagsViewHighlight(v)
                 state.tagsViewList.push({ ...v })
@@ -292,8 +310,106 @@ const openCurrenFullscreen = async (path: string) => {
     const item = state.tagsViewList.find((v: RouteItem) => (getThemeConfig.value.isShareTagsView ? v.path === path : v.url === path))
     if (item.meta.isDynamic) await router.push({ name: item.name, params: item.params })
     else await router.push({ name: item.name, query: item.query })
-    stores.setCurrenFullscreen(true)
+    stores.setCurrentFullscreen(true)
 }
+
+// tagsView 横向滚动
+const tagsViewMoveToCurrentTag = () => {
+    nextTick(() => {
+        if (!tagsRefs.value?.length) return false
+        // 当前 li 元素
+        const liDom = tagsRefs.value[state.tagsRefsIndex]
+        // 当前 li 元素下标
+        const liIndex = state.tagsRefsIndex
+        // 当前 ul 下 li 元素总长度
+        const liLength = tagsRefs.value.length
+        // 最前 li
+        const liFirst = tagsRefs.value[0]
+        // 最后 li
+        const liLast = tagsRefs.value[tagsRefs.value.length - 1]
+        // 当前滚动条的值
+        const scrollRefs = scrollbarRef.value.$refs.wrapRef
+        // 当前滚动条滚动宽度
+        const scrollS = scrollRefs.scrollWidth
+        // 当前滚动条偏移宽度
+        const offsetW = scrollRefs.offsetWidth
+        // 当前滚动条偏移距离
+        const scrollL = scrollRefs.scrollLeft
+        // 上一个 tags li dom
+        const liPrevTag = tagsRefs.value[state.tagsRefsIndex - 1]
+        // 下一个 tags li dom
+        const liNextTag = tagsRefs.value[state.tagsRefsIndex + 1]
+        // 上一个 tags li dom 的偏移距离
+        let beforePrevL = 0
+        // 下一个 tags li dom 的偏移距离
+        let afterNextL = 0
+        if (liDom === liFirst) {
+            // 头部
+            scrollRefs.scrollLeft = 0
+        } else if (liDom === liLast) {
+            // 尾部
+            scrollRefs.scrollLeft = scrollS - offsetW
+        } else {
+            // 非头/尾部
+            if (liIndex === 0) beforePrevL = liFirst.offsetLeft - 5
+            else beforePrevL = liPrevTag?.offsetLeft - 5
+            if (liIndex === liLength) afterNextL = liLast.offsetLeft + liLast.offsetWidth + 5
+            else afterNextL = liNextTag.offsetLeft + liNextTag.offsetWidth + 5
+            if (afterNextL > scrollL + offsetW) {
+                scrollRefs.scrollLeft = afterNextL - offsetW
+            } else if (beforePrevL < scrollL) {
+                scrollRefs.scrollLeft = beforePrevL
+            }
+        }
+        // 更新滚动条，防止不出现
+        scrollbarRef.value.update()
+    })
+}
+
+// 获取 tagsView 的下标：用于处理 tagsView 点击时的横向滚动
+const getTagsRefsIndex = (path: string | unknown) => {
+    nextTick(async () => {
+        // await 使用该写法，防止拿取不到 tagsViewList 列表数据不完整
+        const tagsViewList = await state.tagsViewList
+        state.tagsRefsIndex = tagsViewList.findIndex((v: RouteItem) => {
+            if (getThemeConfig.value.isShareTagsView) {
+                return v.path === path
+            } else {
+                return v.url === path
+            }
+        })
+        // 添加初始化横向滚动条移动到对应位置
+        tagsViewMoveToCurrentTag()
+    })
+}
+
+// pinia 中获取路由信息：如果是设置了固定的（isAffix），进行初始化显示
+const initTagsView = async () => {
+    if (Session.get('tagsViewList') && getThemeConfig.value.isCacheTagsView) {
+        state.tagsViewList = Session.get('tagsViewList') || []
+    } else {
+        await state.tagsViewRoutesList.forEach((v: RouteItem) => {
+            if (v.meta?.isAffix && !v.meta.isHide) {
+                v.url = setTagsViewHighlight(v)
+                state.tagsViewList.push({ ...v })
+                storesKeepALiveNames.addCachedView(v)
+            }
+        })
+        await addTagsView(route.path, route)
+    }
+    // 初始化当前元素(li)的下标
+    getTagsRefsIndex(getThemeConfig.value.isShareTagsView ? state.routePath : state.routeActive)
+}
+
+// 获取 pinia 中的 tagsViewRoutes 列表
+const getTagsViewRoutes = async () => {
+    state.routeActive = await setTagsViewHighlight(route)
+    state.routePath = (await route.meta.isDynamic) ? route.meta.isDynamicPath : route.path
+    state.tagsViewList = []
+    state.tagsViewRoutesList = tagsViewRoutes.value
+    initTagsView()
+}
+
 // 当前项右键菜单点击，拿 `当前点击的路由路径` 对比 `tagsView 路由数组`，取当前点击项的详细路由信息
 // 防止 tagsView 非当前页演示时，操作异常
 // https://gitee.com/lyt-top/vue-next-admin/issues/I61VS9
@@ -368,116 +484,12 @@ const onTagsClick = (v: RouteItem, k: number) => {
         !item.children ? (getThemeConfig.value.isCollapse = true) : (getThemeConfig.value.isCollapse = false)
     }
 }
-// 处理 url，地址栏链接有参数时，tagsview 右键菜单刷新功能失效问题，感谢 @ZzZz-RIPPER、@dejavuuuuu
-// https://gitee.com/lyt-top/vue-next-admin/issues/I5K3YO
-// https://gitee.com/lyt-top/vue-next-admin/issues/I61VS9
-const transUrlParams = (v: RouteItem) => {
-    const params = v.query && Object.keys(v.query).length > 0 ? v.query : v.params
-    if (!params) return ''
-    let path = ''
-    for (const [key, value] of Object.entries(params)) {
-        if (v.meta?.isDynamic) path += `/${value}`
-        else path += `&${key}=${value}`
-    }
-    // 判断是否是动态路由（xxx/:id/:name"）isDynamic
-    if (v.meta?.isDynamic) {
-        /**
-         *
-         * isFnClick 用于判断是通过方法调用，还是直接右键菜单点击（此处只针对动态路由）
-         * 原因：
-         * 1、右键菜单点击时，路由的 path 还是原始定义的路由格式，如：/params/dynamic/details/:t/:id/:tagsViewName
-         * 2、通过事件调用时，路由的 path 不是原始定义的路由格式，如：/params/dynamic/details/vue-next-admin/111/我是动态路由测试tagsViewName(非国际化)
-         *
-         * 所以右侧菜单点击时，需要处理路径拼接 v.path.split(':')[0]，得到路径 + 参数的完整路径
-         */
-        return v.isFnClick ? decodeURI(v.path) : `${v.path.split(':')[0]}${path.replace(/^\//, '')}`
-    } else {
-        return `${v.path}${path.replace(/^&/, '?')}`
-    }
-}
-// 处理 tagsView 高亮（多标签详情时使用，单标签详情未使用）
-const setTagsViewHighlight = (v: RouteToFrom) => {
-    const params = v.query && Object.keys(v.query).length > 0 ? v.query : v.params
-    if (!params || Object.keys(params).length <= 0) return v.path
-    let path = ''
-    for (const i in params) {
-        path += params[i]
-    }
-    // 判断是否是动态路由（xxx/:id/:name"）
-    return `${v.meta?.isDynamic ? v.meta.isDynamicPath : v.path}-${path}`
-}
+
 // 鼠标滚轮滚动
 const onHandleScroll = (e: WheelEventType) => {
     scrollbarRef.value.$refs.wrapRef.scrollLeft += e.wheelDelta / 4
 }
-// tagsView 横向滚动
-const tagsViewmoveToCurrentTag = () => {
-    nextTick(() => {
-        if (!tagsRefs.value?.length) return false
-        // 当前 li 元素
-        const liDom = tagsRefs.value[state.tagsRefsIndex]
-        // 当前 li 元素下标
-        const liIndex = state.tagsRefsIndex
-        // 当前 ul 下 li 元素总长度
-        const liLength = tagsRefs.value.length
-        // 最前 li
-        const liFirst = tagsRefs.value[0]
-        // 最后 li
-        const liLast = tagsRefs.value[tagsRefs.value.length - 1]
-        // 当前滚动条的值
-        const scrollRefs = scrollbarRef.value.$refs.wrapRef
-        // 当前滚动条滚动宽度
-        const scrollS = scrollRefs.scrollWidth
-        // 当前滚动条偏移宽度
-        const offsetW = scrollRefs.offsetWidth
-        // 当前滚动条偏移距离
-        const scrollL = scrollRefs.scrollLeft
-        // 上一个 tags li dom
-        const liPrevTag = tagsRefs.value[state.tagsRefsIndex - 1]
-        // 下一个 tags li dom
-        const liNextTag = tagsRefs.value[state.tagsRefsIndex + 1]
-        // 上一个 tags li dom 的偏移距离
-        let beforePrevL = 0
-        // 下一个 tags li dom 的偏移距离
-        let afterNextL = 0
-        if (liDom === liFirst) {
-            // 头部
-            scrollRefs.scrollLeft = 0
-        } else if (liDom === liLast) {
-            // 尾部
-            scrollRefs.scrollLeft = scrollS - offsetW
-        } else {
-            // 非头/尾部
-            if (liIndex === 0) beforePrevL = liFirst.offsetLeft - 5
-            else beforePrevL = liPrevTag?.offsetLeft - 5
-            if (liIndex === liLength) afterNextL = liLast.offsetLeft + liLast.offsetWidth + 5
-            else afterNextL = liNextTag.offsetLeft + liNextTag.offsetWidth + 5
-            if (afterNextL > scrollL + offsetW) {
-                scrollRefs.scrollLeft = afterNextL - offsetW
-            } else if (beforePrevL < scrollL) {
-                scrollRefs.scrollLeft = beforePrevL
-            }
-        }
-        // 更新滚动条，防止不出现
-        scrollbarRef.value.update()
-    })
-}
-// 获取 tagsView 的下标：用于处理 tagsView 点击时的横向滚动
-const getTagsRefsIndex = (path: string | unknown) => {
-    nextTick(async () => {
-        // await 使用该写法，防止拿取不到 tagsViewList 列表数据不完整
-        const tagsViewList = await state.tagsViewList
-        state.tagsRefsIndex = tagsViewList.findIndex((v: RouteItem) => {
-            if (getThemeConfig.value.isShareTagsView) {
-                return v.path === path
-            } else {
-                return v.url === path
-            }
-        })
-        // 添加初始化横向滚动条移动到对应位置
-        tagsViewmoveToCurrentTag()
-    })
-}
+
 // 设置 tagsView 可以进行拖拽
 const initSortable = async () => {
     const el: HTMLElement | null = document.querySelector('.layout-navbars-tagsview-ul')
@@ -489,10 +501,12 @@ const initSortable = async () => {
         disabled: !getThemeConfig.value.isSortableTagsView,
         onEnd: () => {
             const sortEndList: RouteItem[] = []
-            state.sortable.toArray().map((val: string) => {
-                state.tagsViewList.map((v: RouteItem) => {
-                    if (v.url === val) sortEndList.push({ ...v })
-                })
+            state.sortable.toArray().forEach((val: string) => {
+                const item = state.tagsViewList.find(v => v.url === val)
+                if (item) sortEndList.push({ ...item })
+                // state.tagsViewList.forEach((v: RouteItem) => {
+                //     if (v.url === val) sortEndList.push({ ...v })
+                // })
             })
             addBrowserSetSession(sortEndList)
         },
@@ -524,7 +538,7 @@ onBeforeMount(() => {
         if (getThemeConfig.value.isShareTagsView) {
             router.push('/home')
             state.tagsViewList = []
-            state.tagsViewRoutesList.map((v: RouteItem) => {
+            state.tagsViewRoutesList.forEach((v: RouteItem) => {
                 if (v.meta?.isAffix && !v.meta.isHide) {
                     v.url = setTagsViewHighlight(v)
                     state.tagsViewList.push({ ...v })

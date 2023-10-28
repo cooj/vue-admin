@@ -13,15 +13,14 @@ import { computed, defineAsyncComponent, nextTick, onBeforeMount, onMounted, onU
 import { useRoute } from 'vue-router'
 import zhCn from 'element-plus/es/locale/lang/zh-cn'
 import { storeToRefs } from 'pinia'
-import { useTagsViewRoutes } from '/@/stores/tagsViewRoutes'
-import other from '/@/utils/other'
-import { Local, Session } from '/@/utils/storage'
-import setIntroduction from '/@/utils/setIconfont'
+import other from '@/utils/other'
+import { Local, Session } from '@/utils/storage'
+import { setCdnScript, setCdnStyle } from '@/utils/cdn'
 
 // 引入组件
-const LockScreen = defineAsyncComponent(() => import('/@/layout/lockScreen/index.vue'))
-const Settings = defineAsyncComponent(() => import('/@/layout/component/settings.vue'))
-const CloseFull = defineAsyncComponent(() => import('/@/layout/navBars/topBar/closeFull.vue'))
+const LockScreen = defineAsyncComponent(() => import('@/layout/lockScreen/index.vue'))
+const Settings = defineAsyncComponent(() => import('@/layout/component/settings.vue'))
+const CloseFull = defineAsyncComponent(() => import('@/layout/navBars/topBar/closeFull.vue'))
 // const Upgrade = defineAsyncComponent(() => import('/@/layout/upgrade/index.vue'))
 
 // 定义变量内容
@@ -54,9 +53,9 @@ const getGlobalComponentSize = computed(() => {
 // 设置初始化，防止刷新时恢复默认
 onBeforeMount(() => {
     // 设置批量第三方 icon 图标
-    setIntroduction.cssCdn()
+    setCdnStyle()
     // 设置批量第三方 js
-    setIntroduction.jsCdn()
+    setCdnScript()
 })
 // 页面加载时
 onMounted(() => {
@@ -69,9 +68,9 @@ onMounted(() => {
             document.documentElement.style.cssText = Local.get('themeConfigStyle') || ''
         }
         // 获取缓存中的全屏配置
-        const sessionFull = Session.get<TagsViewRoutesState['isTagsViewCurrenFull']>('isTagsViewCurrenFull')
+        const sessionFull = Session.get<boolean>('isTagsViewCurrentFull')
         if (sessionFull) {
-            stores.setCurrenFullscreen(sessionFull)
+            stores.setCurrentFullscreen(sessionFull)
         }
     })
 })

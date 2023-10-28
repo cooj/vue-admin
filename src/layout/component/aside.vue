@@ -1,5 +1,5 @@
 <template>
-    <div v-show="!isTagsViewCurrenFull" class="h100%">
+    <div v-show="!isTagsViewCurrentFull" class="h100%">
         <el-aside class="layout-aside" :class="setCollapseStyle">
             <Logo v-if="setShowLogo" />
             <el-scrollbar ref="layoutAsideScrollbarRef" class="flex-auto" @mouseenter="onAsideEnterLeave(true)"
@@ -26,7 +26,7 @@ const storesThemeConfig = useThemeConfig()
 const storesTagsViewRoutes = useTagsViewRoutes()
 const { routesList } = storeToRefs(stores)
 const { themeConfig } = storeToRefs(storesThemeConfig)
-const { isTagsViewCurrenFull } = storeToRefs(storesTagsViewRoutes)
+const { isTagsViewCurrentFull } = storeToRefs(storesTagsViewRoutes)
 const state = reactive<AsideState>({
     menuList: [],
     clientWidth: 0,

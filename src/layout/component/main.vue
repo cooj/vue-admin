@@ -15,7 +15,6 @@ import { computed, defineAsyncComponent, onMounted, ref } from 'vue'
 import { useRoute } from 'vue-router'
 import { storeToRefs } from 'pinia'
 import { ElScrollbar } from 'element-plus'
-import { useTagsViewRoutes } from '@/stores/tagsViewRoutes'
 import { NextLoading } from '@/utils/loading'
 
 // 引入组件
@@ -28,7 +27,7 @@ const route = useRoute()
 const storesTagsViewRoutes = useTagsViewRoutes()
 const storesThemeConfig = useThemeConfig()
 const { themeConfig } = storeToRefs(storesThemeConfig)
-const { isTagsViewCurrenFull } = storeToRefs(storesTagsViewRoutes)
+const { isTagsViewCurrentFull } = storeToRefs(storesTagsViewRoutes)
 
 // 设置 footer 显示/隐藏
 const isFooter = computed(() => {
@@ -45,7 +44,7 @@ const setBacktopClass = computed(() => {
 })
 // 设置主内容区的高度
 const setMainHeight = computed(() => {
-    if (isTagsViewCurrenFull.value) return '0px'
+    if (isTagsViewCurrentFull.value) return '0px'
     const { isTagsView, layout } = themeConfig.value
     if (isTagsView && layout !== 'classic') return '85px'
     else return '51px'

@@ -1,14 +1,20 @@
 <template>
-    <div class="layout-navbars-breadcrumb-user pr15" :style="{ flex: layoutUserFlexNum }">
+    <div class="layout-navbars-breadcrumb-user pr15px" :style="{ flex: layoutUserFlexNum }">
         <el-dropdown :show-timeout="70" :hide-timeout="50" trigger="click" @command="onComponentSizeChange">
             <div class="layout-navbars-breadcrumb-user-icon">
-                <i class="iconfont icon-ziti" title="组件大小"></i>
+                <i class="iconfont icon-ziti" title="组件大小" />
             </div>
             <template #dropdown>
                 <el-dropdown-menu>
-                    <el-dropdown-item command="large" :disabled="state.disabledSize === 'large'">大型</el-dropdown-item>
-                    <el-dropdown-item command="default" :disabled="state.disabledSize === 'default'">默认</el-dropdown-item>
-                    <el-dropdown-item command="small" :disabled="state.disabledSize === 'small'">小型</el-dropdown-item>
+                    <el-dropdown-item command="large" :disabled="themeConfig.globalComponentSize === 'large'">
+                        大型
+                    </el-dropdown-item>
+                    <el-dropdown-item command="default" :disabled="themeConfig.globalComponentSize === 'default'">
+                        默认
+                    </el-dropdown-item>
+                    <el-dropdown-item command="small" :disabled="themeConfig.globalComponentSize === 'small'">
+                        小型
+                    </el-dropdown-item>
                 </el-dropdown-menu>
             </template>
         </el-dropdown>
@@ -18,9 +24,9 @@
             </el-icon>
         </div>
         <div class="layout-navbars-breadcrumb-user-icon" @click="onLayoutSetingClick">
-            <i class="icon-skin iconfont" title="布局配置"></i>
+            <i class="iconfont icon-skin" title="布局配置" />
         </div>
-        <div class="layout-navbars-breadcrumb-user-icon" ref="userNewsBadgeRef" v-click-outside="onUserNewsClick">
+        <div ref="userNewsBadgeRef" v-click-outside="onUserNewsClick" class="layout-navbars-breadcrumb-user-icon">
             <el-badge :is-dot="true">
                 <el-icon title="消息">
                     <ele-Bell />
@@ -31,31 +37,35 @@
             transition="el-zoom-in-top" virtual-triggering :width="300" :persistent="false">
             <UserNews />
         </el-popover>
-        <!-- <div class="layout-navbars-breadcrumb-user-icon mr10" @click="onScreenfullClick">
-			<i
-				class="iconfont"
-				:title="state.isScreenfull ? '关全屏' : '开全屏'"
-				:class="!state.isScreenfull ? 'icon-fullscreen' : 'icon-tuichuquanping'"
-			></i>
-		</div> -->
         <div class="layout-navbars-breadcrumb-user-icon mr10px" @click="onScreenFullClick">
             <i class="iconfont" :title="state.isScreenFull ? '关全屏' : '开全屏'"
-                :class="!state.isScreenFull ? 'icon-fullscreen' : 'icon-exit-fullscreen'"></i>
+                :class="!state.isScreenFull ? 'icon-fullscreen' : 'icon-tuichuquanping'" />
         </div>
         <el-dropdown :show-timeout="70" :hide-timeout="50" @command="onHandleCommandClick">
             <span class="layout-navbars-breadcrumb-user-link">
-                <img :src="userInfos.photo" class="layout-navbars-breadcrumb-user-link-photo mr5" />
+                <img :src="userInfos.photo" class="layout-navbars-breadcrumb-user-link-photo mr5">
                 {{ userInfos.userName === '' ? 'common' : userInfos.userName }}
                 <el-icon class="el-icon--right">
                     <ele-ArrowDown />
                 </el-icon>
             </span>
             <template #dropdown>
-                <el-dropdown-menu><el-dropdown-item command="/home">首页</el-dropdown-item>
-                    <el-dropdown-item command="wareHouse">代码仓库</el-dropdown-item>
-                    <el-dropdown-item command="/404">404</el-dropdown-item>
-                    <el-dropdown-item command="/401">401</el-dropdown-item>
-                    <el-dropdown-item divided command="logOut">退出登录</el-dropdown-item>
+                <el-dropdown-menu>
+                    <el-dropdown-item command="/home">
+                        首页
+                    </el-dropdown-item>
+                    <el-dropdown-item command="wareHouse">
+                        代码仓库
+                    </el-dropdown-item>
+                    <el-dropdown-item command="/404">
+                        404
+                    </el-dropdown-item>
+                    <el-dropdown-item command="/401">
+                        401
+                    </el-dropdown-item>
+                    <el-dropdown-item divided command="logOut">
+                        退出登录
+                    </el-dropdown-item>
                 </el-dropdown-menu>
             </template>
         </el-dropdown>
@@ -64,60 +74,58 @@
 </template>
 
 <script setup lang="ts" name="layoutBreadcrumbUser">
-import { defineAsyncComponent, ref, unref, computed, reactive, onMounted } from 'vue';
-import { useRouter } from 'vue-router';
-import { ElMessageBox, ElMessage, ClickOutside as vClickOutside } from 'element-plus';
+import { computed, defineAsyncComponent, onMounted, reactive, ref, unref } from 'vue'
+import { useRouter } from 'vue-router'
+import { ElMessage, ElMessageBox, ClickOutside as vClickOutside } from 'element-plus'
 
-import { storeToRefs } from 'pinia';
-import { useUserInfo } from '/@/stores/userInfo';
-import mittBus from '/@/utils/mitt';
-import { Session, Local } from '/@/utils/storage';
+import { storeToRefs } from 'pinia'
+import { useUserInfo } from '/@/stores/userInfo'
+import mittBus from '/@/utils/mitt'
+import { Local, Session } from '/@/utils/storage'
 
 // 引入组件
-const UserNews = defineAsyncComponent(() => import('/@/layout/navBars/topBar/userNews.vue'));
-const Search = defineAsyncComponent(() => import('/@/layout/navBars/topBar/search.vue'));
+const UserNews = defineAsyncComponent(() => import('/@/layout/navBars/topBar/userNews.vue'))
+const Search = defineAsyncComponent(() => import('/@/layout/navBars/topBar/search.vue'))
 
 // 定义变量内容
-const userNewsRef = ref();
-const userNewsBadgeRef = ref();
-const router = useRouter();
-const stores = useUserInfo();
-const storesThemeConfig = useThemeConfig();
-const { userInfos } = storeToRefs(stores);
-const { themeConfig, isDrawer } = storeToRefs(storesThemeConfig);
-const searchRef = ref();
+const userNewsRef = ref()
+const userNewsBadgeRef = ref()
+const router = useRouter()
+const stores = useUserInfo()
+const storesThemeConfig = useThemeConfig()
+const { userInfos } = storeToRefs(stores)
+const { themeConfig, isDrawer } = storeToRefs(storesThemeConfig)
+const searchRef = ref()
 const state = reactive({
     isScreenFull: false,
-    disabledSize: 'large',
-});
+})
 
 // 设置分割样式
 const layoutUserFlexNum = computed(() => {
-    let num: string | number = '';
-    const { layout, isClassicSplitMenu } = themeConfig.value;
-    const layoutArr: string[] = ['default', 'columns'];
-    if (layoutArr.includes(layout) || (layout === 'classic' && !isClassicSplitMenu)) num = '1';
-    else num = '';
-    return num;
-});
-
+    let num: string | number = ''
+    const { layout, isClassicSplitMenu } = themeConfig.value
+    const layoutArr: string[] = ['default', 'columns']
+    if (layoutArr.includes(layout) || (layout === 'classic' && !isClassicSplitMenu)) num = '1'
+    else num = ''
+    return num
+})
 
 // 全屏点击时
-const { isSupported, isFullscreen, toggle } = useFullscreen();
+const { isSupported, isFullscreen, toggle } = useFullscreen()
 const onScreenFullClick = () => {
-    if (!isSupported) return ElMessage.warning('暂不不支持全屏');
-    toggle();   // 全屏切换
+    if (!isSupported) return ElMessage.warning('暂不不支持全屏')
+    toggle() // 全屏切换
     state.isScreenFull = !isFullscreen.value
-};
+}
 
 // 消息通知点击时
 const onUserNewsClick = () => {
-    unref(userNewsRef).popperRef?.delayHide?.();
-};
+    unref(userNewsRef).popperRef?.delayHide?.()
+}
 // 布局配置 icon 点击时
 const onLayoutSetingClick = () => {
     isDrawer.value = true
-};
+}
 // 下拉菜单点击时
 const onHandleCommandClick = (path: string) => {
     if (path === 'logOut') {
@@ -132,54 +140,44 @@ const onHandleCommandClick = (path: string) => {
             buttonSize: 'default',
             beforeClose: (action, instance, done) => {
                 if (action === 'confirm') {
-                    instance.confirmButtonLoading = true;
-                    instance.confirmButtonText = '退出中';
+                    instance.confirmButtonLoading = true
+                    instance.confirmButtonText = '退出中'
                     setTimeout(() => {
-                        done();
+                        done()
                         setTimeout(() => {
-                            instance.confirmButtonLoading = false;
-                        }, 300);
-                    }, 700);
+                            instance.confirmButtonLoading = false
+                        }, 300)
+                    }, 700)
                 } else {
-                    done();
+                    done()
                 }
             },
         })
             .then(async () => {
                 // 清除缓存/token等
-                Session.clear();
+                Session.clear()
                 // 使用 reload 时，不需要调用 resetRoute() 重置路由
-                window.location.reload();
+                window.location.reload()
             })
-            .catch(() => { });
+            .catch(() => { })
     } else if (path === 'wareHouse') {
-        window.open('https://gitee.com/lyt-top/vue-next-admin');
+        window.open('https://gitee.com/lyt-top/vue-next-admin')
     } else {
-        router.push(path);
+        router.push(path)
     }
-};
+}
 // 菜单搜索点击
 const onSearchClick = () => {
-    searchRef.value.openSearch();
-};
+    searchRef.value.openSearch()
+}
 // 组件大小改变
-const onComponentSizeChange = (size: string) => {
-    Local.remove('themeConfig');
-    themeConfig.value.globalComponentSize = size;
-    Local.set('themeConfig', themeConfig.value);
-    initI18nOrSize('globalComponentSize', 'disabledSize');
-    window.location.reload();
-};
-// 初始化组件大小/i18n
-const initI18nOrSize = (value: string, attr: string) => {
-    (<any>state)[attr] = Local.get('themeConfig')[value];
-};
-// 页面加载时
-onMounted(() => {
-    if (Local.get('themeConfig')) {
-        initI18nOrSize('globalComponentSize', 'disabledSize');
-    }
-});
+const onComponentSizeChange = (size: ThemeConfigGlobalComponentSize) => {
+    Local.remove('themeConfig')
+    themeConfig.value.globalComponentSize = size
+    Local.set('themeConfig', themeConfig.value)
+
+    window.location.reload()
+}
 </script>
 
 <style scoped lang="scss">

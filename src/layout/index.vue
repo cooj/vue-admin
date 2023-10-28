@@ -29,9 +29,9 @@ const layoutComponent = computed(() => {
 // 窗口大小改变时(适配移动端)
 const onLayoutResize = () => {
     if (!Local.get('oldLayout')) Local.set('oldLayout', themeConfig.value.layout)
-    console.log(Local.get('oldLayout'))
+
     const clientWidth = document.body.clientWidth
-    console.log(clientWidth)
+
     if (clientWidth < 1000) {
         themeConfig.value.isCollapse = false
         mittBus.emit('layoutMobileResize', {

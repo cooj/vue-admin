@@ -495,8 +495,6 @@ const setLocalThemeConfigStyle = () => {
 
 // 1、全局主题
 const onColorPickerChange = () => {
-    console.log(themeConfig.value)
-    console.log(getThemeConfig.value.primary)
     if (!getThemeConfig.value.primary) return ElMessage.warning('全局主题 primary 颜色值不能为空')
     // 颜色加深
     document.documentElement.style.setProperty('--el-color-primary-dark-2', `${getDarkColor(getThemeConfig.value.primary, 0.1)}`)
