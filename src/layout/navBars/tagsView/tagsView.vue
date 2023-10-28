@@ -33,7 +33,6 @@ import Sortable from 'sortablejs'
 import { ElMessage } from 'element-plus'
 import { storeToRefs } from 'pinia'
 import { useKeepALiveNames } from '/@/stores/keepAliveNames'
-import { useRoutesList } from '/@/stores/routesList'
 import { Session } from '/@/utils/storage'
 import { isObjectValueEqual } from '/@/utils/arrayOperation'
 import other from '/@/utils/other'
@@ -148,8 +147,8 @@ const solveAddTagsView = async (path: string, to?: RouteToFrom) => {
         (v: RouteItem) =>
             v.path === isDynamicPath
             && isObjectValueEqual(
-                to?.meta?.isDynamic ? (v.params ? v.params : null) : v.query ? v.query : null,
-                to?.meta?.isDynamic ? (to?.params ? to?.params : null) : to?.query ? to?.query : null,
+                to?.meta?.isDynamic ? (v.params ? v.params : {}) : v.query ? v.query : {},
+                to?.meta?.isDynamic ? (to?.params ? to?.params : {}) : to?.query ? to?.query : {},
             ),
     )
     if (current.length <= 0) {
@@ -240,7 +239,7 @@ const refreshCurrentTagsView = async (fullPath: string) => {
 }
 // 3、关闭当前 tagsView：如果是设置了固定的（isAffix），不可以关闭
 const closeCurrentTagsView = (path: string) => {
-    state.tagsViewList.forEach((v: RouteItem, k: number, arr: RouteItems) => {
+    state.tagsViewList.forEach((v: RouteItem, k: number, arr: RouteItem[]) => {
         if (!v.meta?.isAffix) {
             if (getThemeConfig.value.isShareTagsView ? v.path === path : v.url === path) {
                 storesKeepALiveNames.delCachedView(v)
@@ -248,10 +247,10 @@ const closeCurrentTagsView = (path: string) => {
                 setTimeout(() => {
                     if (state.tagsViewList.length === k && getThemeConfig.value.isShareTagsView ? state.routePath === path : state.routeActive === path) {
                         // 最后一个且高亮时
-                        if (arr[arr.length - 1].meta.isDynamic) {
+                        if (arr[arr.length - 1].meta?.isDynamic) {
                             // 动态路由（xxx/:id/:name"）
-                            if (k !== arr.length) router.push({ name: arr[k].name, params: arr[k].params })
-                            else router.push({ name: arr[arr.length - 1].name, params: arr[arr.length - 1].params })
+                            if (k !== arr.length) router.push({ name: arr[k].name as string, params: arr[k].params })
+                            else router.push({ name: arr[arr.length - 1].name as string, params: arr[arr.length - 1].params })
                         } else {
                             // 普通路由
                             if (k !== arr.length) router.push({ path: arr[k].path, query: arr[k].query })
@@ -260,9 +259,9 @@ const closeCurrentTagsView = (path: string) => {
                     } else {
                         // 非最后一个且高亮时，跳转到下一个
                         if (state.tagsViewList.length !== k && getThemeConfig.value.isShareTagsView ? state.routePath === path : state.routeActive === path) {
-                            if (arr[k].meta.isDynamic) {
+                            if (arr[k].meta?.isDynamic) {
                                 // 动态路由（xxx/:id/:name"）
-                                router.push({ name: arr[k].name, params: arr[k].params })
+                                router.push({ name: arr[k].name as string, params: arr[k].params })
                             } else {
                                 // 普通路由
                                 router.push({ path: arr[k].path, query: arr[k].query })
@@ -480,8 +479,8 @@ const onTagsClick = (v: RouteItem, k: number) => {
     router.push(v)
     // 分栏布局时，收起/展开菜单
     if (getThemeConfig.value.layout === 'columns') {
-        const item: RouteItem = routesList.value.find((r: RouteItem) => r.path.includes(`/${v.path.split('/')[1]}`))
-        !item.children ? (getThemeConfig.value.isCollapse = true) : (getThemeConfig.value.isCollapse = false)
+        const item = routesList.value.find(r => r.path.includes(`/${v.path.split('/')[1]}`))
+        !item?.children ? (getThemeConfig.value.isCollapse = true) : (getThemeConfig.value.isCollapse = false)
     }
 }
 

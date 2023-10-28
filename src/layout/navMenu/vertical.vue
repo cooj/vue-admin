@@ -4,16 +4,16 @@
         <template v-for="val in menuLists">
             <el-sub-menu v-if="val.children && val.children.length > 0" :key="val.path" :index="val.path">
                 <template #title>
-                    <SvgIcon :name="val.meta.icon" />
-                    <span>{{ val.meta.title }}</span>
+                    <SvgIcon :name="val.meta?.icon" />
+                    <span>{{ val.meta?.title }}</span>
                 </template>
                 <SubItem :children="val.children" />
             </el-sub-menu>
             <template v-else>
                 <el-menu-item :key="val.path" :index="val.path">
-                    <SvgIcon :name="val.meta.icon" />
-                    <template v-if="!val.meta.isLink || (val.meta.isLink && val.meta.isIframe)" #title>
-                        <span>{{ val.meta.title }}</span>
+                    <SvgIcon :name="val.meta?.icon" />
+                    <template v-if="!val.meta?.isLink || (val.meta.isLink && val.meta.isIframe)" #title>
+                        <span>{{ val.meta?.title }}</span>
                     </template>
                     <template v-else #title>
                         <a class="w100" @click.prevent="onALinkClick(val)">{{ val.meta.title }}</a>
@@ -54,7 +54,7 @@ const state = reactive({
 })
 
 // 获取父级菜单数据
-const menuLists = computed<RouteItems>(() => {
+const menuLists = computed(() => {
     return props.menuList
 })
 // 获取布局配置信息

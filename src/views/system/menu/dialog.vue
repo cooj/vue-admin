@@ -164,7 +164,6 @@
 <script setup lang="ts" name="systemMenuDialog">
 import { defineAsyncComponent, onMounted, reactive, ref } from 'vue'
 import { storeToRefs } from 'pinia'
-import { useRoutesList } from '/@/stores/routesList'
 
 // import { setBackEndControlRefreshRoutes } from "/@/router/backEnd";
 
@@ -202,7 +201,7 @@ const state = reactive({
         },
         btnPower: '', // 菜单类型为按钮时，权限标识
     },
-    menuData: [] as RouteItems, // 上级菜单数据
+    menuData: [] as RouteItem[], // 上级菜单数据
     dialog: {
         isShowDialog: false,
         type: '',
@@ -212,9 +211,9 @@ const state = reactive({
 })
 
 // 获取 pinia 中的路由
-const getMenuData = (routes: RouteItems) => {
-    const arr: RouteItems = []
-    routes.map((val: RouteItem) => {
+const getMenuData = (routes: RouteItem[]) => {
+    const arr: RouteItem[] = []
+    routes.forEach((val: RouteItem) => {
         val.title = val.meta?.title as string
         arr.push({ ...val })
         if (val.children) getMenuData(val.children)
@@ -235,8 +234,8 @@ const openDialog = (type: string, row?: any) => {
         state.dialog.submitTxt = '新 增'
         // 清空表单，此项需加表单验证才能使用
         // nextTick(() => {
-        // 	menuDialogFormRef.value.resetFields();
-        // });
+        //     menuDialogFormRef.value.resetFields()
+        // })
     }
     state.dialog.type = type
     state.dialog.isShowDialog = true

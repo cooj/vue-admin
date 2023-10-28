@@ -74,7 +74,6 @@ import { defineAsyncComponent, onMounted, reactive, ref } from 'vue'
 import type { RouteRecordRaw } from 'vue-router'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import { storeToRefs } from 'pinia'
-import { useRoutesList } from '/@/stores/routesList'
 
 // import { setBackEndControlRefreshRoutes } from "/@/router/backEnd";
 

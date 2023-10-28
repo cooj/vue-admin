@@ -48,3 +48,13 @@ declare interface IThemeConfigState {
     globalI18n: string
     globalComponentSize: ThemeConfigGlobalComponentSize
 }
+
+// 用户信息
+declare interface IUserInfo {
+    authBtnList: string[]
+    photo: string
+    roles: string[]
+    time: number
+    username: string
+    // [key: string]: T
+}

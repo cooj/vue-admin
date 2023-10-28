@@ -61,6 +61,7 @@ declare type RouteItem<T = any> = {
     transUrl?: string;
     title?: string;
     id?: string | number;
+    component?: any;
 };
 
 // 声明路由 to from
@@ -69,8 +70,6 @@ declare interface RouteToFrom<T = any> extends RouteItem {
     children?: T[];
 }
 
-// 声明路由当前项类型集合
-declare type RouteItems<T extends RouteItem = any> = T[];
 
 // 声明 ref
 declare type RefType<T = any> = T | null;
@@ -79,7 +78,7 @@ declare type RefType<T = any> = T | null;
 declare type HtmlType = HTMLElement | string | undefined | null;
 
 // 申明 children 可选
-declare type ChilType<T = any> = {
+declare type ChildrenType<T = any> = {
     children?: T[];
 };
 

@@ -9,9 +9,9 @@
 
 <script setup lang="ts" name="layoutBreadcrumbIndex">
 import { computed, defineAsyncComponent, onMounted, onUnmounted, reactive } from 'vue'
+import type { RouteRecordRaw } from 'vue-router'
 import { useRoute } from 'vue-router'
 import { storeToRefs } from 'pinia'
-import { useRoutesList } from '/@/stores/routesList'
 import mittBus from '/@/utils/mitt'
 
 // 引入组件
@@ -27,7 +27,7 @@ const { themeConfig } = storeToRefs(storesThemeConfig)
 const { routesList } = storeToRefs(stores)
 const route = useRoute()
 const state = reactive({
-    menuList: [] as RouteItems,
+    menuList: [] as RouteRecordRaw[],
 })
 
 // 设置 logo 显示/隐藏
@@ -40,6 +40,30 @@ const isLayoutTransverse = computed(() => {
     const { layout, isClassicSplitMenu } = themeConfig.value
     return layout === 'transverse' || (isClassicSplitMenu && layout === 'classic')
 })
+
+// 设置了分割菜单时，删除底下 children
+const delClassicChildren = <T extends ChildrenType>(arr: T[]): T[] => {
+    arr.forEach((v: T) => {
+        if (v.children) delete v.children
+    })
+    return arr
+}
+
+// 传送当前子级数据到菜单中
+const setSendClassicChildren = (path: string) => {
+    const currentPathSplit = path.split('/')
+    const currentData: MittMenu = { children: [] }
+    filterRoutesFunc(routesList.value).forEach((v, k: number) => {
+        if (v.path === `/${currentPathSplit[1]}`) {
+            v.k = k
+            currentData.item = { ...v }
+            currentData.children = [{ ...v }]
+            if (v.children) currentData.children = v.children
+        }
+    })
+    return currentData
+}
+
 // 设置/过滤路由（非静态路由/是否显示在菜单中）
 const setFilterRoutes = () => {
     const { layout, isClassicSplitMenu } = themeConfig.value
@@ -52,28 +76,7 @@ const setFilterRoutes = () => {
         state.menuList = list
     }
 }
-// 设置了分割菜单时，删除底下 children
-const delClassicChildren = <T extends ChilType>(arr: T[]): T[] => {
-    arr.map((v: T) => {
-        if (v.children) delete v.children
-    })
-    return arr
-}
 
-// 传送当前子级数据到菜单中
-const setSendClassicChildren = (path: string) => {
-    const currentPathSplit = path.split('/')
-    const currentData: MittMenu = { children: [] }
-    filterRoutesFunc(routesList.value).forEach((v: RouteItem, k: number) => {
-        if (v.path === `/${currentPathSplit[1]}`) {
-            v.k = k
-            currentData.item = { ...v }
-            currentData.children = [{ ...v }]
-            if (v.children) currentData.children = v.children
-        }
-    })
-    return currentData
-}
 // 页面加载时
 onMounted(() => {
     setFilterRoutes()

@@ -1,6 +1,5 @@
 import type { App } from 'vue'
-import { useUserInfo } from '/@/stores/userInfo'
-import { judementSameArr } from '/@/utils/arrayOperation'
+import { judementSameArr } from '@/utils/arrayOperation'
 
 /**
  * 用户权限指令
@@ -13,19 +12,15 @@ export function authDirective(app: App) {
     app.directive('auth', {
         mounted(el, binding) {
             const stores = useUserInfo()
-            if (!stores.userInfos.authBtnList.includes(binding.value)) el.parentNode.removeChild(el)
+            if (!stores.userInfo?.authBtnList.includes(binding.value)) el.parentNode.removeChild(el)
         },
     })
     // 多个权限验证，满足一个则显示（v-auths="[xxx,xxx]"）
     app.directive('auths', {
         mounted(el, binding) {
-            let flag = false
             const stores = useUserInfo()
-            stores.userInfos.authBtnList.map((val: string) => {
-                binding.value.map((v: string) => {
-                    if (val === v) flag = true
-                })
-            })
+
+            const flag = stores.userInfo?.authBtnList.find(item => binding.value.includes(item))
             if (!flag) el.parentNode.removeChild(el)
         },
     })
@@ -33,7 +28,7 @@ export function authDirective(app: App) {
     app.directive('auth-all', {
         mounted(el, binding) {
             const stores = useUserInfo()
-            const flag = judementSameArr(binding.value, stores.userInfos.authBtnList)
+            const flag = judementSameArr(binding.value, stores.userInfo?.authBtnList || [])
             if (!flag) el.parentNode.removeChild(el)
         },
     })

@@ -41,7 +41,6 @@ import { nextTick, onMounted, onUnmounted, reactive, ref, watch } from 'vue'
 import type { RouteRecordRaw } from 'vue-router'
 import { onBeforeRouteUpdate, useRoute, useRouter } from 'vue-router'
 import { storeToRefs } from 'pinia'
-import { useRoutesList } from '/@/stores/routesList'
 import mittBus from '/@/utils/mitt'
 
 // 定义变量内容

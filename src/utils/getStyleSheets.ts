@@ -23,7 +23,7 @@ const getAlicdnIconfont = () => {
                 }
             }
             if (sheetsIconList.length > 0) resolve(sheetsIconList)
-            else reject('未获取到值，请刷新重试')
+            else reject(new Error('未获取到值，请刷新重试'))
         })
     })
 }
@@ -38,7 +38,7 @@ const getElementPlusIconfont = () => {
                 sheetsIconList.push(`ele-${icons[i].name}`)
             }
             if (sheetsIconList.length > 0) resolve(sheetsIconList)
-            else reject('未获取到值，请刷新重试')
+            else reject(new Error('未获取到值，请刷新重试'))
         })
     })
 }
@@ -57,21 +57,18 @@ const getAwesomeIconfont = () => {
             }
             for (let i = 0; i < sheetsList.length; i++) {
                 for (let j = 0; j < sheetsList[i].cssRules.length; j++) {
-                    if (
-                        sheetsList[i].cssRules[j].selectorText
-						&& sheetsList[i].cssRules[j].selectorText.indexOf('.fa-') === 0
-						&& !sheetsList[i].cssRules[j].selectorText.includes(',')
-                    ) {
-                        if (/::before/.test(sheetsList[i].cssRules[j].selectorText)) {
+                    const txt = sheetsList[i].cssRules[j].selectorText
+                    if (txt && txt.indexOf('.fa-') === 0 && !txt.includes(',')) {
+                        if (/::before/.test(txt)) {
                             sheetsIconList.push(
-                                `${sheetsList[i].cssRules[j].selectorText.substring(1, sheetsList[i].cssRules[j].selectorText.length).replace(/\:\:before/gi, '')}`,
+                                `${txt.substring(1, txt.length).replace(/\:\:before/gi, '')}`,
                             )
                         }
                     }
                 }
             }
             if (sheetsIconList.length > 0) resolve(sheetsIconList.reverse())
-            else reject('未获取到值，请刷新重试')
+            else reject(new Error('未获取到值，请刷新重试'))
         })
     })
 }

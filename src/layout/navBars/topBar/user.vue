@@ -43,8 +43,8 @@
         </div>
         <el-dropdown :show-timeout="70" :hide-timeout="50" @command="onHandleCommandClick">
             <span class="layout-navbars-breadcrumb-user-link">
-                <img :src="userInfos.photo" class="layout-navbars-breadcrumb-user-link-photo mr5">
-                {{ userInfos.userName === '' ? 'common' : userInfos.userName }}
+                <img :src="userInfo?.photo" class="layout-navbars-breadcrumb-user-link-photo mr5">
+                {{ userInfo?.username === '' ? 'common' : userInfo?.username }}
                 <el-icon class="el-icon--right">
                     <ele-ArrowDown />
                 </el-icon>
@@ -74,18 +74,16 @@
 </template>
 
 <script setup lang="ts" name="layoutBreadcrumbUser">
-import { computed, defineAsyncComponent, onMounted, reactive, ref, unref } from 'vue'
+import { computed, defineAsyncComponent, reactive, ref, unref } from 'vue'
 import { useRouter } from 'vue-router'
 import { ElMessage, ElMessageBox, ClickOutside as vClickOutside } from 'element-plus'
 
 import { storeToRefs } from 'pinia'
-import { useUserInfo } from '/@/stores/userInfo'
-import mittBus from '/@/utils/mitt'
-import { Local, Session } from '/@/utils/storage'
+import { Local, Session } from '@/utils/storage'
 
 // 引入组件
-const UserNews = defineAsyncComponent(() => import('/@/layout/navBars/topBar/userNews.vue'))
-const Search = defineAsyncComponent(() => import('/@/layout/navBars/topBar/search.vue'))
+const UserNews = defineAsyncComponent(() => import('@/layout/navBars/topBar/userNews.vue'))
+const Search = defineAsyncComponent(() => import('@/layout/navBars/topBar/search.vue'))
 
 // 定义变量内容
 const userNewsRef = ref()
@@ -93,7 +91,7 @@ const userNewsBadgeRef = ref()
 const router = useRouter()
 const stores = useUserInfo()
 const storesThemeConfig = useThemeConfig()
-const { userInfos } = storeToRefs(stores)
+const { userInfo } = storeToRefs(stores)
 const { themeConfig, isDrawer } = storeToRefs(storesThemeConfig)
 const searchRef = ref()
 const state = reactive({

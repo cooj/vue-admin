@@ -1,4 +1,3 @@
-import { useUserInfo } from '/@/stores/userInfo'
 import { judementSameArr } from '/@/utils/arrayOperation'
 
 /**
@@ -8,7 +7,8 @@ import { judementSameArr } from '/@/utils/arrayOperation'
  */
 export function auth(value: string): boolean {
     const stores = useUserInfo()
-    return stores.userInfos.authBtnList.includes(value)
+
+    return stores.userInfo?.authBtnList.includes(value) || false
 }
 
 /**
@@ -17,14 +17,9 @@ export function auth(value: string): boolean {
  * @returns 有权限，返回 `true`，反之则反
  */
 export function auths(value: Array<string>): boolean {
-    let flag = false
     const stores = useUserInfo()
-    stores.userInfos.authBtnList.map((val: string) => {
-        value.map((v: string) => {
-            if (val === v) flag = true
-        })
-    })
-    return flag
+    const node = stores.userInfo?.authBtnList.find(val => value.includes(val))
+    return !!node
 }
 
 /**
@@ -34,5 +29,5 @@ export function auths(value: Array<string>): boolean {
  */
 export function authAll(value: Array<string>): boolean {
     const stores = useUserInfo()
-    return judementSameArr(value, stores.userInfos.authBtnList)
+    return judementSameArr(value, stores.userInfo?.authBtnList || [])
 }

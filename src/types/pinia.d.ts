@@ -3,17 +3,17 @@
  */
 
 // 用户信息
-declare interface UserInfos<T = any> {
-    authBtnList: string[]
-    photo: string
-    roles: string[]
-    time: number
-    userName: string
-    [key: string]: T
-}
-declare interface UserInfosState {
-    userInfos: UserInfos
-}
+// declare interface UserInfos<T = any> {
+//     authBtnList: string[]
+//     photo: string
+//     roles: string[]
+//     time: number
+//     userName: string
+//     [key: string]: T
+// }
+// declare interface UserInfosState {
+//     userInfos: UserInfos
+// }
 
 // 路由缓存列表
 declare interface KeepAliveNamesState {

@@ -4,16 +4,16 @@
             <template v-for="val in menuLists">
                 <el-sub-menu v-if="val.children && val.children.length > 0" :key="val.path" :index="val.path">
                     <template #title>
-                        <SvgIcon :name="val.meta.icon" />
-                        <span>{{ val.meta.title }}</span>
+                        <SvgIcon :name="val.meta?.icon" />
+                        <span>{{ val.meta?.title }}</span>
                     </template>
                     <SubItem :children="val.children" />
                 </el-sub-menu>
                 <template v-else>
                     <el-menu-item :key="val.path" :index="val.path">
-                        <template v-if="!val.meta.isLink || (val.meta.isLink && val.meta.isIframe)" #title>
-                            <SvgIcon :name="val.meta.icon" />
-                            {{ val.meta.title }}
+                        <template v-if="!val.meta?.isLink || (val.meta?.isLink && val.meta.isIframe)" #title>
+                            <SvgIcon :name="val.meta?.icon" />
+                            {{ val.meta?.title }}
                         </template>
                         <template v-else #title>
                             <a class="w100" @click.prevent="onALinkClick(val)">
@@ -33,7 +33,6 @@ import { computed, defineAsyncComponent, onBeforeMount, reactive } from 'vue'
 import type { RouteRecordRaw } from 'vue-router'
 import { onBeforeRouteUpdate, useRoute } from 'vue-router'
 import { storeToRefs } from 'pinia'
-import { useRoutesList } from '/@/stores/routesList'
 import other from '/@/utils/other'
 import mittBus from '/@/utils/mitt'
 
@@ -60,7 +59,7 @@ const state = reactive({
 })
 
 // 获取父级菜单数据
-const menuLists = computed<RouteItems>(() => {
+const menuLists = computed(() => {
     return props.menuList
 })
 
