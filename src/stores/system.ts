@@ -2,7 +2,7 @@ import { defineStore } from 'pinia'
 import { Session } from '@/utils/storage'
 import { ApiMenu } from '@/api/system/menu'
 import { ApiUser } from '@/api/system/user'
-import { deepClone } from '/@/utils/other'
+import { deepClone } from '@/utils/other'
 
 /**
  * 用户信息
@@ -83,7 +83,7 @@ export const useUserInfo = defineStore('userInfo', () => {
             {
                 path: '/system',
                 name: 'system',
-                // component: () => import('/@/layout/route/parent.vue'),
+                // component: () => import('@/layout/route/parent.vue'),
                 component: 'layout/route/parent',
 
                 redirect: '/system/menu',
@@ -101,7 +101,7 @@ export const useUserInfo = defineStore('userInfo', () => {
                     {
                         path: '/system/menu',
                         name: 'systemMenu',
-                        // component: () => import('/@/views/system/menu/index.vue'),
+                        // component: () => import('@/views/system/menu/index.vue'),
                         component: 'system/menu/index',
 
                         meta: {

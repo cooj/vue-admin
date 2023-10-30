@@ -1,4 +1,4 @@
-import { judementSameArr } from '/@/utils/arrayOperation'
+import { judgmentSameArr } from '@/utils/arrayOperation'
 
 /**
  * 单个权限验证
@@ -29,5 +29,5 @@ export function auths(value: Array<string>): boolean {
  */
 export function authAll(value: Array<string>): boolean {
     const stores = useUserInfo()
-    return judementSameArr(value, stores.userInfo?.authBtnList || [])
+    return judgmentSameArr(value, stores.userInfo?.authBtnList || [])
 }

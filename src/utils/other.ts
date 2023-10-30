@@ -1,13 +1,13 @@
 import { defineAsyncComponent, nextTick } from 'vue'
 import type { App } from 'vue'
 import * as svg from '@element-plus/icons-vue'
-import router from '/@/router/index'
-import pinia from '/@/stores/index'
 import { storeToRefs } from 'pinia'
-import { verifyUrl } from '/@/utils/toolsValidate'
+import router from '@/router/index'
+import pinia from '@/stores/index'
+import { verifyUrl } from '@/utils/toolsValidate'
 
 // 引入组件
-const SvgIcon = defineAsyncComponent(() => import('/@/components/svgIcon/index.vue'))
+const SvgIcon = defineAsyncComponent(() => import('@/components/svgIcon/index.vue'))
 
 /**
  * 导出全局注册 element plus svg 图标

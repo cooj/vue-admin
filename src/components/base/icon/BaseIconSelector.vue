@@ -39,8 +39,8 @@
 <script setup lang="ts" name="iconSelector">
 import { computed, defineAsyncComponent, nextTick, onMounted, reactive, ref, watch } from 'vue'
 import type { TabsPaneContext } from 'element-plus'
-import initIconfont from '/@/utils/getStyleSheets'
-import '/@/theme/iconSelector.scss'
+import initIconfont from '@/utils/getStyleSheets'
+import '@/theme/iconSelector.scss'
 
 // const pa = defineProps<{
 //     // 输入框前置内容

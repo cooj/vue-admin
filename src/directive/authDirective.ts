@@ -1,5 +1,5 @@
 import type { App } from 'vue'
-import { judementSameArr } from '@/utils/arrayOperation'
+import { judgmentSameArr } from '@/utils/arrayOperation'
 
 /**
  * 用户权限指令
@@ -28,7 +28,7 @@ export function authDirective(app: App) {
     app.directive('auth-all', {
         mounted(el, binding) {
             const stores = useUserInfo()
-            const flag = judementSameArr(binding.value, stores.userInfo?.authBtnList || [])
+            const flag = judgmentSameArr(binding.value, stores.userInfo?.authBtnList || [])
             if (!flag) el.parentNode.removeChild(el)
         },
     })

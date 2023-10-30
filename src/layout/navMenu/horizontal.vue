@@ -33,8 +33,8 @@ import { computed, defineAsyncComponent, onBeforeMount, reactive } from 'vue'
 import type { RouteRecordRaw } from 'vue-router'
 import { onBeforeRouteUpdate, useRoute } from 'vue-router'
 import { storeToRefs } from 'pinia'
-import other from '/@/utils/other'
-import mittBus from '/@/utils/mitt'
+import other from '@/utils/other'
+import mittBus from '@/utils/mitt'
 
 // 定义父组件传过来的值
 const props = defineProps({

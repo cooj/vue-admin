@@ -57,7 +57,7 @@ import { defineAsyncComponent, onMounted, reactive, ref } from 'vue'
 import { ElMessage, ElMessageBox } from 'element-plus'
 
 // 引入组件
-const DicDialog = defineAsyncComponent(() => import('/@/views/system/dic/dialog.vue'))
+const DicDialog = defineAsyncComponent(() => import('@/views/system/dic/dialog.vue'))
 
 // 定义变量内容
 const dicDialogRef = ref()

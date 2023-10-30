@@ -26,9 +26,9 @@
 import { computed, onMounted, reactive } from 'vue'
 import type { RouteRecordRaw } from 'vue-router'
 import { onBeforeRouteUpdate, useRoute, useRouter } from 'vue-router'
-import { Local } from '/@/utils/storage'
-import other from '/@/utils/other'
 import { storeToRefs } from 'pinia'
+import { Local } from '@/utils/storage'
+import other from '@/utils/other'
 
 // 定义变量内容
 const stores = useRoutesList()

@@ -61,7 +61,7 @@ import { defineAsyncComponent, onMounted, reactive, ref } from 'vue'
 import { ElMessage, ElMessageBox } from 'element-plus'
 
 // 引入组件
-const RoleDialog = defineAsyncComponent(() => import('/@/views/system/role/dialog.vue'))
+const RoleDialog = defineAsyncComponent(() => import('@/views/system/role/dialog.vue'))
 
 // 定义变量内容
 const roleDialogRef = ref()
@@ -102,7 +102,7 @@ const onOpenAddRole = (type: string) => {
     roleDialogRef.value.openDialog(type)
 }
 // 打开修改角色弹窗
-const onOpenEditRole = (type: string, row: Object) => {
+const onOpenEditRole = (type: string, row: RowRoleType) => {
     roleDialogRef.value.openDialog(type, row)
 }
 // 删除角色

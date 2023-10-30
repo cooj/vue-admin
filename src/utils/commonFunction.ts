@@ -1,7 +1,7 @@
 // 通用函数
 
 import { ElMessage } from 'element-plus'
-import { formatDate } from '/@/utils/formatTime'
+import { formatDate } from '@/utils/formatTime'
 
 export default function () {
     // 百分比格式化

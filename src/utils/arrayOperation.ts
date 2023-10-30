@@ -4,19 +4,27 @@
  * @param old 源数据
  * @returns 两数组相同返回 `true`，反之则反
  */
-export function judementSameArr(newArr: unknown[] | string[], oldArr: string[]): boolean {
-    const news = removeDuplicate(newArr)
-    const olds = removeDuplicate(oldArr)
-    let count = 0
-    const len = news.length
-    for (const i in olds) {
-        for (const j in news) {
-            if (olds[i] === news[j]) count++
-        }
-    }
-    return count === len
+// export function judementSameArr000(newArr: unknown[] | string[], oldArr: string[]): boolean {
+//     // console.log('newArr :>> ', newArr);
+//     // console.log('oldArr :>> ', oldArr);
+//     const news = removeDuplicate(newArr)
+//     const olds = removeDuplicate(oldArr)
+//     let count = 0
+//     const len = news.length
+//     for (const i in olds) {
+//         for (const j in news) {
+//             if (olds[i] === news[j]) count++
+//         }
+//     }
+//     return count === len
+// }
+export function judgmentSameArr<T>(newArr: T[], oldArr: T[]): boolean {
+    const olds = [...new Set(oldArr)]
+    const news = [...new Set(newArr)]
+    const count = 0
+    const newsLength = news.length
+    return news.some(item => olds.includes(item)) && count === newsLength
 }
-
 /**
  * 判断两个对象是否相同
  * @param a 要比较的对象一

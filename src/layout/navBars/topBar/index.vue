@@ -12,13 +12,13 @@ import { computed, defineAsyncComponent, onMounted, onUnmounted, reactive } from
 import type { RouteRecordRaw } from 'vue-router'
 import { useRoute } from 'vue-router'
 import { storeToRefs } from 'pinia'
-import mittBus from '/@/utils/mitt'
+import mittBus from '@/utils/mitt'
 
 // 引入组件
-const Breadcrumb = defineAsyncComponent(() => import('/@/layout/navBars/topBar/breadcrumb.vue'))
-const User = defineAsyncComponent(() => import('/@/layout/navBars/topBar/user.vue'))
-const Logo = defineAsyncComponent(() => import('/@/layout/logo/index.vue'))
-const Horizontal = defineAsyncComponent(() => import('/@/layout/navMenu/horizontal.vue'))
+const Breadcrumb = defineAsyncComponent(() => import('@/layout/navBars/topBar/breadcrumb.vue'))
+const User = defineAsyncComponent(() => import('@/layout/navBars/topBar/user.vue'))
+const Logo = defineAsyncComponent(() => import('@/layout/logo/index.vue'))
+const Horizontal = defineAsyncComponent(() => import('@/layout/navMenu/horizontal.vue'))
 
 // 定义变量内容
 const stores = useRoutesList()

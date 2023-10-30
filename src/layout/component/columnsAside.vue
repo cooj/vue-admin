@@ -41,7 +41,10 @@ import { nextTick, onMounted, onUnmounted, reactive, ref, watch } from 'vue'
 import type { RouteRecordRaw } from 'vue-router'
 import { onBeforeRouteUpdate, useRoute, useRouter } from 'vue-router'
 import { storeToRefs } from 'pinia'
-import mittBus from '/@/utils/mitt'
+import mittBus from '@/utils/mitt'
+import { fooKey } from '@/config/bus'
+
+const bus = useEventBus(fooKey)
 
 // 定义变量内容
 const columnsAsideOffsetTopRefs = ref<HTMLLIElement[]>()

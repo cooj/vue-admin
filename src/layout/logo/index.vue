@@ -11,7 +11,7 @@
 <script setup lang="ts" name="layoutLogo">
 import { computed } from 'vue'
 import { storeToRefs } from 'pinia'
-import logoMini from '/@/assets/logo-mini.svg'
+import logoMini from '@/assets/logo-mini.svg'
 
 // 定义变量内容
 const storesThemeConfig = useThemeConfig()
