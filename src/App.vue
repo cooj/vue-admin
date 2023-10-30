@@ -5,6 +5,9 @@
         <Settings v-show="setLockScreen" ref="settingRef" />
         <CloseFull v-if="!themeConfig.isLockScreen" />
         <!-- <Upgrade v-if="getVersion" /> -->
+        <div class="h0px opacity-0">
+            <BaseIconList />
+        </div>
     </el-config-provider>
 </template>
 

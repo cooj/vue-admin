@@ -1,7 +1,7 @@
 <template>
     <div v-show="state.isShowLockScreen">
         <div class="layout-lock-screen-mask" />
-        <div class="layout-lock-screen-img" :class="{ 'layout-lock-screen-filter': state.isShowLoockLogin }" />
+        <div class="layout-lock-screen-img" :class="{ 'layout-lock-screen-filter': state.isShowLockLogin }" />
         <div class="layout-lock-screen">
             <div ref="layoutLockScreenDateRef" class="layout-lock-screen-date" @mousedown="onDownPc" @mousemove="onMovePc"
                 @mouseup="onEnd" @touchstart.stop="onDownApp" @touchmove.stop="onMoveApp" @touchend.stop="onEnd">
@@ -21,7 +21,7 @@
                 </div>
             </div>
             <transition name="el-zoom-in-center">
-                <div v-show="state.isShowLoockLogin" class="layout-lock-screen-login">
+                <div v-show="state.isShowLockLogin" class="layout-lock-screen-login">
                     <div class="layout-lock-screen-login-box">
                         <div class="layout-lock-screen-login-box-img">
                             <img
@@ -69,7 +69,7 @@ const state = reactive({
     transparency: 1,
     downClientY: 0,
     moveDifference: 0,
-    isShowLoockLogin: false,
+    isShowLockLogin: false,
     isFlags: false,
     querySelectorEl: '' as HtmlType,
     time: {
@@ -98,7 +98,7 @@ const onMove = () => {
             }, 300)
         }
         if (state.moveDifference === -el.clientHeight) {
-            state.isShowLoockLogin = true
+            state.isShowLockLogin = true
             layoutLockScreenInputRef.value.focus()
         }
     }

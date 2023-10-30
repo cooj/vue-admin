@@ -317,6 +317,13 @@
 .el-scrollbar {
     .el-scrollbar__bar {
         z-index: 4;
+
+        &.is-vertical {
+            width: 8px;
+        }
+        &.is-horizontal {
+            height: 8px;
+        }
     }
 }
 

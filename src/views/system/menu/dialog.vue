@@ -50,7 +50,8 @@
                         </el-col>
                         <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" class="mb20">
                             <el-form-item label="菜单图标">
-                                <IconSelector v-model="state.ruleForm.meta.icon" placeholder="请输入菜单图标" />
+                                <i class="i-ep-edit block" />
+                                <!-- <IconSelector v-model="state.ruleForm.meta.icon" placeholder="请输入菜单图标" /> -->
                             </el-form-item>
                         </el-col>
                         <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" class="mb20">
@@ -162,7 +163,7 @@
 </template>
 
 <script setup lang="ts" name="systemMenuDialog">
-import { defineAsyncComponent, onMounted, reactive, ref } from 'vue'
+import { onMounted, reactive, ref } from 'vue'
 import { storeToRefs } from 'pinia'
 
 // import { setBackEndControlRefreshRoutes } from "@/router/backEnd";
@@ -171,7 +172,7 @@ import { storeToRefs } from 'pinia'
 const emit = defineEmits(['refresh'])
 
 // 引入组件
-const IconSelector = defineAsyncComponent(() => import('@/components/iconSelector/index.vue'))
+// const IconSelector = defineAsyncComponent(() => import('@/components/iconSelector/index.vue'))
 
 // 定义变量内容
 const menuDialogFormRef = ref()

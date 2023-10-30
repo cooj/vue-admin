@@ -1,5 +1,4 @@
 import type { RouteRecordRaw } from 'vue-router'
-import { storeToRefs } from 'pinia'
 import pinia from '@/stores/index'
 import { Session } from '@/utils/storage'
 import { NextLoading } from '@/utils/loading'

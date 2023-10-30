@@ -1,23 +1,23 @@
 <template>
-    <BaseBox>
-        <div class="system-user-search mb15px">
-            <el-input size="default" placeholder="请输入字典名称" style="max-width: 180px" />
-            <el-button size="default" type="primary" class="ml10">
-                <el-icon>
-                    <ele-Search />
-                </el-icon>
-                查询
-            </el-button>
-            <el-button size="default" type="success" class="ml10" @click="onOpenAddDic('add')">
-                <el-icon>
-                    <ele-FolderAdd />
-                </el-icon>
-                新增字典
-            </el-button>
-        </div>
-        <div class="flex-1 overflow-auto">
-            <el-table v-loading="state.tableData.loading" :data="state.tableData.data" style="height:100%;">
-                <el-table-column type="index" label="序号" width="70" />
+    <div class="layout-padding system-dic-container">
+        <el-card shadow="hover" class="layout-padding-auto">
+            <div class="system-user-search mb15">
+                <el-input size="default" placeholder="请输入字典名称" style="max-width: 180px" />
+                <el-button size="default" type="primary" class="ml10">
+                    <el-icon>
+                        <ele-Search />
+                    </el-icon>
+                    查询
+                </el-button>
+                <el-button size="default" type="success" class="ml10" @click="onOpenAddDic('add')">
+                    <el-icon>
+                        <ele-FolderAdd />
+                    </el-icon>
+                    新增字典
+                </el-button>
+            </div>
+            <el-table v-loading="state.tableData.loading" :data="state.tableData.data" style="width: 100%">
+                <el-table-column type="index" label="序号" width="50" />
                 <el-table-column prop="dicName" label="字典名称" show-overflow-tooltip />
                 <el-table-column prop="fieldName" label="字段名" show-overflow-tooltip />
                 <el-table-column prop="status" label="字典状态" show-overflow-tooltip>
@@ -43,14 +43,13 @@
                     </template>
                 </el-table-column>
             </el-table>
-        </div>
-        <el-pagination v-model:current-page="state.tableData.param.pageNum"
-            v-model:page-size="state.tableData.param.pageSize" class="mt15px" :pager-count="5" :page-sizes="[10, 20, 30]"
-            background layout="total, sizes, prev, pager, next, jumper" :total="state.tableData.total"
-            @size-change="onHandleSizeChange" @current-change="onHandleCurrentChange" />
-
+            <el-pagination v-model:current-page="state.tableData.param.pageNum"
+                v-model:page-size="state.tableData.param.pageSize" class="mt15" :pager-count="5" :page-sizes="[10, 20, 30]"
+                background layout="total, sizes, prev, pager, next, jumper" :total="state.tableData.total"
+                @size-change="onHandleSizeChange" @current-change="onHandleCurrentChange" />
+        </el-card>
         <DicDialog ref="dicDialogRef" @refresh="getTableData()" />
-    </BaseBox>
+    </div>
 </template>
 
 <script setup lang="ts" name="systemDic">
@@ -78,7 +77,7 @@ const state = reactive<SysDicState>({
 const getTableData = () => {
     state.tableData.loading = true
     const data = []
-    for (let i = 0; i < 20; i++) {
+    for (let i = 0; i < 2; i++) {
         data.push({
             dicName: i === 0 ? '角色标识' : '用户性别',
             fieldName: i === 0 ? 'SYS_ROLE' : 'SYS_UERINFO',

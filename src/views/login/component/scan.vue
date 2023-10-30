@@ -10,7 +10,6 @@
 
 <script setup lang="ts" name="loginScan">
 import { nextTick, onMounted, ref } from 'vue'
-import QRCode from 'qrcodejs2-fixes'
 
 // 定义变量内容
 const codeRef = ref<HTMLElement | null>(null)
@@ -19,13 +18,6 @@ const codeRef = ref<HTMLElement | null>(null)
 const initQrCode = () => {
     nextTick(() => {
         codeRef.value!.innerHTML = ''
-        const code = new QRCode(codeRef.value, {
-            text: `https://qm.qq.com/cgi-bin/qm/qr?k=RdUY97Vx0T0vZ_1OOu-X1yFNkWgDwbjC&jump_from=webapi`,
-            width: 260,
-            height: 260,
-            colorDark: '#000000',
-            colorLight: '#ffffff',
-        })
     })
 }
 // 页面加载时

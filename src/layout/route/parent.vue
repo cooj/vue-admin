@@ -1,5 +1,5 @@
 <template>
-    <div class="layout-parent">
+    <div class="layout-parent" :class="{ p15px: !isIframePage }">
         <router-view v-slot="{ Component }">
             <transition :name="setTransitionName" mode="out-in">
                 <keep-alive :include="getKeepAliveNames">
@@ -7,7 +7,7 @@
                 </keep-alive>
             </transition>
         </router-view>
-        <transition :name="setTransitionName" mode="out-in">
+        <transition v-if="state.iframeList.length > 0" :name="setTransitionName" mode="out-in">
             <IframeView v-show="isIframePage" class="w100%" :refresh-key="state.iframeRefreshKey" :name="setTransitionName"
                 :list="state.iframeList" />
         </transition>

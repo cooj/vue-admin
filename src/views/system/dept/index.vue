@@ -1,58 +1,58 @@
 <template>
-    <div class="layout-padding system-dept-container">
-        <el-card shadow="hover" class="layout-padding-auto">
-            <div class="system-dept-search mb15">
-                <el-input size="default" placeholder="请输入部门名称" style="max-width: 180px" />
-                <el-button size="default" type="primary" class="ml10">
-                    <el-icon>
-                        <ele-Search />
-                    </el-icon>
-                    查询
-                </el-button>
-                <el-button size="default" type="success" class="ml10" @click="onOpenAddDept('add')">
-                    <el-icon>
-                        <ele-FolderAdd />
-                    </el-icon>
-                    新增部门
-                </el-button>
-            </div>
-            <el-table v-loading="state.tableData.loading" :data="state.tableData.data" style="width: 100%" row-key="id"
-                default-expand-all :tree-props="{ children: 'children', hasChildren: 'hasChildren' }">
-                <el-table-column prop="deptName" label="部门名称" show-overflow-tooltip />
-                <el-table-column label="排序" show-overflow-tooltip width="80">
-                    <template #default="scope">
-                        {{ scope.$index }}
-                    </template>
-                </el-table-column>
-                <el-table-column prop="status" label="部门状态" show-overflow-tooltip>
-                    <template #default="scope">
-                        <el-tag v-if="scope.row.status" type="success">
-                            启用
-                        </el-tag>
-                        <el-tag v-else type="info">
-                            禁用
-                        </el-tag>
-                    </template>
-                </el-table-column>
-                <el-table-column prop="describe" label="部门描述" show-overflow-tooltip />
-                <el-table-column prop="createTime" label="创建时间" show-overflow-tooltip />
-                <el-table-column label="操作" show-overflow-tooltip width="140">
-                    <template #default="scope">
-                        <el-button size="small" text type="primary" @click="onOpenAddDept('add')">
-                            新增
-                        </el-button>
-                        <el-button size="small" text type="primary" @click="onOpenEditDept('edit', scope.row)">
-                            修改
-                        </el-button>
-                        <el-button size="small" text type="primary" @click="onTabelRowDel(scope.row)">
-                            删除
-                        </el-button>
-                    </template>
-                </el-table-column>
-            </el-table>
-        </el-card>
+    <BaseBox no-theme min-height>
+        <div class="system-dept-search mb15px">
+            <el-input size="default" placeholder="请输入部门名称" style="max-width: 180px" />
+            <el-button size="default" type="primary" class="ml10px">
+                <el-icon>
+                    <ele-Search />
+                </el-icon>
+                查询
+            </el-button>
+            <el-button size="default" type="success" class="ml10px" @click="onOpenAddDept('add')">
+                <el-icon>
+                    <ele-FolderAdd />
+                </el-icon>
+                新增部门
+            </el-button>
+        </div>
+
+        <el-table v-loading="state.tableData.loading" :data="state.tableData.data" style="width: 100%" row-key="id"
+            default-expand-all :tree-props="{ children: 'children', hasChildren: 'hasChildren' }">
+            <el-table-column prop="deptName" label="部门名称" show-overflow-tooltip />
+            <el-table-column label="排序" show-overflow-tooltip width="80">
+                <template #default="scope">
+                    {{ scope.$index }}
+                </template>
+            </el-table-column>
+            <el-table-column prop="status" label="部门状态" show-overflow-tooltip>
+                <template #default="scope">
+                    <el-tag v-if="scope.row.status" type="success">
+                        启用
+                    </el-tag>
+                    <el-tag v-else type="info">
+                        禁用
+                    </el-tag>
+                </template>
+            </el-table-column>
+            <el-table-column prop="describe" label="部门描述" show-overflow-tooltip />
+            <el-table-column prop="createTime" label="创建时间" show-overflow-tooltip />
+            <el-table-column label="操作" show-overflow-tooltip width="140">
+                <template #default="scope">
+                    <el-button size="small" text type="primary" @click="onOpenAddDept('add')">
+                        新增
+                    </el-button>
+                    <el-button size="small" text type="primary" @click="onOpenEditDept('edit', scope.row)">
+                        修改
+                    </el-button>
+                    <el-button size="small" text type="primary" @click="onTabelRowDel(scope.row)">
+                        删除
+                    </el-button>
+                </template>
+            </el-table-column>
+        </el-table>
+
         <DeptDialog ref="deptDialogRef" @refresh="getTableData()" />
-    </div>
+    </BaseBox>
 </template>
 
 <script setup lang="ts" name="systemDept">
@@ -80,32 +80,36 @@ const state = reactive<SysDeptState>({
 const getTableData = () => {
     state.tableData.loading = true
     state.tableData.data = []
-    state.tableData.data.push({
-        deptName: 'vueNextAdmin',
-        createTime: new Date().toLocaleString(),
-        status: true,
-        sort: Math.random(),
-        describe: '顶级部门',
-        id: Math.random(),
-        children: [
-            {
-                deptName: 'IT外包服务',
-                createTime: new Date().toLocaleString(),
-                status: true,
-                sort: Math.random(),
-                describe: '总部',
-                id: Math.random(),
-            },
-            {
-                deptName: '资本控股',
-                createTime: new Date().toLocaleString(),
-                status: true,
-                sort: Math.random(),
-                describe: '分部',
-                id: Math.random(),
-            },
-        ],
-    })
+
+    for (let i = 0; i < 5; i++) {
+        state.tableData.data.push({
+            deptName: 'vueNextAdmin',
+            createTime: new Date().toLocaleString(),
+            status: true,
+            sort: Math.random(),
+            describe: '顶级部门',
+            id: Math.random(),
+            children: [
+                {
+                    deptName: 'IT外包服务',
+                    createTime: new Date().toLocaleString(),
+                    status: true,
+                    sort: Math.random(),
+                    describe: '总部',
+                    id: Math.random(),
+                },
+                {
+                    deptName: '资本控股',
+                    createTime: new Date().toLocaleString(),
+                    status: true,
+                    sort: Math.random(),
+                    describe: '分部',
+                    id: Math.random(),
+                },
+            ],
+        })
+    }
+
     state.tableData.total = state.tableData.data.length
     setTimeout(() => {
         state.tableData.loading = false

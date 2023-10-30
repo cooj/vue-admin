@@ -8,12 +8,39 @@
                     <br>&emsp;工游记后台管理系统
                 </h1>
             </div>
+            <BaseIconSelector v-model="icon" type="all" />
+            <div class="min-h300px">
+                <!-- <BaseIconList /> -->
+                <i class="block" :class="name" />
+            </div>
         </div>
     </div>
 </template>
 
 <script lang="ts" setup>
+import { ApiMenu } from '@/api/system/menu'
 
+// import IconList from '@/layout/component/icon.vue'
+
+const icon = ref('')
+const name = ref('')
+// setTimeout(() => {
+//     const user = 'user'
+//     name.value = `i-ep-${user}`
+// }, 2000)
+
+const getIconName = async () => {
+    const res = await ApiMenu.getList()
+    console.log(res)
+    name.value = `i-ep-${res}`
+}
+
+onMounted(async () => {
+    // const res = await initIcon('.fa-', 'fa')
+    // console.log(res)
+
+    getIconName()
+})
 </script>
 
 <style lang="scss" scoped>

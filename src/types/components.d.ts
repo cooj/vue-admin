@@ -7,6 +7,8 @@ export {}
 
 declare module 'vue' {
   export interface GlobalComponents {
+    BaseBox: typeof import('./../components/base/BaseBox.vue')['default']
+    BaseIconList: typeof import('./../components/base/icon/BaseIconList.vue')['default']
     BaseIconSelector: typeof import('./../components/base/icon/BaseIconSelector.vue')['default']
     ElAlert: typeof import('element-plus/es')['ElAlert']
     ElAside: typeof import('element-plus/es')['ElAside']
