@@ -1,6 +1,6 @@
 // 通用函数
 
-import { formatDate } from '@/utils/formatTime'
+import { formatDate } from '@/utils/common/formatTime'
 
 export default function () {
     // 百分比格式化

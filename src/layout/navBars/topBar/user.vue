@@ -43,7 +43,7 @@
         </div>
         <el-dropdown :show-timeout="70" :hide-timeout="50" @command="onHandleCommandClick">
             <span class="layout-navbars-breadcrumb-user-link">
-                <img :src="userInfo?.photo" class="layout-navbars-breadcrumb-user-link-photo mr5">
+                <img :src="userInfo?.photo" class="layout-navbars-breadcrumb-user-link-photo mr5px">
                 {{ userInfo?.username === '' ? 'common' : userInfo?.username }}
                 <el-icon class="el-icon--right">
                     <ele-ArrowDown />

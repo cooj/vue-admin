@@ -92,41 +92,6 @@ const state = reactive({
     },
 })
 
-// 打开弹窗
-const openDialog = (type: string, row: RowDeptType) => {
-    if (type === 'edit') {
-        row.deptLevel = ['vueNextAdmin']
-        row.person = 'lyt'
-        row.phone = '12345678910'
-        row.email = 'vueNextAdmin@123.com'
-        state.ruleForm = row
-        state.dialog.title = '修改部门'
-        state.dialog.submitTxt = '修 改'
-    } else {
-        state.dialog.title = '新增部门'
-        state.dialog.submitTxt = '新 增'
-        // 清空表单，此项需加表单验证才能使用
-        // nextTick(() => {
-        // 	deptDialogFormRef.value.resetFields();
-        // });
-    }
-    state.dialog.isShowDialog = true
-    getMenuData()
-}
-// 关闭弹窗
-const closeDialog = () => {
-    state.dialog.isShowDialog = false
-}
-// 取消
-const onCancel = () => {
-    closeDialog()
-}
-// 提交
-const onSubmit = () => {
-    closeDialog()
-    emit('refresh')
-    // if (state.dialog.type === 'add') { }
-}
 // 初始化部门数据
 const getMenuData = () => {
     state.deptData.push({
@@ -155,6 +120,42 @@ const getMenuData = () => {
             },
         ],
     })
+}
+
+// 打开弹窗
+const openDialog = (type: string, row: RowDeptType) => {
+    if (type === 'edit') {
+        row.deptLevel = ['vueNextAdmin']
+        row.person = 'lyt'
+        row.phone = '12345678910'
+        row.email = 'vueNextAdmin@123.com'
+        state.ruleForm = row
+        state.dialog.title = '修改部门'
+        state.dialog.submitTxt = '修 改'
+    } else {
+        state.dialog.title = '新增部门'
+        state.dialog.submitTxt = '新 增'
+        // 清空表单，此项需加表单验证才能使用
+        // nextTick(() => {
+        //     deptDialogFormRef.value.resetFields()
+        // })
+    }
+    state.dialog.isShowDialog = true
+    getMenuData()
+}
+// 关闭弹窗
+const closeDialog = () => {
+    state.dialog.isShowDialog = false
+}
+// 取消
+const onCancel = () => {
+    closeDialog()
+}
+// 提交
+const onSubmit = () => {
+    closeDialog()
+    emit('refresh')
+    // if (state.dialog.type === 'add') { }
 }
 
 // 暴露变量

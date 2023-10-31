@@ -448,7 +448,7 @@
                 </div>
                 <div class="my10px">
                     <el-button size="default" class="w100%" type="info" @click="onResetConfigClick">
-                        <el-icon class="mr5">
+                        <el-icon class="mr5px">
                             <ele-RefreshRight />
                         </el-icon>
                         一键恢复默认
@@ -466,8 +466,7 @@ import { storeToRefs } from 'pinia'
 import { useChangeColor } from '@/utils/theme'
 import { verifyAndSpace } from '@/utils/toolsValidate'
 import { Local } from '@/utils/storage'
-import Watermark from '@/utils/watermark'
-import { isMobile } from '@/utils/other'
+import { isMobile, watermark } from '@/utils/other'
 import mittBus from '@/utils/mitt'
 
 // 定义变量内容
@@ -611,14 +610,14 @@ const onAddDarkChange = () => {
 }
 // 4、界面显示 --> 开启水印
 const onWatermarkChange = () => {
-    getThemeConfig.value.isWatermark ? Watermark.set(getThemeConfig.value.watermarkText) : Watermark.del()
+    getThemeConfig.value.isWatermark ? watermark.set(getThemeConfig.value.watermarkText) : watermark.del()
     setLocalThemeConfig()
 }
 // 4、界面显示 --> 水印文案
 const onWatermarkTextInput = (val: string) => {
     getThemeConfig.value.watermarkText = verifyAndSpace(val)
     if (getThemeConfig.value.watermarkText === '') return false
-    if (getThemeConfig.value.isWatermark) Watermark.set(getThemeConfig.value.watermarkText)
+    if (getThemeConfig.value.isWatermark) watermark.set(getThemeConfig.value.watermarkText)
     setLocalThemeConfig()
 }
 // 5、布局切换

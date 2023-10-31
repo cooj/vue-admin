@@ -4,7 +4,7 @@ import { createApp } from 'vue'
 import pinia from '@/stores/index'
 import App from '@/App.vue'
 import router from '@/router'
-import { directive } from '@/directive/index'
+import { directive } from '@/utils/directive/index'
 import { elSvg } from '@/utils/other'
 
 import 'uno.css'

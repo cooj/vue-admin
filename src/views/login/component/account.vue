@@ -1,7 +1,7 @@
 <template>
     <el-form size="large" class="login-content-form">
         <el-form-item class="login-animation1">
-            <el-input v-model="state.ruleForm.userName" text placeholder="用户名 admin 或不输均为 common" clearable
+            <el-input v-model="state.ruleForm.userName" placeholder="用户名 admin 或不输均为 common" clearable text
                 autocomplete="off">
                 <template #prefix>
                     <el-icon class="el-input__icon">
@@ -61,7 +61,7 @@ import { storeToRefs } from 'pinia'
 import { initFrontEndControlRoutes } from '@/router/frontEnd'
 import { initBackEndControlRoutes } from '@/router/backEnd'
 import { Session } from '@/utils/storage'
-import { formatAxis } from '@/utils/formatTime'
+import { formatAxis } from '@/utils/common/formatTime'
 import { NextLoading } from '@/utils/loading'
 
 // 定义变量内容

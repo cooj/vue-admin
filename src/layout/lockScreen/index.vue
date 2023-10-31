@@ -57,7 +57,7 @@
 <script setup lang="ts" name="layoutLockScreen">
 import { nextTick, onMounted, onUnmounted, reactive, ref } from 'vue'
 import { storeToRefs } from 'pinia'
-import { formatDate } from '@/utils/formatTime'
+import { formatDate } from '@/utils/common/formatTime'
 import { Local } from '@/utils/storage'
 
 // 定义变量内容

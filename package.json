@@ -17,8 +17,8 @@
     "scripts": {
         "dev": "vite --force",
         "build": "vite build",
-        "lint1": "eslint . --fix",
-        "lint": "eslint src/**/*.ts --fix",
+        "lint": "eslint . --fix",
+        "lint1": "eslint src/**/*.ts --fix",
         "commit": "git-cz",
         "prepare": "husky install",
         "preinstall": "npx only-allow pnpm"

@@ -108,7 +108,12 @@ export default antfu(
             // 'max-statements-per-line': ['error', { max: 2 }],
             'node/prefer-global/process': ['error', 'always'],
             'function-call-argument-newline': ['error', 'consistent'],
-
+            'ts/no-use-before-define': ['error', {
+                // functions: true,
+                // classes: true,
+                variables: false,
+                // allowNamedExports: false,
+            }],
         },
     },
 )

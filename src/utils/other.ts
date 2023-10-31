@@ -23,6 +23,24 @@ export function elSvg(app: App) {
 }
 
 /**
+ * 设置 自定义 tagsView 名称
+ * @param item 路由 query、params 中的 tagsViewName
+ * @returns 返回当前 tagsViewName 名称
+ */
+export function setTagsViewNameI18n(item: any) {
+    let tagsViewName: string = ''
+    const { query, params, meta } = item
+    if (query?.tagsViewName || params?.tagsViewName) {
+        // 非国际化
+        tagsViewName = query?.tagsViewName || params?.tagsViewName
+    } else {
+        // 非自定义 tagsView 名称
+        tagsViewName = meta.title
+    }
+    return tagsViewName
+}
+
+/**
  * 设置浏览器标题国际化
  * @method const title = useTitle(); ==> title()
  */
@@ -40,24 +58,6 @@ export function useTitle() {
         }
         document.title = webTitle ? `${webTitle} - ${globalTitle}` : globalTitle
     })
-}
-
-/**
- * 设置 自定义 tagsView 名称
- * @param item 路由 query、params 中的 tagsViewName
- * @returns 返回当前 tagsViewName 名称
- */
-export function setTagsViewNameI18n(item: any) {
-    let tagsViewName: string = ''
-    const { query, params, meta } = item
-    if (query?.tagsViewName || params?.tagsViewName) {
-        // 非国际化
-        tagsViewName = query?.tagsViewName || params?.tagsViewName
-    } else {
-        // 非自定义 tagsView 名称
-        tagsViewName = meta.title
-    }
-    return tagsViewName
 }
 
 /**
@@ -153,42 +153,47 @@ export function handleOpenLink(val: RouteItem) {
     else window.open(`${origin}${pathname}#${val.meta?.isLink}`)
 }
 
-// /**
-//  * 统一批量导出
-//  * @method elSvg 导出全局注册 element plus svg 图标
-//  * @method useTitle 设置浏览器标题国际化
-//  * @method setTagsViewNameI18n 设置 自定义 tagsView 名称、 自定义 tagsView 名称国际化
-//  * @method lazyImg 图片懒加载
-//  * @method deepClone 对象深克隆
-//  * @method isMobile 判断是否是移动端
-//  * @method handleEmpty 判断数组对象中所有属性是否为空，为空则删除当前行对象
-//  */
-// const other = {
-//     elSvg: (app: App) => {
-//         elSvg(app)
-//     },
-//     useTitle: () => {
-//         useTitle()
-//     },
-//     setTagsViewNameI18n(route: RouteToFrom) {
-//         return setTagsViewNameI18n(route)
-//     },
-//     lazyImg: (el: string, arr: EmptyArrayType) => {
-//         lazyImg(el, arr)
-//     },
-//     deepClone: (obj: EmptyObjectType) => {
-//         return deepClone(obj)
-//     },
-//     isMobile: () => {
-//         return isMobile()
-//     },
-//     handleEmpty: (list: EmptyArrayType) => {
-//         return handleEmpty(list)
-//     },
-//     handleOpenLink: (val: RouteItem) => {
-//         handleOpenLink(val)
-//     },
-// }
+// 页面添加水印效果
+const setWatermark = (str: string) => {
+    const id = '1.23452384164.123412416'
+    if (document.getElementById(id) !== null) document.body.removeChild(<HTMLElement>document.getElementById(id))
+    const can = document.createElement('canvas')
+    can.width = 200
+    can.height = 130
+    const cans = <CanvasRenderingContext2D>can.getContext('2d')
+    cans.rotate((-20 * Math.PI) / 180)
+    cans.font = '12px Vedana'
+    cans.fillStyle = 'rgba(200, 200, 200, 0.30)'
+    cans.textBaseline = 'middle'
+    cans.fillText(str, can.width / 10, can.height / 2)
+    const div = document.createElement('div')
+    div.id = id
+    div.style.pointerEvents = 'none'
+    div.style.top = '0px'
+    div.style.left = '0px'
+    div.style.position = 'fixed'
+    div.style.zIndex = '10000000'
+    div.style.width = `${document.documentElement.clientWidth}px`
+    div.style.height = `${document.documentElement.clientHeight}px`
+    div.style.background = `url(${can.toDataURL('image/png')}) left top repeat`
+    document.body.appendChild(div)
+    return id
+}
 
-// // 统一批量导出
-// export default other
+/**
+ * 页面添加水印效果
+ * @method set 设置水印
+ * @method del 删除水印
+ */
+export const watermark = {
+    // 设置水印
+    set: (str: string) => {
+        let id = setWatermark(str)
+        if (document.getElementById(id) === null) id = setWatermark(str)
+    },
+    // 删除水印
+    del: () => {
+        const id = '1.23452384164.123412416'
+        if (document.getElementById(id) !== null) document.body.removeChild(<HTMLElement>document.getElementById(id))
+    },
+}

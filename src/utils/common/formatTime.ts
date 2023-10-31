@@ -1,4 +1,25 @@
 /**
+ * 获取当前日期是第几周
+ * @param dateTime 当前传入的日期值
+ * @returns 返回第几周数字值
+ */
+export function getWeek(dateTime: Date): number {
+    const temptTime = new Date(dateTime.getTime())
+    // 周几
+    const weekday = temptTime.getDay() || 7
+    // 周1+5天=周六
+    temptTime.setDate(temptTime.getDate() - weekday + 1 + 5)
+    let firstDay = new Date(temptTime.getFullYear(), 0, 1)
+    const dayOfWeek = firstDay.getDay()
+    let spendDay = 1
+    if (dayOfWeek !== 0) spendDay = 7 - dayOfWeek + 1
+    firstDay = new Date(temptTime.getFullYear(), 0, 1 + spendDay)
+    const d = Math.ceil((temptTime.valueOf() - firstDay.valueOf()) / 86400000)
+    const result = Math.ceil(d / 7)
+    return result
+}
+
+/**
  * 时间日期转换
  * @param date 当前时间，new Date() 格式
  * @param format 需要转换的时间格式字符串
@@ -50,27 +71,6 @@ export function formatDate(date: Date, format: string): string {
         if (r) format = format.replace(r[1], RegExp.$1.length === 1 ? opt[k] : opt[k].padStart(RegExp.$1.length, '0'))
     }
     return format
-}
-
-/**
- * 获取当前日期是第几周
- * @param dateTime 当前传入的日期值
- * @returns 返回第几周数字值
- */
-export function getWeek(dateTime: Date): number {
-    const temptTime = new Date(dateTime.getTime())
-    // 周几
-    const weekday = temptTime.getDay() || 7
-    // 周1+5天=周六
-    temptTime.setDate(temptTime.getDate() - weekday + 1 + 5)
-    let firstDay = new Date(temptTime.getFullYear(), 0, 1)
-    const dayOfWeek = firstDay.getDay()
-    let spendDay = 1
-    if (dayOfWeek !== 0) spendDay = 7 - dayOfWeek + 1
-    firstDay = new Date(temptTime.getFullYear(), 0, 1 + spendDay)
-    const d = Math.ceil((temptTime.valueOf() - firstDay.valueOf()) / 86400000)
-    const result = Math.ceil(d / 7)
-    return result
 }
 
 /**
