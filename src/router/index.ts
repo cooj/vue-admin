@@ -8,6 +8,7 @@ import { Session } from '@/utils/storage'
 import { notFoundAndNoPower, staticRoutes } from '@/router/route'
 import { initFrontEndControlRoutes } from '@/router/frontEnd'
 import { initBackEndControlRoutes } from '@/router/backEnd'
+import { setTitle } from '@/utils/other'
 
 /**
  * 1、前端控制路由时：isRequestRoutes 为 false，需要写 roles，需要走 setFilterRoute 方法。
@@ -118,9 +119,9 @@ router.beforeEach(async (to, from, next) => {
             next('/home')
             NProgress.done()
         } else {
-            const storesRoutesList = useRoutesList(pinia)
-            const { routesList } = storeToRefs(storesRoutesList)
-            if (routesList.value.length === 0) {
+            const userState = useUserInfo()
+
+            if (userState.menuList.length === 0) {
                 if (isRequestRoutes) {
                     // 后端控制路由：路由数据初始化，防止刷新时丢失
                     await initBackEndControlRoutes()
@@ -141,6 +142,7 @@ router.beforeEach(async (to, from, next) => {
 
 // 路由加载后
 router.afterEach(() => {
+    setTitle() // 设置网站标题
     NProgress.done()
 })
 

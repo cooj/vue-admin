@@ -20,46 +20,6 @@ export const USER_ROLE = {
 
 }
 
-// 来源类型：1：购货，2：销货，3：盘盈，4：盘亏，5：其他入库，6：其他出库
-export const SOURCE_TYPE = [
-    {
-        label: '期初',
-        value: 0,
-    },
-    {
-        label: '其他入库',
-        value: 1,
-    },
-    {
-        label: '其他出库',
-        value: 2,
-    },
-    {
-        label: '盘盈',
-        value: 3,
-    },
-    {
-        label: '盘亏',
-        value: 4,
-    },
-    {
-        label: '入库单',
-        value: 5,
-    },
-    {
-        label: '出库单',
-        value: 6,
-    },
-    {
-        label: '采购退货',
-        value: 7,
-    },
-    {
-        label: '销售退货',
-        value: 8,
-    },
-]
-
 export const STATE_DATA = [
     {
         label: '未审核',

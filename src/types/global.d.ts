@@ -113,6 +113,36 @@ declare interface TableType<T = any> {
 
 
 
+/**
+ * 接口返回数据大致结构
+ */
+interface ResponseData<T = any> {
+    /**
+     * 状态码，示例：-  200 : 成功
+     */
+    code: number;
+    /**
+     * 返回文字描述，示例：-  提交成功
+     */
+    msg: string;
+    /**
+     * 返回的数据，
+     */
+    data: T;
+}
+
+
+
+/**
+ * 上传接口 - 请求参数
+ */
+declare interface CommonUploadType {
+    image: File, //上传的文件
+    type?: 'image' | 'excel';   //上传的文件类型        image:图片（默认），excel:表格
+}
+
+
+
 
 
 

@@ -7,6 +7,7 @@ import type { RouteRecordRaw } from 'vue-router'
  * @description 各字段请查看 `@/views/system/menu/component/addMenu.vue 下的 ruleForm`
  * @returns 返回路由菜单数据
  */
+// ||****
 export const dynamicRoutes: Array<RouteRecordRaw> = [
     {
         path: '/',
@@ -132,7 +133,7 @@ export const dynamicRoutes: Array<RouteRecordRaw> = [
         name: 'detail',
         component: () => import('@/views/system/dic/index.vue'),
         meta: {
-            title: '单据详情',
+            title: '单据详情`',
             isLink: '',
             isHide: true,
             isKeepAlive: true,
@@ -143,6 +144,7 @@ export const dynamicRoutes: Array<RouteRecordRaw> = [
         },
     },
 ]
+// ||****
 
 /**
  * 定义404、401界面

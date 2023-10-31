@@ -42,9 +42,9 @@ export function setTagsViewNameI18n(item: any) {
 
 /**
  * 设置浏览器标题国际化
- * @method const title = useTitle(); ==> title()
+ * @method const title = setTitle(); ==> title()
  */
-export function useTitle() {
+export function setTitle() {
     const stores = useThemeConfig(pinia)
     const { themeConfig } = storeToRefs(stores)
     nextTick(() => {

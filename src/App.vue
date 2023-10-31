@@ -11,11 +11,10 @@
 </template>
 
 <script setup lang="ts" name="app">
-import { computed, defineAsyncComponent, nextTick, onBeforeMount, onMounted, onUnmounted, ref, watch } from 'vue'
+import { computed, defineAsyncComponent, nextTick, onBeforeMount, onMounted, onUnmounted, ref } from 'vue'
 import { useRoute } from 'vue-router'
 import zhCn from 'element-plus/es/locale/lang/zh-cn'
 import { storeToRefs } from 'pinia'
-import { useTitle } from '@/utils/other'
 import { Local, Session } from '@/utils/storage'
 import { setCdnScript, setCdnStyle } from '@/utils/cdn'
 
@@ -79,14 +78,4 @@ onMounted(() => {
 onUnmounted(() => {
 
 })
-// 监听路由的变化，设置网站标题
-watch(
-    () => route.path,
-    () => {
-        useTitle()
-    },
-    {
-        deep: true,
-    },
-)
 </script>

@@ -4,6 +4,7 @@ import type { ConfigEnv } from 'vite'
 import { defineConfig, loadEnv } from 'vite'
 import viteCompression from 'vite-plugin-compression'
 import VueDevTools from 'vite-plugin-vue-devtools'
+import { watch } from 'vite-plugin-watch'
 
 import AutoImport from 'unplugin-auto-import/vite'
 import Components from 'unplugin-vue-components/vite'
@@ -58,6 +59,10 @@ const viteConfig = defineConfig((mode: ConfigEnv) => {
             // vueSetupExtend(),
             viteCompression(),
             JSON.parse(env.VITE_OPEN_CDN) ? buildConfig.cdn() : null,
+            watch({
+                pattern: 'src/router/route.ts',
+                command: 'node ./command/route.js',
+            }),
         ],
         root: process.cwd(),
         resolve: { alias },
