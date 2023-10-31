@@ -478,10 +478,10 @@ const onTagsClick = (v: RouteItem, k: number) => {
     state.tagsRefsIndex = k
     router.push(v)
     // 分栏布局时，收起/展开菜单
-    if (getThemeConfig.value.layout === 'columns') {
-        const item = routesList.value.find(r => r.path.includes(`/${v.path.split('/')[1]}`))
-        !item?.children ? (getThemeConfig.value.isCollapse = true) : (getThemeConfig.value.isCollapse = false)
-    }
+    // if (getThemeConfig.value.layout === 'columns') {
+    //     const item = routesList.value.find(r => r.path.includes(`/${v.path.split('/')[1]}`))
+    //     !item?.children ? (getThemeConfig.value.isCollapse = true) : (getThemeConfig.value.isCollapse = false)
+    // }
 }
 
 // 鼠标滚轮滚动

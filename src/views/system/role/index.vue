@@ -4,6 +4,7 @@
             <div class="system-user-search mb15">
                 <el-input v-model="state.tableData.param.search" size="default" placeholder="请输入角色名称"
                     style="max-width: 180px" />
+
                 <el-button size="default" type="primary" class="ml10">
                     <el-icon>
                         <ele-Search />
@@ -17,6 +18,9 @@
                     新增角色
                 </el-button>
             </div>
+            <RouterLink to="/detail">
+                单据详情
+            </RouterLink>
             <el-table v-loading="state.tableData.loading" :data="state.tableData.data" style="width: 100%">
                 <el-table-column type="index" label="序号" width="60" />
                 <el-table-column prop="roleName" label="角色名称" show-overflow-tooltip />
@@ -128,6 +132,7 @@ const onHandleCurrentChange = (val: number) => {
     state.tableData.param.pageNum = val
     getTableData()
 }
+
 // 页面加载时
 onMounted(() => {
     getTableData()

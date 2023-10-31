@@ -8,6 +8,17 @@ import { NextLoading } from '@/utils/loading'
 
 // 前端控制路由
 
+// const dynamicRoutes: any = formatFlatteningRoutes(dynamicRoutes)
+// dynamicRoutes[0].children=[]
+
+const getFullRoutes = () => {
+    const list = dynamicRoutes
+    notFoundAndNoPower.forEach((item) => {
+        list[0].children?.push(item)
+    })
+    return list
+}
+
 /**
  * 前端控制路由：初始化方法，防止刷新时路由丢失
  * @method  NextLoading 界面 loading 动画开始执行
@@ -26,6 +37,9 @@ export async function initFrontEndControlRoutes() {
     await stores.getUserInfo()
 
     if (stores.userInfo?.roles.length && stores.userInfo?.roles.length > 0) {
+        console.log(getFullRoutes())
+
+        stores.menuList = getFullRoutes()
         // 添加动态路由
         await setAddRoute()
         // 设置递归过滤有权限的路由到 pinia routesList 中（已处理成多级嵌套路由）及缓存多级嵌套数组处理后的一维数组
@@ -50,7 +64,8 @@ export async function initFrontEndControlRoutes() {
  * @link 参考：https://next.router.vuejs.org/zh/api/#addroute
  */
 export async function setAddRoute() {
-    await setFilterRouteEnd().forEach((route: RouteRecordRaw) => {
+    const routeEnd = setFilterRouteEnd()
+    await routeEnd.forEach((route: RouteRecordRaw) => {
         router.addRoute(route)
     })
 }

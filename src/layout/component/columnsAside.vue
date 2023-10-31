@@ -42,9 +42,6 @@ import type { RouteRecordRaw } from 'vue-router'
 import { onBeforeRouteUpdate, useRoute, useRouter } from 'vue-router'
 import { storeToRefs } from 'pinia'
 import mittBus from '@/utils/mitt'
-import { fooKey } from '@/config/bus'
-
-const bus = useEventBus(fooKey)
 
 // 定义变量内容
 const columnsAsideOffsetTopRefs = ref<HTMLLIElement[]>()
@@ -84,6 +81,14 @@ const setSendChildren = (path: string) => {
             if (v.children) currentData.children = v.children
         }
     })
+
+    if (route.meta.isHide && currentData.children.length === 0) {
+        const firstRoute = state.columnsAsideList[0]
+        firstRoute.k = 0
+        currentData.item = { ...firstRoute }
+        currentData.children = [{ ...firstRoute }]
+    }
+
     return currentData
 }
 
@@ -118,7 +123,7 @@ const onColumnsAsideDown = (k: number) => {
 const setMenuAutoCollapse = (path: string) => {
     const resData: MittMenu = setSendChildren(path)
     // https://gitee.com/lyt-top/vue-next-admin/issues/I6HW7H
-    resData.children.length <= 1 ? (themeConfig.value.isCollapse = true) : (themeConfig.value.isCollapse = false)
+    // resData.children.length <= 1 ? (themeConfig.value.isCollapse = true) : (themeConfig.value.isCollapse = false)
     return resData
 }
 // 设置/过滤路由（非静态路由/是否显示在菜单中）
@@ -165,8 +170,8 @@ const onColumnsAsideMenuClick = (v: RouteItem) => {
     }
     // 一个路由设置自动收起菜单
     // https://gitee.com/lyt-top/vue-next-admin/issues/I6HW7H
-    if (!v.children) themeConfig.value.isCollapse = true
-    else if (v.children.length > 1) themeConfig.value.isCollapse = false
+    // if (!v.children) themeConfig.value.isCollapse = true
+    // else if (v.children.length > 1) themeConfig.value.isCollapse = false
 }
 
 // 页面加载时
@@ -184,6 +189,7 @@ onUnmounted(() => {
 })
 // 路由更新时
 onBeforeRouteUpdate((to) => {
+    if (to.meta.isHide) return
     const resData = setMenuAutoCollapse(to.path)
     setColumnsMenuHighlight(to.path)
     mittBus.emit('setSendColumnsChildren', resData)

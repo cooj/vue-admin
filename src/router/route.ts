@@ -127,6 +127,21 @@ export const dynamicRoutes: Array<RouteRecordRaw> = [
             },
         ],
     },
+    {
+        path: '/detail',
+        name: 'detail',
+        component: () => import('@/views/system/dic/index.vue'),
+        meta: {
+            title: '单据详情',
+            isLink: '',
+            isHide: true,
+            isKeepAlive: true,
+            isAffix: false,
+            isIframe: false,
+            roles: ['admin'],
+            icon: 'ele-SetUp',
+        },
+    },
 ]
 
 /**

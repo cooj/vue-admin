@@ -23,7 +23,7 @@ export const useRoutesList = defineStore('routesList', () => {
     }
 
     const setRoutesOldList = async (data: RouteRecordRaw[]) => {
-        routesList.value = data
+        routesOldList.value = data
     }
 
     const setColumnsMenuHover = async (bool: boolean) => {

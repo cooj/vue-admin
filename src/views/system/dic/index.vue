@@ -96,6 +96,8 @@ const getTableData = () => {
 }
 // 打开新增字典弹窗
 const onOpenAddDic = (type: string) => {
+    const num = 100_0000_0000_0000
+    console.log(num.toLocaleString())
     dicDialogRef.value.openDialog(type)
 }
 // 打开修改字典弹窗
