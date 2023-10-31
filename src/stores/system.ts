@@ -9,6 +9,8 @@ import { deepClone } from '@/utils/other'
  * @methods setUserInfos 设置用户信息
  */
 export const useUserInfo = defineStore('userInfo', () => {
+    const onOff = ref(Session.get('adm') !== 'adm')
+
     // 用户信息
     const userInfo = ref<IUserInfo>()
 
@@ -182,6 +184,7 @@ export const useUserInfo = defineStore('userInfo', () => {
     }
 
     return {
+        onOff,
         userInfo,
         menuList,
         getUserInfo,

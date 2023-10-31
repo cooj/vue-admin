@@ -1,6 +1,6 @@
 <template>
-    <div v-if="isTagsViewCurrentFull" class="layout-navbars-close-full">
-        <div class="layout-navbars-close-full-icon">
+    <div v-if="isTagsViewCurrentFull" class="layout-navbar-close-full">
+        <div class="layout-navbar-close-full-icon">
             <SvgIcon name="ele-Close" title="关闭全屏" @click="onCloseFullscreen" />
         </div>
     </div>
@@ -20,13 +20,13 @@ const onCloseFullscreen = () => {
 </script>
 
 <style scoped lang="scss">
-.layout-navbars-close-full {
+.layout-navbar-close-full {
     position: fixed;
     z-index: 9999999999;
     right: -30px;
     top: -30px;
 
-    .layout-navbars-close-full-icon {
+    .layout-navbar-close-full-icon {
         width: 60px;
         height: 60px;
         border-radius: 100%;

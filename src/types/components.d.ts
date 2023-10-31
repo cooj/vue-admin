@@ -8,6 +8,7 @@ export {}
 declare module 'vue' {
   export interface GlobalComponents {
     BaseBox: typeof import('./../components/base/BaseBox.vue')['default']
+    BaseIcon: typeof import('./../components/base/icon/BaseIcon.vue')['default']
     BaseIconList: typeof import('./../components/base/icon/BaseIconList.vue')['default']
     BaseIconSelector: typeof import('./../components/base/icon/BaseIconSelector.vue')['default']
     CoFormTool: typeof import('./../components/co/CoFormTool.vue')['default']

@@ -1,31 +1,34 @@
 <template>
     <div class="layout-navbars-breadcrumb-user pr15px" :style="{ flex: layoutUserFlexNum }">
-        <el-dropdown :show-timeout="70" :hide-timeout="50" trigger="click" @command="onComponentSizeChange">
-            <div class="layout-navbars-breadcrumb-user-icon">
-                <i class="iconfont icon-ziti" title="组件大小" />
-            </div>
-            <template #dropdown>
-                <el-dropdown-menu>
-                    <el-dropdown-item command="large" :disabled="themeConfig.globalComponentSize === 'large'">
-                        大型
-                    </el-dropdown-item>
-                    <el-dropdown-item command="default" :disabled="themeConfig.globalComponentSize === 'default'">
-                        默认
-                    </el-dropdown-item>
-                    <el-dropdown-item command="small" :disabled="themeConfig.globalComponentSize === 'small'">
-                        小型
-                    </el-dropdown-item>
-                </el-dropdown-menu>
-            </template>
-        </el-dropdown>
         <div class="layout-navbars-breadcrumb-user-icon" @click="onSearchClick">
             <el-icon title="菜单搜索">
                 <ele-Search />
             </el-icon>
         </div>
-        <div class="layout-navbars-breadcrumb-user-icon" @click="onLayoutSetingClick">
-            <i class="iconfont icon-skin" title="布局配置" />
-        </div>
+        <template v-if="onOff">
+            <el-dropdown :show-timeout="70" :hide-timeout="50" trigger="click" @command="onComponentSizeChange">
+                <div class="layout-navbars-breadcrumb-user-icon">
+                    <i class="iconfont icon-ziti" title="组件大小" />
+                </div>
+                <template #dropdown>
+                    <el-dropdown-menu>
+                        <el-dropdown-item command="large" :disabled="themeConfig.globalComponentSize === 'large'">
+                            大型
+                        </el-dropdown-item>
+                        <el-dropdown-item command="default" :disabled="themeConfig.globalComponentSize === 'default'">
+                            默认
+                        </el-dropdown-item>
+                        <el-dropdown-item command="small" :disabled="themeConfig.globalComponentSize === 'small'">
+                            小型
+                        </el-dropdown-item>
+                    </el-dropdown-menu>
+                </template>
+            </el-dropdown>
+            <div class="layout-navbars-breadcrumb-user-icon" @click="onLayoutSettingClick">
+                <i class="iconfont icon-skin" title="布局配置" />
+            </div>
+        </template>
+
         <div ref="userNewsBadgeRef" v-click-outside="onUserNewsClick" class="layout-navbars-breadcrumb-user-icon">
             <el-badge :is-dot="true">
                 <el-icon title="消息">
@@ -54,8 +57,8 @@
                     <el-dropdown-item command="/home">
                         首页
                     </el-dropdown-item>
-                    <el-dropdown-item command="wareHouse">
-                        代码仓库
+                    <el-dropdown-item divided command="password">
+                        修改密码
                     </el-dropdown-item>
                     <el-dropdown-item command="/404">
                         404
@@ -63,13 +66,14 @@
                     <el-dropdown-item command="/401">
                         401
                     </el-dropdown-item>
-                    <el-dropdown-item divided command="logOut">
+                    <el-dropdown-item divided command="logout">
                         退出登录
                     </el-dropdown-item>
                 </el-dropdown-menu>
             </template>
         </el-dropdown>
         <Search ref="searchRef" />
+        <Password ref="passwordRef" />
     </div>
 </template>
 
@@ -84,6 +88,9 @@ import { Local, Session } from '@/utils/storage'
 // 引入组件
 const UserNews = defineAsyncComponent(() => import('@/layout/navBars/topBar/userNews.vue'))
 const Search = defineAsyncComponent(() => import('@/layout/navBars/topBar/search.vue'))
+const Password = defineAsyncComponent(() => import('@/layout/navBars/topBar/password.vue'))
+
+const passwordRef = ref<InstanceType<typeof Password>>()
 
 // 定义变量内容
 const userNewsRef = ref()
@@ -91,7 +98,7 @@ const userNewsBadgeRef = ref()
 const router = useRouter()
 const stores = useUserInfo()
 const storesThemeConfig = useThemeConfig()
-const { userInfo } = storeToRefs(stores)
+const { userInfo, onOff } = storeToRefs(stores)
 const { themeConfig, isDrawer } = storeToRefs(storesThemeConfig)
 const searchRef = ref()
 const state = reactive({
@@ -121,12 +128,12 @@ const onUserNewsClick = () => {
     unref(userNewsRef).popperRef?.delayHide?.()
 }
 // 布局配置 icon 点击时
-const onLayoutSetingClick = () => {
+const onLayoutSettingClick = () => {
     isDrawer.value = true
 }
 // 下拉菜单点击时
 const onHandleCommandClick = (path: string) => {
-    if (path === 'logOut') {
+    if (path === 'logout') {
         ElMessageBox({
             closeOnClickModal: false,
             closeOnPressEscape: false,
@@ -150,16 +157,16 @@ const onHandleCommandClick = (path: string) => {
                     done()
                 }
             },
-        })
-            .then(async () => {
-                // 清除缓存/token等
-                Session.clear()
-                // 使用 reload 时，不需要调用 resetRoute() 重置路由
-                window.location.reload()
-            })
-            .catch(() => { })
-    } else if (path === 'wareHouse') {
-        window.open('https://gitee.com/lyt-top/vue-next-admin')
+        }).then(async () => {
+            // 清除缓存/token等
+            Session.clear()
+            // 使用 reload 时，不需要调用 resetRoute() 重置路由
+            window.location.reload()
+        }).catch(() => { })
+    } else if (path === 'password') {
+        // 修改密码
+        passwordRef.value?.openDialog()
+        // window.open('https://gitee.com/lyt-top/vue-next-admin')
     } else {
         router.push(path)
     }
