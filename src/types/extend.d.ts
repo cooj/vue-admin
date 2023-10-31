@@ -46,6 +46,3 @@ declare module 'vue-router' {
         isDynamicPath?: string // 动态路径
     }
 }
-
-
-declare interface RouteRouteRecordRaw extends RouteRecordRaw {}

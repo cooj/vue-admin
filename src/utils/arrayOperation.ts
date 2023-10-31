@@ -1,30 +1,23 @@
 /**
  * 判断两数组字符串是否相同（用于按钮权限验证），数组字符串中存在相同时会自动去重（按钮权限标识不会重复）
- * @param news 新数据
- * @param old 源数据
+ * @param newArr 新数据
+ * @param oldArr 源数据
  * @returns 两数组相同返回 `true`，反之则反
  */
-// export function judementSameArr000(newArr: unknown[] | string[], oldArr: string[]): boolean {
-//     // console.log('newArr :>> ', newArr);
-//     // console.log('oldArr :>> ', oldArr);
-//     const news = removeDuplicate(newArr)
-//     const olds = removeDuplicate(oldArr)
-//     let count = 0
-//     const len = news.length
-//     for (const i in olds) {
-//         for (const j in news) {
-//             if (olds[i] === news[j]) count++
-//         }
-//     }
-//     return count === len
-// }
 export function judgmentSameArr<T>(newArr: T[], oldArr: T[]): boolean {
-    const olds = [...new Set(oldArr)]
+    // 去重处理
     const news = [...new Set(newArr)]
-    const count = 0
-    const newsLength = news.length
-    return news.some(item => olds.includes(item)) && count === newsLength
+    const olds = [...new Set(oldArr)]
+    let count = 0
+    const len = news.length
+    for (const i in olds) {
+        for (const j in news) {
+            if (olds[i] === news[j]) count++
+        }
+    }
+    return count === len
 }
+
 /**
  * 判断两个对象是否相同
  * @param a 要比较的对象一

@@ -14,6 +14,7 @@
 import { computed, defineAsyncComponent, onBeforeMount, reactive, ref, watch } from 'vue'
 import { storeToRefs } from 'pinia'
 import mittBus from '@/utils/mitt'
+import { filterRoutesFunc } from '@/router'
 
 // 引入组件
 const Logo = defineAsyncComponent(() => import('@/layout/logo/index.vue'))

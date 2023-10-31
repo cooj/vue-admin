@@ -1,3 +1,4 @@
+import type { RouteRecordRaw } from 'vue-router'
 import { createRouter, createWebHashHistory } from 'vue-router'
 import NProgress from 'nprogress'
 import 'nprogress/nprogress.css'
@@ -85,6 +86,19 @@ export function formatTwoStageRoutes(arr: any) {
         }
     })
     return newArr
+}
+
+/**
+ * 路由过滤递归函数，过滤隐藏路由
+ * @param arr
+ * @returns array
+ */
+export const filterRoutesFunc = <T extends (RouteItem | RouteRecordRaw)>(arr: T[]): T[] => {
+    return arr.filter((item: T) => !item.meta?.isHide).map((item: T) => {
+        item = Object.assign({}, item)
+        if (item.children) item.children = filterRoutesFunc(item.children)
+        return item
+    })
 }
 
 // 路由加载前

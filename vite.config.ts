@@ -12,7 +12,6 @@ import Unocss from 'unocss/vite'
 import { buildConfig } from './src/utils/build'
 
 const alias: Record<string, string> = {
-    '/@': resolve(__dirname, '.', './src/'),
     '@': resolve(__dirname, 'src'), // 配置src的别名
 }
 
@@ -34,7 +33,6 @@ const viteConfig = defineConfig((mode: ConfigEnv) => {
                     'src/composables',
                     'src/stores',
                     'src/stores/base',
-                    'src/utils/base',
                 ],
                 vueTemplate: true,
                 resolvers: [ElementPlusResolver()],

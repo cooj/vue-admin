@@ -28,7 +28,7 @@ import type { RouteRecordRaw } from 'vue-router'
 import { onBeforeRouteUpdate, useRoute, useRouter } from 'vue-router'
 import { storeToRefs } from 'pinia'
 import { Local } from '@/utils/storage'
-import other from '@/utils/other'
+import { setTagsViewNameI18n } from '@/utils/other'
 
 // 定义变量内容
 const stores = useRoutesList()
@@ -68,7 +68,7 @@ const initRouteSplit = (path: string) => {
     getBreadcrumbList(routesList.value)
     if (route.name === 'home' || (route.name === 'notFound' && state.breadcrumbList.length > 1)) state.breadcrumbList.shift()
     if (state.breadcrumbList.length > 0) {
-        state.breadcrumbList[state.breadcrumbList.length - 1].meta.tagsViewName = other.setTagsViewNameI18n(route)
+        state.breadcrumbList[state.breadcrumbList.length - 1].meta.tagsViewName = setTagsViewNameI18n(route)
     }
 }
 

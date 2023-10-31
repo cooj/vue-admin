@@ -27,7 +27,7 @@
 <script setup lang="ts" name="navMenuSubItem">
 import { computed } from 'vue'
 import type { RouteRecordRaw } from 'vue-router'
-import other from '@/utils/other'
+import { handleOpenLink } from '@/utils/other'
 
 // 定义父组件传过来的值
 const props = defineProps({
@@ -44,6 +44,6 @@ const childList = computed(() => {
 })
 // 打开外部链接
 const onALinkClick = (val: RouteRecordRaw) => {
-    other.handleOpenLink(val as RouteItem)
+    handleOpenLink(val as RouteItem)
 }
 </script>

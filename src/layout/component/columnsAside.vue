@@ -42,6 +42,7 @@ import type { RouteRecordRaw } from 'vue-router'
 import { onBeforeRouteUpdate, useRoute, useRouter } from 'vue-router'
 import { storeToRefs } from 'pinia'
 import mittBus from '@/utils/mitt'
+import { filterRoutesFunc } from '@/router'
 
 // 定义变量内容
 const columnsAsideOffsetTopRefs = ref<HTMLLIElement[]>()

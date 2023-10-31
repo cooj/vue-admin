@@ -30,21 +30,21 @@ export function useTitle() {
     const stores = useThemeConfig(pinia)
     const { themeConfig } = storeToRefs(stores)
     nextTick(() => {
-        let webTitle = ''
+        let webTitle: string | undefined
         const globalTitle: string = themeConfig.value.globalTitle
         const { path, meta } = router.currentRoute.value
         if (path === '/login') {
-            webTitle = <string>meta.title
+            webTitle = meta.title
         } else {
             webTitle = setTagsViewNameI18n(router.currentRoute.value)
         }
-        document.title = `${webTitle} - ${globalTitle}` || globalTitle
+        document.title = webTitle ? `${webTitle} - ${globalTitle}` : globalTitle
     })
 }
 
 /**
  * 设置 自定义 tagsView 名称
- * @param params 路由 query、params 中的 tagsViewName
+ * @param item 路由 query、params 中的 tagsViewName
  * @returns 返回当前 tagsViewName 名称
  */
 export function setTagsViewNameI18n(item: any) {
@@ -134,8 +134,8 @@ export function handleEmpty(list: EmptyArrayType) {
         for (const j in list[i]) {
             d.push(list[i][j])
         }
-        const leng = d.filter(item => item === '').length
-        if (leng !== d.length) {
+        const len = d.filter(item => item === '').length
+        if (len !== d.length) {
             arr.push(list[i])
         }
     }
@@ -149,46 +149,46 @@ export function handleEmpty(list: EmptyArrayType) {
 export function handleOpenLink(val: RouteItem) {
     const { origin, pathname } = window.location
     router.push(val.path)
-    if (verifyUrl(<string>val.meta?.isLink)) window.open(val.meta?.isLink)
+    if (verifyUrl(val.meta?.isLink || '')) window.open(val.meta?.isLink)
     else window.open(`${origin}${pathname}#${val.meta?.isLink}`)
 }
 
-/**
- * 统一批量导出
- * @method elSvg 导出全局注册 element plus svg 图标
- * @method useTitle 设置浏览器标题国际化
- * @method setTagsViewNameI18n 设置 自定义 tagsView 名称、 自定义 tagsView 名称国际化
- * @method lazyImg 图片懒加载
- * @method deepClone 对象深克隆
- * @method isMobile 判断是否是移动端
- * @method handleEmpty 判断数组对象中所有属性是否为空，为空则删除当前行对象
- */
-const other = {
-    elSvg: (app: App) => {
-        elSvg(app)
-    },
-    useTitle: () => {
-        useTitle()
-    },
-    setTagsViewNameI18n(route: RouteToFrom) {
-        return setTagsViewNameI18n(route)
-    },
-    lazyImg: (el: string, arr: EmptyArrayType) => {
-        lazyImg(el, arr)
-    },
-    deepClone: (obj: EmptyObjectType) => {
-        return deepClone(obj)
-    },
-    isMobile: () => {
-        return isMobile()
-    },
-    handleEmpty: (list: EmptyArrayType) => {
-        return handleEmpty(list)
-    },
-    handleOpenLink: (val: RouteItem) => {
-        handleOpenLink(val)
-    },
-}
+// /**
+//  * 统一批量导出
+//  * @method elSvg 导出全局注册 element plus svg 图标
+//  * @method useTitle 设置浏览器标题国际化
+//  * @method setTagsViewNameI18n 设置 自定义 tagsView 名称、 自定义 tagsView 名称国际化
+//  * @method lazyImg 图片懒加载
+//  * @method deepClone 对象深克隆
+//  * @method isMobile 判断是否是移动端
+//  * @method handleEmpty 判断数组对象中所有属性是否为空，为空则删除当前行对象
+//  */
+// const other = {
+//     elSvg: (app: App) => {
+//         elSvg(app)
+//     },
+//     useTitle: () => {
+//         useTitle()
+//     },
+//     setTagsViewNameI18n(route: RouteToFrom) {
+//         return setTagsViewNameI18n(route)
+//     },
+//     lazyImg: (el: string, arr: EmptyArrayType) => {
+//         lazyImg(el, arr)
+//     },
+//     deepClone: (obj: EmptyObjectType) => {
+//         return deepClone(obj)
+//     },
+//     isMobile: () => {
+//         return isMobile()
+//     },
+//     handleEmpty: (list: EmptyArrayType) => {
+//         return handleEmpty(list)
+//     },
+//     handleOpenLink: (val: RouteItem) => {
+//         handleOpenLink(val)
+//     },
+// }
 
-// 统一批量导出
-export default other
+// // 统一批量导出
+// export default other

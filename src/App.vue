@@ -4,7 +4,6 @@
         <LockScreen v-if="themeConfig.isLockScreen" />
         <Settings v-show="setLockScreen" ref="settingRef" />
         <CloseFull v-if="!themeConfig.isLockScreen" />
-        <!-- <Upgrade v-if="getVersion" /> -->
         <div class="h0px opacity-0">
             <BaseIconList />
         </div>
@@ -16,7 +15,7 @@ import { computed, defineAsyncComponent, nextTick, onBeforeMount, onMounted, onU
 import { useRoute } from 'vue-router'
 import zhCn from 'element-plus/es/locale/lang/zh-cn'
 import { storeToRefs } from 'pinia'
-import other from '@/utils/other'
+import { useTitle } from '@/utils/other'
 import { Local, Session } from '@/utils/storage'
 import { setCdnScript, setCdnStyle } from '@/utils/cdn'
 
@@ -24,7 +23,6 @@ import { setCdnScript, setCdnStyle } from '@/utils/cdn'
 const LockScreen = defineAsyncComponent(() => import('@/layout/lockScreen/index.vue'))
 const Settings = defineAsyncComponent(() => import('@/layout/component/settings.vue'))
 const CloseFull = defineAsyncComponent(() => import('@/layout/navBars/topBar/closeFull.vue'))
-// const Upgrade = defineAsyncComponent(() => import('@/layout/upgrade/index.vue'))
 
 // 定义变量内容
 const settingRef = ref<InstanceType<typeof Settings>>()
@@ -85,7 +83,7 @@ onUnmounted(() => {
 watch(
     () => route.path,
     () => {
-        other.useTitle()
+        useTitle()
     },
     {
         deep: true,

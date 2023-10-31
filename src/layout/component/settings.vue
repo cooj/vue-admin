@@ -467,7 +467,7 @@ import { useChangeColor } from '@/utils/theme'
 import { verifyAndSpace } from '@/utils/toolsValidate'
 import { Local } from '@/utils/storage'
 import Watermark from '@/utils/watermark'
-import other from '@/utils/other'
+import { isMobile } from '@/utils/other'
 import mittBus from '@/utils/mitt'
 
 // 定义变量内容
@@ -693,7 +693,7 @@ onMounted(() => {
             getThemeConfig.value.layout = res.layout
             isDrawer.value = false
             initLayoutChangeFun()
-            state.isMobile = other.isMobile()
+            state.isMobile = isMobile()
         })
         setTimeout(() => {
             // 默认样式

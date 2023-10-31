@@ -7,7 +7,7 @@
                     @mousedown="onMousedownMenu(v, $event)" @click="onTagsClick(v, k)">
                     <i v-if="isActive(v)" class="iconfont icon-webicon318 layout-navbars-tagsview-ul-li-iconfont" />
                     <SvgIcon v-if="!isActive(v) && getThemeConfig.isTagsViewIcon" :name="v.meta.icon" class="pr5px" />
-                    <span>{{ setTagsViewNameI18n(v) }}</span>
+                    <span>{{ setTagsViewNameI18nText(v) }}</span>
                     <template v-if="isActive(v)">
                         <SvgIcon name="ele-RefreshRight" class="layout-navbars-tagsview-ul-li-refresh ml5"
                             @click.stop="refreshCurrentTagsView($route.fullPath)" />
@@ -34,7 +34,7 @@ import { ElMessage } from 'element-plus'
 import { storeToRefs } from 'pinia'
 import { Session } from '@/utils/storage'
 import { isObjectValueEqual } from '@/utils/arrayOperation'
-import other from '@/utils/other'
+import { isMobile, setTagsViewNameI18n } from '@/utils/other'
 import mittBus from '@/utils/mitt'
 
 // 引入组件
@@ -74,9 +74,9 @@ const getThemeConfig = computed(() => {
     return themeConfig.value
 })
 // 设置 自定义 tagsView 名称、 自定义 tagsView 名称国际化
-const setTagsViewNameI18n = computed(() => {
+const setTagsViewNameI18nText = computed(() => {
     return (v: RouteItem) => {
-        return other.setTagsViewNameI18n(v)
+        return setTagsViewNameI18n(v)
     }
 })
 // 设置 tagsView 高亮
@@ -514,7 +514,7 @@ const initSortable = async () => {
 // 拖动问题，https://gitee.com/lyt-top/vue-next-admin/issues/I3ZRRI
 const onSortableResize = async () => {
     await initSortable()
-    if (other.isMobile()) state.sortable.el && state.sortable.destroy()
+    if (isMobile()) state.sortable.el && state.sortable.destroy()
 }
 // 页面加载前
 onBeforeMount(() => {

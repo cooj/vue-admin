@@ -37,8 +37,6 @@ export async function initFrontEndControlRoutes() {
     await stores.getUserInfo()
 
     if (stores.userInfo?.roles.length && stores.userInfo?.roles.length > 0) {
-        console.log(getFullRoutes())
-
         stores.menuList = getFullRoutes()
         // 添加动态路由
         await setAddRoute()

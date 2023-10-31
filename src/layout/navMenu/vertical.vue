@@ -29,7 +29,7 @@ import { computed, defineAsyncComponent, onMounted, reactive, watch } from 'vue'
 import type { RouteRecordRaw } from 'vue-router'
 import { onBeforeRouteUpdate, useRoute } from 'vue-router'
 import { storeToRefs } from 'pinia'
-import other from '@/utils/other'
+import { handleOpenLink } from '@/utils/other'
 
 // 定义父组件传过来的值
 const props = defineProps({
@@ -70,7 +70,7 @@ const setParentHighlight = (currentRoute: RouteToFrom) => {
 }
 // 打开外部链接
 const onALinkClick = (val: RouteItem) => {
-    other.handleOpenLink(val)
+    handleOpenLink(val)
 }
 // 页面加载时
 onMounted(() => {

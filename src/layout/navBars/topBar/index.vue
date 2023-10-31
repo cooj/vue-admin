@@ -13,6 +13,7 @@ import type { RouteRecordRaw } from 'vue-router'
 import { useRoute } from 'vue-router'
 import { storeToRefs } from 'pinia'
 import mittBus from '@/utils/mitt'
+import { filterRoutesFunc } from '@/router'
 
 // 引入组件
 const Breadcrumb = defineAsyncComponent(() => import('@/layout/navBars/topBar/breadcrumb.vue'))
