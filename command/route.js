@@ -94,7 +94,7 @@ readFile(readUrl, 'utf8', (err, data) => {
             },
             ...layout,
         ]
-        const content = `/* eslint-disable */
+        const content = `/* eslint-disable style/quote-props */
 export const MainPage = ${JSON.stringify(main)}
 `
         // const content = `export const MainPage = ${main}`
