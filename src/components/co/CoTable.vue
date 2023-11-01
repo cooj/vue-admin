@@ -1,8 +1,8 @@
 <template>
     <div ref="tablePageRef" class="table-page">
         <div class="table-page-content">
-            <ElTable ref="tableRef" :data="props.data" :max-height="tableHeight" v-bind="$attrs">
-                <ElTableColumn v-for="(item, index) in headerList" :key="index" show-overflow-tooltip
+            <el-table ref="tableRef" :data="props.data" :max-height="tableHeight" v-bind="$attrs">
+                <el-table-column v-for="(item, index) in headerList" :key="index" show-overflow-tooltip
                     v-bind="setColumnAttrs(item)">
                     <template v-if="item.slotHeader" #header="scope">
                         <slot :name="`${item.property}Header`" :scopes="scope" />
@@ -12,8 +12,8 @@
                         <slot v-if="item.slot" :name="item.property" :scopes="scope" />
                         <span v-else>{{ scope.row[item.property] }}</span>
                     </template>
-                </ElTableColumn>
-            </ElTable>
+                </el-table-column>
+            </el-table>
         </div>
         <!-- <el-popover :width="300" popper-class="popover-box" trigger="click" @show="onSetTable">
             <template #reference>
@@ -28,7 +28,7 @@
                 </ul>
             </template>
         </el-popover> -->
-        <ElPagination v-if="defData.pagination.total" ref="pageRef" v-model:current-page="defData.pagination.page"
+        <el-pagination v-if="defData.pagination.total" ref="pageRef" v-model:current-page="defData.pagination.page"
             v-model:page-size="defData.pagination.page_size" :small="smallSize" :page-sizes="defData.pagination.page_sizes"
             :total="defData.pagination.total" :pager-count="5" background layout="total, sizes, prev, pager, next, jumper"
             class="mt15px" @size-change="onHandleSizeChange" @current-change="onHandleCurrentChange" />
@@ -39,7 +39,7 @@
 import type { PropType } from 'vue'
 import { computed, nextTick, reactive, ref } from 'vue'
 import type { TableColumnCtx, TableInstance } from 'element-plus'
-import { ElTableColumn } from 'element-plus'
+
 import { useElementBounding, useElementSize } from '@vueuse/core'
 import Sortable from 'sortablejs'
 import { wait } from '@/utils/common'

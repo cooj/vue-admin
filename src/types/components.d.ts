@@ -8,11 +8,13 @@ export {}
 declare module 'vue' {
   export interface GlobalComponents {
     BaseBox: typeof import('./../components/base/BaseBox.vue')['default']
+    BaseDialog: typeof import('./../components/co/BaseDialog.vue')['default']
     BaseEditor: typeof import('./../components/base/BaseEditor.vue')['default']
     BaseIcon: typeof import('./../components/base/icon/BaseIcon.vue')['default']
     BaseIconList: typeof import('./../components/base/icon/BaseIconList.vue')['default']
     BaseIconSelector: typeof import('./../components/base/icon/BaseIconSelector.vue')['default']
     BaseTinymce: typeof import('./../components/base/BaseTinymce.vue')['default']
+    CoDialog: typeof import('./../components/co/CoDialog.vue')['default']
     CoFormTool: typeof import('./../components/co/CoFormTool.vue')['default']
     CoTable: typeof import('./../components/co/CoTable.vue')['default']
     ElAlert: typeof import('element-plus/es')['ElAlert']
@@ -52,7 +54,9 @@ declare module 'vue' {
     ElRadio: typeof import('element-plus/es')['ElRadio']
     ElRadioGroup: typeof import('element-plus/es')['ElRadioGroup']
     ElRow: typeof import('element-plus/es')['ElRow']
+    ElScoller: typeof import('element-plus/es')['ElScoller']
     ElScrollbar: typeof import('element-plus/es')['ElScrollbar']
+    ElScroller: typeof import('element-plus/es')['ElScroller']
     ElSelect: typeof import('element-plus/es')['ElSelect']
     ElSubMenu: typeof import('element-plus/es')['ElSubMenu']
     ElSwitch: typeof import('element-plus/es')['ElSwitch']

@@ -270,33 +270,56 @@
 
 /* Dialog 对话框
 ------------------------------- */
-.el-overlay {
-    overflow: hidden;
+// .el-overlay {
+//     overflow: hidden;
 
-    .el-overlay-dialog {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        position: unset !important;
-        width: 100%;
-        height: 100%;
+//     .el-overlay-dialog {
+//         display: flex;
+//         align-items: center;
+//         justify-content: center;
+//         position: unset !important;
+//         width: 100%;
+//         height: 100%;
 
-        .el-dialog {
-            margin: 0 auto !important;
-            position: absolute;
+//         .el-dialog {
+//             margin: 0 auto !important;
+//             position: absolute;
+
+//             .el-dialog__body {
+//                 padding: 20px !important;
+//             }
+//         }
+//     }
+// }
+
+// .el-dialog__body {
+//     // max-height: calc(90vh - 110px) !important;
+//     overflow-y: auto;
+//     overflow-x: hidden;
+// }
+
+.el-overlay-dialog {
+    .el-dialog {
+        --el-dialog-margin-top: 10vh;
+        // margin:
+        &.is-fullscreen {
+            display: flex;
+            flex-direction: column;
 
             .el-dialog__body {
-                padding: 20px !important;
+                flex: 1;
+                max-height: unset;
             }
+        }
+
+        .el-dialog__body {
+            max-height: calc(90vh - 180px);
+            overflow: auto;
+            padding: var(--el-dialog-padding-primary);
         }
     }
 }
 
-.el-dialog__body {
-    max-height: calc(90vh - 111px) !important;
-    overflow-y: auto;
-    overflow-x: hidden;
-}
 
 /* Card 卡片
 ------------------------------- */
@@ -321,6 +344,7 @@
         &.is-vertical {
             width: 8px;
         }
+
         &.is-horizontal {
             height: 8px;
         }

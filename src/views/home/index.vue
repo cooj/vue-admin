@@ -14,6 +14,16 @@
                 <i class="block" :class="name" />
             </div>
             <BaseTinymce v-model="name" />
+            <el-button @click="defData.visible = true">
+                获取菜单
+            </el-button>
+            <BaseDialog v-model:visible="defData.visible" title="菜单列表" :width="600" :auto-height="false">
+                弹窗
+                <div class="h100vh">
+                    133
+                </div>
+                弹窗
+            </BaseDialog>
         </div>
     </div>
 </template>
@@ -22,6 +32,10 @@
 import { ApiMenu } from '@/api/system/menu'
 
 // import IconList from '@/layout/component/icon.vue'
+
+const defData = reactive({
+    visible: false,
+})
 
 const icon = ref('')
 const name = ref('')
