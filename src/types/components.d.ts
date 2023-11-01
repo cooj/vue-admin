@@ -8,9 +8,11 @@ export {}
 declare module 'vue' {
   export interface GlobalComponents {
     BaseBox: typeof import('./../components/base/BaseBox.vue')['default']
+    BaseEditor: typeof import('./../components/base/BaseEditor.vue')['default']
     BaseIcon: typeof import('./../components/base/icon/BaseIcon.vue')['default']
     BaseIconList: typeof import('./../components/base/icon/BaseIconList.vue')['default']
     BaseIconSelector: typeof import('./../components/base/icon/BaseIconSelector.vue')['default']
+    BaseTinymce: typeof import('./../components/base/BaseTinymce.vue')['default']
     CoFormTool: typeof import('./../components/co/CoFormTool.vue')['default']
     CoTable: typeof import('./../components/co/CoTable.vue')['default']
     ElAlert: typeof import('element-plus/es')['ElAlert']

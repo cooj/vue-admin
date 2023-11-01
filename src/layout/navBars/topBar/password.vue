@@ -4,8 +4,8 @@
             <el-row>
                 <el-col :xs="24" :sm="24" :md="24" :lg="23" :xl="23" class="mb20px">
                     <el-form-item label="原密码" prop="now_pwd">
-                        <el-input v-model="formData.now_pwd" class="w100%" placeholder="请输入原密码" type="password" show-password
-                            clearable />
+                        <el-input v-model="formData.now_pwd" class="w100%" placeholder="请输入原密码" type="password"
+                            clearable show-password />
                     </el-form-item>
                 </el-col>
                 <el-col :xs="24" :sm="24" :md="24" :lg="23" :xl="23" class="mb20px">

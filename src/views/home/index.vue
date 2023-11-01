@@ -13,6 +13,7 @@
                 <!-- <BaseIconList /> -->
                 <i class="block" :class="name" />
             </div>
+            <BaseTinymce v-model="name" />
         </div>
     </div>
 </template>
