@@ -7,7 +7,7 @@ import { get, post } from '@/utils/request'
  */
 export const ApiCommon = {
     // 验证码
-    getCode: (data?: any) => get('/api/admin_auth/validate_code', data),
+    getCode: () => get('/api/admin_auth/validate_code'),
 
     /**
      * 文件上传

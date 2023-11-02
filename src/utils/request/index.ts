@@ -151,7 +151,7 @@ service.interceptors.response.use((response) => {
  * @param {any} [config] 请求头部配置信息
  * @returns {Promise<ResponseData<T>>} post request
  */
-const post = <T = any>(url: string, data?: any, config?: AxiosRequestConfig): Promise<ResponseData<T>> => {
+const post = <T = any>(url: string, data?: unknown, config?: AxiosRequestConfig): Promise<ResponseData<T>> => {
     // return service.get(url, {
     //     params: data,
     //     ...config
@@ -166,7 +166,7 @@ const post = <T = any>(url: string, data?: any, config?: AxiosRequestConfig): Pr
  * @param {any} [config] 请求头部配置信息
  * @returns {Promise<ResponseData<T>>} get request
  */
-const get = <T = any>(url: string, data?: any, config?: AxiosRequestConfig): Promise<ResponseData<T>> => {
+const get = <T = any>(url: string, data?: unknown, config?: AxiosRequestConfig): Promise<ResponseData<T>> => {
     return service.get(url, {
         params: data,
         ...config,
@@ -180,7 +180,7 @@ const get = <T = any>(url: string, data?: any, config?: AxiosRequestConfig): Pro
  * @param {any} [config] 请求头部配置信息
  * @returns {Promise<ResponseData<T>>}  del request
  */
-const del = <T = any>(url: string, data?: any, config?: AxiosRequestConfig): Promise<ResponseData<T>> => {
+const del = <T = any>(url: string, data?: unknown, config?: AxiosRequestConfig): Promise<ResponseData<T>> => {
     return service.delete(url, {
         params: data,
         ...config,
@@ -193,7 +193,7 @@ const del = <T = any>(url: string, data?: any, config?: AxiosRequestConfig): Pro
  * @param {any} [config] 请求头部配置信息
  * @returns {Promise<ResponseData<T>>}  put request
  */
-const put = <T = any>(url: string, data?: any, config?: AxiosRequestConfig): Promise<ResponseData<T>> => {
+const put = <T = any>(url: string, data?: unknown, config?: AxiosRequestConfig): Promise<ResponseData<T>> => {
     return service.put(url, data, { ...config })
 }
 
@@ -204,7 +204,7 @@ const put = <T = any>(url: string, data?: any, config?: AxiosRequestConfig): Pro
  * @param {any} [config] 请求头部配置信息
  * @returns {Promise<ResponseData<T>>}  patch request
  */
-const patch = <T = any>(url: string, data?: any, config?: AxiosRequestConfig): Promise<ResponseData<T>> => {
+const patch = <T = any>(url: string, data?: unknown, config?: AxiosRequestConfig): Promise<ResponseData<T>> => {
     return service.patch(url, data, { ...config })
 }
 
