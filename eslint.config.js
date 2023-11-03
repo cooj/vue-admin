@@ -25,6 +25,7 @@ export default antfu(
             'build',
             'index.html',
             'vite.config.ts.timestamp*',
+            'src/router/layout.ts',
         ],
     },
     unocss.configs.flat,
