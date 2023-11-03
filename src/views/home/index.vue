@@ -17,13 +17,13 @@
             <el-button @click="defData.visible = true">
                 获取菜单
             </el-button>
-            <BaseDialog v-model:visible="defData.visible" title="菜单列表" :width="600" :auto-height="false">
+            <CoDialog v-model:visible="defData.visible" title="菜单列表" :width="600" :auto-height="false">
                 弹窗
                 <div class="h100vh">
                     133
                 </div>
                 弹窗
-            </BaseDialog>
+            </CoDialog>
         </div>
     </div>
 </template>
