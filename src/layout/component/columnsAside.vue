@@ -46,7 +46,7 @@ import { filterRoutesFunc } from '@/router'
 
 // 定义变量内容
 const columnsAsideOffsetTopRefs = ref<HTMLLIElement[]>()
-const columnsAsideActiveRef = ref()
+const columnsAsideActiveRef = ref<HTMLDivElement>()
 const stores = useRoutesList()
 const storesThemeConfig = useThemeConfig()
 const { routesList, isColumnsMenuHover, isColumnsNavHover } = storeToRefs(stores)
@@ -67,7 +67,7 @@ const state = reactive<ColumnsAsideState>({
 const setColumnsAsideMove = (k: number) => {
     if (k === undefined) return false
     state.liIndex = k
-    if (columnsAsideOffsetTopRefs.value) columnsAsideActiveRef.value.style.top = `${columnsAsideOffsetTopRefs.value[k].offsetTop + state.difference}px`
+    if (columnsAsideOffsetTopRefs.value) columnsAsideActiveRef.value!.style.top = `${columnsAsideOffsetTopRefs.value[k].offsetTop + state.difference}px`
 }
 
 // 传送当前子级数据到菜单中

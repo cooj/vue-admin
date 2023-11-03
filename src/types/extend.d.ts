@@ -1,24 +1,34 @@
 /* eslint-disable */
-import * as axios from 'axios';
-import 'vue-router';
+import * as axios from 'axios'
+import 'vue-router'
+
+import type { GlobalComponents } from 'vue'
+import type { RouteRecordRaw } from 'vue-router'
+
+declare global {
+    type ComponentInstance = {
+        [Property in keyof GlobalComponents]: InstanceType<GlobalComponents[Property]>
+    }
+    type RouteCustomItem = RouteRecordRaw
+}
+
+
 
 // 扩展 axios 数据返回类型，可自行扩展
 declare module 'axios' {
     export interface CreateAxiosDefaults {
         // 请求失败再次请求次数和间隔
         retry?: number
-        retryDelay?: number
+        retryDelay?: number;
     }
     export interface AxiosResponse<T = any> {
-        code: number;
-        data: T;
-        message: string;
-        type?: string;
-        [key: string]: T;
+        code: number
+        data: T
+        message: string
+        type?: string
+        [key: string]: T
     }
 }
-
-
 
 /**
  * 建议：路由 path 路径与文件夹名称相同，找文件可浏览器地址找，方便定位文件位置

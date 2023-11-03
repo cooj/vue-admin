@@ -62,7 +62,7 @@ import { Local } from '@/utils/storage'
 
 // 定义变量内容
 const layoutLockScreenDateRef = ref<HtmlType>()
-const layoutLockScreenInputRef = ref()
+const layoutLockScreenInputRef = ref<ComponentInstance['ElInput']>()
 const storesThemeConfig = useThemeConfig()
 const { themeConfig, isDrawer } = storeToRefs(storesThemeConfig)
 const state = reactive({
@@ -99,7 +99,7 @@ const onMove = () => {
         }
         if (state.moveDifference === -el.clientHeight) {
             state.isShowLockLogin = true
-            layoutLockScreenInputRef.value.focus()
+            layoutLockScreenInputRef.value?.focus()
         }
     }
 }
