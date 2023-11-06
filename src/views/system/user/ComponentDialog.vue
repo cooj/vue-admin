@@ -127,8 +127,8 @@ const openDialog = (type: string, row: RowUserType) => {
         state.dialog.submitTxt = '新 增'
         // 清空表单，此项需加表单验证才能使用
         // nextTick(() => {
-        // 	userDialogFormRef.value.resetFields();
-        // });
+        //     userDialogFormRef.value.resetFields()
+        // })
     }
     state.dialog.isShowDialog = true
     getMenuData()

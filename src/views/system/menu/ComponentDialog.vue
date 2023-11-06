@@ -162,7 +162,7 @@
     </div>
 </template>
 
-<script setup lang="ts" name="systemMenuDialog">
+<script setup lang="ts">
 import { onMounted, reactive, ref } from 'vue'
 import { storeToRefs } from 'pinia'
 

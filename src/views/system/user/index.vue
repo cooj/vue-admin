@@ -39,7 +39,7 @@ import { defineAsyncComponent, onMounted, reactive, ref } from 'vue'
 import { ElMessage, ElMessageBox } from 'element-plus'
 
 // 引入组件
-const UserDialog = defineAsyncComponent(() => import('@/views/system/user/dialog.vue'))
+const UserDialog = defineAsyncComponent(() => import('@/views/system/user/ComponentDialog.vue'))
 
 interface UserApi_ListResponse {
     id: number

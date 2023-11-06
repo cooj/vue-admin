@@ -78,7 +78,7 @@ import { storeToRefs } from 'pinia'
 // import { setBackEndControlRefreshRoutes } from "@/router/backEnd";
 
 // 引入组件
-const MenuDialog = defineAsyncComponent(() => import('@/views/system/menu/dialog.vue'))
+const MenuDialog = defineAsyncComponent(() => import('@/views/system/menu/ComponentDialog.vue'))
 
 // 定义变量内容
 const stores = useRoutesList()
